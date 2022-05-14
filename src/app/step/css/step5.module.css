@@ -1,0 +1,257 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.view_wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* 타이틀 영역 */
+.title_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title_label {
+  display: flex;
+  align-items: center;
+  color: #004683;
+}
+.title_label aside {
+  background-color: #004683;
+  width: 3px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+.title_label span {
+  color: #666666;
+  font-size: 13px;
+  margin: 2px 0 0 4px;
+}
+
+.tag_wrap {
+  display: flex;
+  column-gap: 20px;
+}
+
+.tag_wrap li {
+  font-size: 14px;
+  color: #797979;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.tag_wrap li div {
+  width: 16px;
+  height: 10px;
+}
+
+/* ===== 컨텐츠 나열 stepV1 ===== */
+.stepV1_wrappper {
+  margin-top: 30px;
+}
+
+/* 차트 박스 */
+.chart_wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 0 0 60px;
+}
+
+/* step1 테이블 박스 */
+.table_val {
+  border: 1;
+  width: 100%;
+  background-color: transparent;
+  margin-top: 20px;
+  table-layout: fixed;
+  border-top: 1px solid #e2e2e2;
+}
+
+.table_val tbody tr {
+  width: 100%;
+  background-color: transparent;
+}
+
+.table_val tbody th {
+  width: 80px;
+  height: 34px;
+  font-size: 13px;
+  color: #666;
+  background-color: transparent;
+  border-bottom: 1px solid #e2e2e2;
+  font-weight: 400;
+}
+
+.table_val tbody td {
+  width: auto;
+  height: 34px;
+  font-size: 13px;
+  color: #666;
+  background-color: transparent;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+/* ===== 컨텐츠 나열 stepV2/3 ===== */
+.stepV_wrappper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 80px;
+  margin-top: 30px;
+}
+
+.step_wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === 좌측 ===  */
+/* 차트 1/2 */
+.step1_chart_wrap {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 40px;
+  margin-top: 10px;
+}
+
+.step1_chart_wrap li {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.step1_chart_wrap li h2 {
+  color: #354965;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 좌측 테이블 */
+.table_val thead {
+  height: 34px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.table_val thead tr th,
+.table_val thead tr td {
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.table_val thead tr th {
+  font-size: 13px;
+  color: #666;
+  font-weight: 400;
+}
+
+.info_desk_wrap {
+  width: 100%;
+  padding: 14px;
+  background-color: #fff2db;
+  border: 1px solid #ffdda1;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.info_desk_wrap p {
+  color: #ff9100;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.info_desk_wrap p span {
+  color: #ff8000;
+  font-size: 16px;
+}
+
+/* 우측 차트 */
+.right_step_wrap {
+  row-gap: 40px;
+}
+
+.right_chart_wrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+/* ===== 메뉴 바 ===== */
+.nav_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+  margin-top: 16px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  color: #c2c2c2;
+}
+
+.navActive {
+  color: #003883;
+  font-weight: 500;
+  border-bottom: 2px solid #003883;
+}
+
+/* ===== 버튼 영역 =====*/
+.btn_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+  margin-top: 80px;
+  position: relative;
+}
+
+.backBtn {
+  background-color: #e2e2e2;
+  color: #999999;
+  border: none;
+}
+
+.backBtn:hover {
+  background-color: #ccc;
+  color: #666;
+}
+
+.printBtn {
+  background-color: #5675a0;
+  font-size: 14px;
+  color: #fff;
+  width: 130px;
+  height: 46px;
+  border-radius: 10px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.printBtn:hover {
+  background-color: #405c84;
+}

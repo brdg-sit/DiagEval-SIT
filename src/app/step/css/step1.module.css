@@ -1,0 +1,207 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 80px;
+}
+
+.left_wrap,
+.right_wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 타이틀 영역 */
+.content_wrap {
+  width: 100%;
+  padding: 0 0 30px;
+  border-bottom: 1px solid #d1d6dd;
+  margin-top: 30px;
+}
+
+.title_label {
+  display: flex;
+  align-items: center;
+  color: #004683;
+  margin-bottom: 10px;
+}
+.title_label aside {
+  background-color: #004683;
+  width: 3px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+.title_label span {
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+/* 인풋박스 영역 */
+.input_wrap {
+  width: 100%;
+  display: flex;
+  column-gap: 8px;
+}
+
+.input_wrap input {
+  width: 100%;
+  padding: 12px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+}
+
+.input_wrap button {
+  height: 48px;
+  width: 100px;
+  background-color: #1756ab;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 8px;
+}
+
+/* 인풋 탭역영 */
+.tab_wrap {
+  width: 100%;
+  display: flex;
+  column-gap: 10px;
+}
+
+.tab input {
+  display: none;
+}
+
+.tab {
+  display: flex;
+
+  width: 100%;
+  cursor: pointer;
+}
+
+input[type='radio'] + span {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #fff;
+  color: #ccc;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-size: 15px;
+}
+
+input[type='radio']:checked + span {
+  color: #e35f19;
+  background-color: #ffefe5;
+  border: 1px solid #ffbd9a;
+}
+
+/* 건축물 용도  */
+.input_wrap2 {
+  width: 100%;
+  display: flex;
+  column-gap: 20px;
+}
+
+.input_wrap2 select {
+  width: 100%;
+  padding: 12px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  background-color: #fff;
+  font-size: 15px;
+  color: #555;
+}
+
+.input_wrap2 input {
+  width: 100%;
+  padding: 12px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+}
+
+/* 건축물 연면적 */
+.input_box_wrap {
+  width: 100%;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  font-size: 15px;
+  color: #555;
+}
+
+/* 건축물 창면적비 / 장단변비 */
+.input_wrap3 {
+  width: 100%;
+  display: flex;
+  column-gap: 10px;
+}
+
+.input_wrap3 select {
+  width: 200px;
+  padding: 12px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  background-color: #fff;
+  font-size: 15px;
+  color: #555;
+}
+
+.input_box_wrap input[type='checkbox'] {
+  display: none;
+}
+
+.input_box_wrap input[type='checkbox'] + label {
+  background-image: url('../../../@assets/check-disable.svg');
+  padding-left: 24px;
+  background-repeat: no-repeat;
+  background-position: 5%;
+  cursor: pointer;
+}
+
+.input_box_wrap input[type='checkbox']:checked + label {
+  background-image: url('../../../@assets/check-able.svg');
+}
+
+.input_box_wrap span {
+  color: #797979;
+  margin-right: 6px;
+  font-weight: 500;
+}
+
+/* ===== 버튼 영역 =====*/
+.btn_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+  margin-top: 80px;
+}
+
+.backBtn {
+  background-color: #e2e2e2;
+  color: #999999;
+  border: none;
+}
+
+.backBtn:hover {
+  background-color: #ccc;
+  color: #666;
+}

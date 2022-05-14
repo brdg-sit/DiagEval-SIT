@@ -1,13 +1,128 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #444;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  background-image: url(./@assets/bg.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+button {
+  background-color: #e3ebf5;
+  border-radius: 14px;
+  color: #003883;
+  border: 1px solid #c0d0e5;
+  width: 220px;
+  height: 54px;
+  outline: none;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #d9e2ee;
+}
+
+a {
+  background-color: #e3ebf5;
+  border-radius: 14px;
+  color: #003883;
+  border: 1px solid #c0d0e5;
+  width: 220px;
+  height: 54px;
+  outline: none;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* 인풋영역 */
+input {
+  font-size: 15px;
+  border: none;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+  cursor: pointer;
+}
+
+select {
+  background: url(./@assets/select.svg) no-repeat 95% 50%;
+  appearance: none;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+::-webkit-scrollbar-track {
+  background-color: #e2e2e2;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+  cursor: pointer;
+}
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+  width: 12px;
+  height: 12px;
+  background: #c2c2c2;
+  border-radius: 100px;
+  display: none;
 }

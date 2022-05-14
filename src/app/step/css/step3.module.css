@@ -1,0 +1,140 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 80px;
+}
+
+.left_wrap,
+.right_wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 타이틀 영역 */
+.content_wrap {
+  width: 100%;
+  padding: 0 0 30px;
+  border-bottom: 1px solid #d1d6dd;
+}
+
+.title_label {
+  display: flex;
+  align-items: center;
+  color: #004683;
+  margin-top: 30px;
+}
+.title_label aside {
+  background-color: #004683;
+  width: 3px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+.title_label span {
+  font-size: 13px;
+  margin-left: 4px;
+  color: #004683;
+}
+
+/* 재실근무 */
+.wrap_box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 14px;
+  color: #1a539e;
+  margin: 20px 0 10px;
+}
+
+.title span {
+  color: #ff5e36;
+  font-size: 12px;
+}
+
+.tab_box_wrap {
+  width: 100%;
+  display: flex;
+  column-gap: 10px;
+}
+
+.tab input {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+}
+
+.tab2 {
+  width: calc(100% / 3 - 6px);
+}
+
+input[type='radio'] + span {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #fff;
+  color: #ccc;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  padding: 14px 0;
+  font-size: 15px;
+}
+
+input[type='radio']:checked + span {
+  color: #e35f19;
+  background-color: #ffefe5;
+  border: 1px solid #ffbd9a;
+}
+
+/* 재실인원 */
+.input_box_wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  padding: 12px;
+  background-color: #fff;
+}
+
+.input_box_wrap span {
+  font-size: 14px;
+  color: #888;
+}
+
+/* ===== 버튼 영역 =====*/
+.btn_wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+  margin-top: 80px;
+}
+
+.backBtn {
+  background-color: #e2e2e2;
+  color: #999999;
+  border: none;
+}
+
+.backBtn:hover {
+  background-color: #ccc;
+  color: #666;
+}
