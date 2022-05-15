@@ -8,7 +8,7 @@
 .step_container {
   max-width: 1500px;
   width: 100%;
-  padding: 50px 40px 40px;
+  padding: 30px 40px 40px;
   display: flex;
   flex-direction: column;
   height: calc(100vh - 80px);
