@@ -1,15 +1,60 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styles from './css/step1.module.css'
 import stepStyles from './css/step-wrap.module.css'
 import StepHeader from '../common/StepHeader'
+import SearchPostcode from '../common/Postcode'
+import Popup from 'reactjs-popup'
+import Data from '../data/Data'
 
 function Step1() {
+
   const navigate = useNavigate()
+
+  const [address, setAddress] = useState('');
+  const [cdNorthAxis, setCdNorthAxis] = useState('501');
+  const [cdUsageMain, setCdUsageMain] = useState('701');
+  const [usageSub, setUsageSub] = useState('');
+  const [year, setYear] = useState('');
+  const [area, setArea] = useState('');
+  const [cdWwr, setCdWwr] = useState('');
+  const [isEtrWwr, setIsetrWwr] = useState('');
+  const [vaWwr, setVaWwr] = useState('');
+  const [cdAspectRatio, setCdAspectRatio] = useState('');
+  const [isEtrAspectRatio, setIsetrAspectRatio] = useState('');
+  const [vaAspectRatio, setVaAspectRatio] = useState('');
+
+  useEffect(() => {
+    SetDefaults()
+  })
 
   const submit = e => {
     e.preventDefault()
   }
+
+  const SetDefaults = async() => {
+    await Data.GetDefaults()
+    .then(defaults => {
+      setCdNorthAxis(defaults.data.cd_north_axis);
+      setCdUsageMain(defaults.data.cd_usage_main);
+      setUsageSub(defaults.data.usage_sub);
+      setYear(defaults.data.year);
+      setArea(defaults.data.area);
+      setCdWwr(defaults.data.cd_wwr);
+      setIsetrWwr(defaults.data.isetr_wwr);
+      setVaWwr(defaults.data.va_wwr);
+      setCdAspectRatio(defaults.data.cd_aspect_ratio);
+      setIsetrAspectRatio(defaults.data.isetr_aspect_ratio);
+      setVaAspectRatio(defaults.data.va_aspect_ratio);
+    })
+  }
+
+  const SearchPostcodeButton = (props) => (
+    <Popup trigger={<button> 주소검색 </button>} position="right center">
+      <SearchPostcode address={props.address} setAddress={props.setAddress}/>
+    </Popup>
+  );
+
   return (
     <main className={stepStyles.step_wrapper}>
       <section className={stepStyles.step_container}>
@@ -24,8 +69,8 @@ function Step1() {
                   건축물 주소
                 </div>
                 <div className={styles.input_wrap}>
-                  <input type="text" placeholder="주소를 검색하세요." />
-                  <button type="button">주소검색</button>
+                  <input type="text" placeholder="주소를 검색하세요." value={address}/>
+                  <SearchPostcodeButton address={address} setAddress={setAddress}/>
                 </div>
               </div>
 
@@ -38,7 +83,7 @@ function Step1() {
 
                 <div className={styles.tab_wrap}>
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                    <input type="radio" name="tab" checked='true' />
                     <span>남</span>
                   </label>
 
@@ -83,7 +128,7 @@ function Step1() {
               <div className={styles.content_wrap}>
                 <div className={styles.title_label}>
                   <aside />
-                  건축물 준공연도
+                    건축물 준공연도
                 </div>
 
                 <div className={styles.input_wrap2}>
@@ -121,7 +166,7 @@ function Step1() {
                   </select>
                   <div className={styles.input_box_wrap}>
                     <input type="checkbox" id="check1" />
-                    <label for="check1">직접입력 :</label> &nbsp;&nbsp;
+                    <label htmlFor="check1">직접입력 :</label> &nbsp;&nbsp;
                     <input type="number" placeholder="창면적비 직접입력" />
                   </div>
                 </div>
@@ -142,7 +187,7 @@ function Step1() {
                   </select>
                   <div className={styles.input_box_wrap}>
                     <input type="checkbox" id="check2" />
-                    <label for="check2">직접입력 :&nbsp;&nbsp;</label>
+                    <label htmlFor="check2">직접입력 :&nbsp;&nbsp;</label>
                     <span>1:</span>
                     <input
                       type="number"

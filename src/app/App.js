@@ -15,9 +15,6 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Main />} />
-        </Routes>
-
-        <Routes>
           <Route path="/step1" element={<Step1 />} />
           <Route path="/step2" element={<Step2 />} />
           <Route path="/step3" element={<Step3 />} />
