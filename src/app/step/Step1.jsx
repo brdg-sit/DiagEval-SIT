@@ -11,41 +11,66 @@ function Step1() {
 
   const navigate = useNavigate()
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [codes, setCodes] = useState({});
   const [address, setAddress] = useState('');
-  const [cdNorthAxis, setCdNorthAxis] = useState('501');
-  const [cdUsageMain, setCdUsageMain] = useState('701');
+  const [cdNorthAxis, setCdNorthAxis] = useState('');
+  const [selectedNorthAxis, setSelectedNorthAxis] = useState('');
+  const [cdUsageMain, setCdUsageMain] = useState('');
   const [usageSub, setUsageSub] = useState('');
   const [year, setYear] = useState('');
   const [area, setArea] = useState('');
   const [cdWwr, setCdWwr] = useState('');
-  const [isEtrWwr, setIsetrWwr] = useState('');
+  const [isEtrWwr, setIsetrWwr] = useState(0);
   const [vaWwr, setVaWwr] = useState('');
   const [cdAspectRatio, setCdAspectRatio] = useState('');
-  const [isEtrAspectRatio, setIsetrAspectRatio] = useState('');
+  const [isEtrAspectRatio, setIsetrAspectRatio] = useState(0);
   const [vaAspectRatio, setVaAspectRatio] = useState('');
 
+  
+
   useEffect(() => {
-    SetDefaults()
+    if(isLoaded !== true){
+      SetCodes();
+      //코드 정보가 들어오면 기본값 세팅.
+      if(Object.keys(codes).length > 0){
+        SetDefaults()
+        setIsLoaded(true);
+      }
+    }
   })
 
   const submit = e => {
     e.preventDefault()
   }
 
+  const SetCodes = async() => {
+    await Data.GetCodes()
+    .then(codes => {
+      var codeDict = {};
+      for(var i=0; i<codes.data.length; i++){
+        codeDict[codes.data[i].code] = codes.data[i];
+      }
+      setCodes(codeDict);
+    });
+  }
+
   const SetDefaults = async() => {
     await Data.GetDefaults()
     .then(defaults => {
-      setCdNorthAxis(defaults.data.cd_north_axis);
-      setCdUsageMain(defaults.data.cd_usage_main);
-      setUsageSub(defaults.data.usage_sub);
-      setYear(defaults.data.year);
-      setArea(defaults.data.area);
-      setCdWwr(defaults.data.cd_wwr);
-      setIsetrWwr(defaults.data.isetr_wwr);
-      setVaWwr(defaults.data.va_wwr);
-      setCdAspectRatio(defaults.data.cd_aspect_ratio);
-      setIsetrAspectRatio(defaults.data.isetr_aspect_ratio);
-      setVaAspectRatio(defaults.data.va_aspect_ratio);
+      var data = defaults.data[0];
+      setCdNorthAxis(codes[data.cd_north_axis].name);
+      setSelectedNorthAxis(codes[data.cd_north_axis].name);
+      setCdUsageMain(codes[data.cd_usage_main].name);
+      setUsageSub(data.usage_sub);
+      setYear(data.year);
+      setArea(data.area);
+      setCdWwr(codes[data.cd_wwr].name);
+      setIsetrWwr(data.isetr_wwr);
+      setVaWwr(data.va_wwr);
+      setCdAspectRatio(codes[data.cd_aspect_ratio].name);
+      setIsetrAspectRatio(data.isetr_aspect_ratio);
+      setVaAspectRatio(data.va_aspect_ratio);
     })
   }
 
@@ -54,6 +79,56 @@ function Step1() {
       <SearchPostcode address={props.address} setAddress={props.setAddress}/>
     </Popup>
   );
+
+  const OnNorthAxisClicked = e => {
+    setSelectedNorthAxis(e.target.value);
+  }
+
+  const OnUsageSubChange = e => {
+    setUsageSub(e.target.value);
+  }
+
+  const OnYearChange = e => {
+    setYear(e.target.value);
+  }
+
+  const OnAreaChange = e => {
+    setArea(e.target.value);
+  }
+
+  const OnCdWwrChange = e => {
+    setCdWwr(e.target.value);
+  }
+
+  const OnWwrCheckboxClicked = e => {
+    if(isEtrWwr === 0){
+      setIsetrWwr(1);
+    }
+    else{
+      setIsetrWwr(0);
+    }
+  }
+
+  const OnVaWwrChange = e => {
+    setVaWwr(e.target.value);
+  }
+
+  const OnCdAspectRatioChange = e => {
+    setCdAspectRatio(e.target.value);
+  }
+
+  const OnAspectRatioCheckboxClicked = e => {
+    if(isEtrAspectRatio === 0){
+      setIsetrAspectRatio(1);
+    }
+    else{
+      setIsetrAspectRatio(0);
+    }
+  }
+
+  const OnVaAspectRatioChange = e => {
+    setVaAspectRatio(e.target.value);
+  }
 
   return (
     <main className={stepStyles.step_wrapper}>
@@ -83,27 +158,27 @@ function Step1() {
 
                 <div className={styles.tab_wrap}>
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" checked='true' />
+                    <input type="radio" name="tab" value="남" checked={selectedNorthAxis==='남'} onClick={OnNorthAxisClicked}/>
                     <span>남</span>
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                  <input type="radio" name="tab" value="남남서 (남남동)" checked={selectedNorthAxis==='남남서 (남남동)'} onClick={OnNorthAxisClicked}/>
                     <span>남남서 (남남동)</span>
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                  <input type="radio" name="tab" value="남서(남동)" checked={selectedNorthAxis==='남서(남동)'} onClick={OnNorthAxisClicked}/>
                     <span>남서(남동)</span>
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                  <input type="radio" name="tab" value="서남서(동남동)" checked={selectedNorthAxis==='서남서(동남동)'} onClick={OnNorthAxisClicked}/>
                     <span>서남서(동남동)</span>
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                  <input type="radio" name="tab" value="서(동)" checked={selectedNorthAxis==='서(동)'} onClick={OnNorthAxisClicked}/>
                     <span>서(동)</span>
                   </label>
                 </div>
@@ -120,7 +195,7 @@ function Step1() {
                   <select>
                     <option>업무시설</option>
                   </select>
-                  <input type="text" placeholder="세부용도를 작성하세요." />
+                  <input type="text" value={usageSub} placeholder="세부용도를 작성하세요." onChange={OnUsageSubChange}/>
                 </div>
               </div>
 
@@ -132,7 +207,7 @@ function Step1() {
                 </div>
 
                 <div className={styles.input_wrap2}>
-                  <input type="text" placeholder="준공연도를 작성하세요." />
+                  <input type="text" value={year} placeholder="준공연도를 작성하세요." onChange={OnYearChange}/>
                 </div>
               </div>
             </div>
@@ -146,8 +221,7 @@ function Step1() {
                 </div>
 
                 <div className={styles.input_box_wrap}>
-                  직접입력 :&nbsp;&nbsp;
-                  <input type="number" placeholder="연면적을 직접입력" />
+                  <input type="number" value={area} placeholder="연면적을 직접입력" onChange={OnAreaChange}/>
                 </div>
               </div>
 
@@ -159,15 +233,15 @@ function Step1() {
                 </div>
 
                 <div className={styles.input_wrap3}>
-                  <select>
-                    <option>20%</option>
-                    <option>60%</option>
-                    <option>80%</option>
+                  <select value={cdWwr} onChange={OnCdWwrChange}>
+                    <option value="20%">20%</option>
+                    <option value="60%">60%</option>
+                    <option value="80%">80%</option>
                   </select>
                   <div className={styles.input_box_wrap}>
                     <input type="checkbox" id="check1" />
-                    <label htmlFor="check1">직접입력 :</label> &nbsp;&nbsp;
-                    <input type="number" placeholder="창면적비 직접입력" />
+                    <label htmlFor="check1" onClick={OnWwrCheckboxClicked}>직접입력 :</label> &nbsp;&nbsp;
+                    <input type="number" value={vaWwr} disabled={isEtrWwr  === 0 ? true : false} placeholder="창면적비 직접입력" onChange={OnVaWwrChange}/>
                   </div>
                 </div>
               </div>
@@ -180,19 +254,15 @@ function Step1() {
                 </div>
 
                 <div className={styles.input_wrap3}>
-                  <select>
-                    <option>1:1</option>
-                    <option>1:2</option>
-                    <option>1:3</option>
+                  <select value={cdAspectRatio} onChange={OnCdAspectRatioChange}>
+                    <option value="1">1:1</option>
+                    <option value="2">1:2</option>
+                    <option value="3">1:3</option>
                   </select>
                   <div className={styles.input_box_wrap}>
                     <input type="checkbox" id="check2" />
-                    <label htmlFor="check2">직접입력 :&nbsp;&nbsp;</label>
-                    <span>1:</span>
-                    <input
-                      type="number"
-                      placeholder="장면적비 뒷자리 직접입력"
-                    />
+                    <label htmlFor="check2" onClick={OnAspectRatioCheckboxClicked}>직접입력 :&nbsp;&nbsp;</label>
+                    <input type="number" disabled={isEtrAspectRatio === 0 ? true : false} value={vaAspectRatio} placeholder="장면적비 뒷자리 직접입력" onChange={OnVaAspectRatioChange}/>
                   </div>
                 </div>
               </div>
