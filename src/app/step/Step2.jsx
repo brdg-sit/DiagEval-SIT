@@ -1,10 +1,14 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import StepHeader from '../common/StepHeader'
 import styles from './css/step2.module.css'
 import stepStyles from './css/step-wrap.module.css'
 
 function Step2() {
+
+  const location = useLocation();
+  var step1States = location.state;
+
   const navigate = useNavigate()
   const submit = e => {
     e.preventDefault()

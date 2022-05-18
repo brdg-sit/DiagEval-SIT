@@ -280,7 +280,25 @@ function Step1() {
             </button>
             <button
               className={styles.submit}
-              onClick={() => navigate('/step2')}
+              onClick={() => navigate('/step2', {
+                state:{
+                  isLoaded: isLoaded,
+                  codes: codes,
+                  address: address,
+                  cdNorthAxis: cdNorthAxis,
+                  selectedNorthAxis: selectedNorthAxis,
+                  cdUsageMain: cdUsageMain,
+                  usageSub: usageSub,
+                  year: year,
+                  area: area,
+                  cdWwr: cdWwr,
+                  isEtrWwr: isEtrWwr,
+                  vaWwr: vaWwr,
+                  cdAspectRatio: cdAspectRatio,
+                  isEtrAspectRatio: isEtrAspectRatio,
+                  vaAspectRatio: vaAspectRatio
+                }
+              })}
             >
               다음으로
             </button>
