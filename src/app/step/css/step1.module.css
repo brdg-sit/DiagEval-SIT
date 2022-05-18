@@ -89,7 +89,7 @@
   cursor: pointer;
 }
 
-input[type='radio'] + span {
+input[type="radio"] + span {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -101,7 +101,7 @@ input[type='radio'] + span {
   font-size: 15px;
 }
 
-input[type='radio']:checked + span {
+input[type="radio"]:checked + span {
   color: #e35f19;
   background-color: #ffefe5;
   border: 1px solid #ffbd9a;
@@ -165,20 +165,20 @@ input[type='radio']:checked + span {
   color: #555;
 }
 
-.input_box_wrap input[type='checkbox'] {
+.input_box_wrap input[type="checkbox"] {
   display: none;
 }
 
-.input_box_wrap input[type='checkbox'] + label {
-  background-image: url('../../../@assets/check-disable.svg');
+.input_box_wrap input[type="checkbox"] + label {
+  background-image: url("../../../@assets/check-disable.svg");
   padding-left: 24px;
   background-repeat: no-repeat;
   background-position: 5%;
   cursor: pointer;
 }
 
-.input_box_wrap input[type='checkbox']:checked + label {
-  background-image: url('../../../@assets/check-able.svg');
+.input_box_wrap input[type="checkbox"]:checked + label {
+  background-image: url("../../../@assets/check-able.svg");
 }
 
 .input_box_wrap span {
@@ -186,7 +186,22 @@ input[type='radio']:checked + span {
   margin-right: 6px;
   font-weight: 500;
 }
+.input_box_wrap2 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  padding: 12px;
+  background-color: #fff;
+}
 
+.input_box_wrap2 span {
+  font-size: 14px;
+  color: #888;
+}
 /* ===== 버튼 영역 =====*/
 .btn_wrap {
   width: 100%;
@@ -205,4 +220,21 @@ input[type='radio']:checked + span {
 .backBtn:hover {
   background-color: #ccc;
   color: #666;
+}
+
+.type_val {
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  height: 48px;
+  padding: 12px;
+  font-size: 15px;
+}
+
+.type_val span {
+  color: #888;
+  font-size: 14px;
 }
