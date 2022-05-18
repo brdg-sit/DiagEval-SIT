@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom'
 import StepHeader from '../common/StepHeader'
 import styles from './css/step2.module.css'
@@ -7,6 +7,7 @@ import stepStyles from './css/step-wrap.module.css'
 function Step2() {
 
   const location = useLocation();
+  const [eqmtSelect, setEqmtSelect] = useState();
   var step1States = location.state;
 
   const navigate = useNavigate()
@@ -142,12 +143,28 @@ function Step2() {
                   <div className={styles.input_wrap2}>
                     <div className={styles.tab_box_wrap}>
                       <label className={styles.tab}>
-                        <input type="radio" name="tab1" />
+                        <input
+                          type="radio"
+                          name="tab1"
+                          value="EHP"
+                          checked={eqmtSelect === "EHP"}
+                          onChange={(e) => {
+                            setEqmtSelect(e.target.value);
+                          }}
+                        />
                         <span>EHP</span>
                       </label>
 
                       <label className={styles.tab}>
-                        <input type="radio" name="tab1" />
+                        <input
+                          type="radio"
+                          name="tab1"
+                          value="중앙식"
+                          checked={eqmtSelect === "중앙식"}
+                          onChange={(e) => {
+                            setEqmtSelect(e.target.value);
+                          }}
+                        />
                         <span>중앙식</span>
                       </label>
                     </div>
@@ -165,12 +182,28 @@ function Step2() {
                   <div className={styles.input_wrap2}>
                     <div className={styles.tab_box_wrap}>
                       <label className={styles.tab}>
-                        <input type="radio" name="tab2" />
+                        <input
+                          type="radio"
+                          name="tab2"
+                          value="EHP"
+                          checked={eqmtSelect === "EHP"}
+                          onChange={(e) => {
+                            setEqmtSelect(e.target.value);
+                          }}
+                        />
                         <span>EHP</span>
                       </label>
 
                       <label className={styles.tab}>
-                        <input type="radio" name="tab2" />
+                        <input
+                          type="radio"
+                          name="tab2"
+                          value="중앙식"
+                          checked={eqmtSelect === "중앙식"}
+                          onChange={(e) => {
+                            setEqmtSelect(e.target.value);
+                          }}
+                        />
                         <span>중앙식</span>
                       </label>
                     </div>
