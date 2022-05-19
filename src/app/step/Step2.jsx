@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom'
 import StepHeader from '../common/StepHeader'
 import styles from './css/step2.module.css'
@@ -6,14 +6,120 @@ import stepStyles from './css/step-wrap.module.css'
 
 function Step2() {
 
-  const location = useLocation();
-  const [eqmtSelect, setEqmtSelect] = useState();
-  var step1States = location.state;
-
   const navigate = useNavigate()
+  const location = useLocation();
+
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [step1States, setStep1States] = useState(location.state);
+  const [codes, setCodes] = useState(location.state.codes);
+  const [defaults, setDefaults] = useState(location.state.defaults);
+  const [uWall, setUWall] = useState(location.state.defaults.u_wall);
+  const [uRoof, setURoof] = useState(location.state.defaults.u_roof);
+  const [uFloor, setUFloor] = useState(location.state.defaults.u_floor);
+  const [uWindow, setUWindow] = useState(location.state.defaults.u_window);
+  const [shgc, setShgc] = useState(location.state.defaults.shgc);
+  const [isetrUWall, setIsetrUWall] = useState(location.state.defaults.isetr_u_wall);
+  const [isetrURoof, setIsetrURoof] = useState(location.state.defaults.isetr_u_roof);
+  const [isetrUFloor, setIsetrUFloor] = useState(location.state.defaults.isetr_u_floor);
+  const [isetrUWindow, setIsetrUWindow] = useState(location.state.defaults.isetr_u_window); 
+  const [isetrShgc, setIsetrShgc] = useState(location.state.defaults.isetr_shgc);
+  const [cdEqmtHeat, setCdEqmtHeat] = useState(codes[location.state.defaults.cd_eqmt_heat].name);
+  const [cdEqmtCool, setCdEqmtCool] = useState(codes[location.state.defaults.cd_eqmt_cool].name);
+  const [effcyHeat, setEffcyHeat] = useState(location.state.defaults.effcy_heat);
+  const [effcyCool, setEffcyCool] = useState(location.state.defaults.effcy_cool);
+  const [cdEqmtLight, setCdEqmtLight] = useState(codes[location.state.defaults.cd_eqmt_light].name);
+  const [isetrLight, setIsetrLight] = useState(location.state.defaults.isetr_light);
+  const [levelLight, setLevelLight] = useState(location.state.defaults.level_light);
+
+  useEffect(() => {
+  });
+  
   const submit = e => {
     e.preventDefault()
   }
+
+  const OnUWallChange = (e) => {
+    setUWall(e.target.value);
+  }
+
+  const OnURoofChange = (e) => {
+    setURoof(e.target.value);
+  }
+
+  const OnUFloorChange = (e) => {
+    setUFloor(e.target.value);
+  }
+
+  const OnUWindowChange = (e) => {
+    setUWindow(e.target.value);
+  }
+
+  const OnUShgcChange = (e) => {
+    setShgc(e.target.value);
+  }
+
+  const OnCdEqmtHeatChange = (e) => {
+    setCdEqmtHeat(e.target.value);
+  }
+
+  const OnEffcyHeatChange = (e) => {
+    setEffcyHeat(e.target.value);
+  }
+
+  const OnCdEqmtCoolChange = (e) => {
+    setCdEqmtCool(e.target.value);
+  }
+
+  const OnEffcyCoolChange = (e) => {
+    setEffcyCool(e.target.value);
+  }
+
+  const OnCdEqmtLightChange = (e) => {
+    setCdEqmtLight(e.target.value);
+  };
+
+  const OnUWallCheckboxClick = (e) => {
+    if (isetrUWall === 0) {
+      setIsetrUWall(1);
+    } else {
+      setIsetrUWall(0);
+    }
+  }
+
+  const OnURoofCheckboxClick = (e) => {
+    if (isetrURoof === 0) {
+      setIsetrURoof(1);
+    } else {
+      setIsetrURoof(0);
+    }
+  }
+
+  const OnUFloorCheckboxClick = (e) => {
+    if (isetrUFloor === 0) {
+      setIsetrUFloor(1);
+    } else {
+      setIsetrUFloor(0);
+    }
+  }
+
+  const OnUWindowCheckboxClick = (e) => {
+    if (isetrUFloor === 0) {
+      setIsetrUWindow(1);
+    } else {
+      setIsetrUWindow(0);
+    }
+  }
+
+  const OnUShgcCheckboxClick = (e) => {
+    if (isetrUFloor === 0) {
+      setIsetrShgc(1);
+    } else {
+      setIsetrShgc(0);
+    }
+  }
+
+  
+
   return (
     <main className={stepStyles.step_wrapper}>
       <section className={stepStyles.step_container}>
@@ -33,15 +139,21 @@ function Step2() {
                   <label className={styles.title}>- 외벽 열관류울</label>
                   <div className={styles.input_wrap}>
                     <div className={styles.type_val}>
-                      <p>1,047</p>
+                      <p>{uWall}</p>
                       <span>W/㎡K</span>
                     </div>
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
                         <input type="checkbox" id="check1" />
-                        <label for="check1">직접입력 :</label>
-                        <input type="number" placeholder="직접입력 하세요." />
+                        <label htmlFor="check1" onClick={OnUWallCheckboxClick}>직접입력 :</label>
+                        <input
+                          type="number"
+                          disabled={isetrUWall === 0 ? true : false}
+                          value={uWall}
+                          placeholder="직접입력 하세요."
+                          onChange={OnUWallChange}
+                        />
                       </div>
                       <span>W/㎡K</span>
                     </div>
@@ -53,15 +165,21 @@ function Step2() {
                   <label className={styles.title}>- 지붕 열관류울</label>
                   <div className={styles.input_wrap}>
                     <div className={styles.type_val}>
-                      <p>1,047</p>
+                      <p>{uRoof}</p>
                       <span>W/㎡K</span>
                     </div>
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
                         <input type="checkbox" id="check2" />
-                        <label for="check2">직접입력 :</label>
-                        <input type="number" placeholder="직접입력 하세요." />
+                        <label htmlFor="check2" onClick={OnURoofCheckboxClick}>직접입력 :</label>
+                        <input
+                          type="number"
+                          disabled={isetrUWall === 0 ? true : false}
+                          value={uRoof}
+                          placeholder="직접입력 하세요."
+                          onChange={OnURoofChange}
+                        />
                       </div>
                       <span>W/㎡K</span>
                     </div>
@@ -73,15 +191,21 @@ function Step2() {
                   <label className={styles.title}>- 바닥 열관류율</label>
                   <div className={styles.input_wrap}>
                     <div className={styles.type_val}>
-                      <p>1,047</p>
+                      <p>{uFloor}</p>
                       <span>W/㎡K</span>
                     </div>
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
                         <input type="checkbox" id="check3" />
-                        <label for="check3">직접입력 :</label>
-                        <input type="number" placeholder="직접입력 하세요." />
+                        <label htmlFor="check3" onClick={OnUFloorCheckboxClick}>직접입력 :</label>
+                        <input
+                          type="number"
+                          disabled={isetrUWall === 0 ? true : false}
+                          value={uFloor}
+                          placeholder="직접입력 하세요."
+                          onChange={OnUFloorChange}
+                        />
                       </div>
                       <span>W/㎡K</span>
                     </div>
@@ -93,15 +217,21 @@ function Step2() {
                   <label className={styles.title}>- 창호 열관류율</label>
                   <div className={styles.input_wrap}>
                     <div className={styles.type_val}>
-                      <p>1,047</p>
+                      <p>{uWindow}</p>
                       <span>W/㎡K</span>
                     </div>
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
                         <input type="checkbox" id="check4" />
-                        <label for="check4">직접입력 :</label>
-                        <input type="number" placeholder="직접입력 하세요." />
+                        <label htmlFor="check4" onClick={OnUWindowCheckboxClick}>직접입력 :</label>
+                        <input
+                          type="number"
+                          disabled={isetrUWindow === 0 ? true : false}
+                          value={uWindow}
+                          placeholder="직접입력 하세요."
+                          onChange={OnUWindowChange}
+                        />
                       </div>
                       <span>W/㎡K</span>
                     </div>
@@ -113,14 +243,20 @@ function Step2() {
                   <label className={styles.title}>- 창호 SHGC</label>
                   <div className={styles.input_wrap}>
                     <div className={styles.type_val}>
-                      <p>0.719</p>
+                      <p>{shgc}</p>
                     </div>
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
                         <input type="checkbox" id="check5" />
-                        <label for="check5">직접입력 :</label>
-                        <input type="number" placeholder="직접입력 하세요." />
+                        <label htmlFor="check5" onClick={OnUShgcCheckboxClick}>직접입력 :</label>
+                        <input
+                          type="number"
+                          disabled={isetrShgc === 0 ? true : false}
+                          value={shgc}
+                          placeholder="직접입력 하세요."
+                          onChange={OnUShgcChange}
+                        />
                       </div>
                       <span>W/㎡K</span>
                     </div>
@@ -147,10 +283,8 @@ function Step2() {
                           type="radio"
                           name="tab1"
                           value="EHP"
-                          checked={eqmtSelect === "EHP"}
-                          onChange={(e) => {
-                            setEqmtSelect(e.target.value);
-                          }}
+                          checked={cdEqmtHeat === "EHP"}
+                          onChange={OnCdEqmtHeatChange}
                         />
                         <span>EHP</span>
                       </label>
@@ -160,10 +294,8 @@ function Step2() {
                           type="radio"
                           name="tab1"
                           value="중앙식"
-                          checked={eqmtSelect === "중앙식"}
-                          onChange={(e) => {
-                            setEqmtSelect(e.target.value);
-                          }}
+                          checked={cdEqmtHeat === "중앙식"}
+                          onChange={OnCdEqmtHeatChange}
                         />
                         <span>중앙식</span>
                       </label>
@@ -171,7 +303,12 @@ function Step2() {
 
                     <div className={styles.input_wrap_box2}>
                       <span>효율(COP) :</span>
-                      <input type="number" placeholder="직접입력 하세요." />
+                      <input
+                          type="number"
+                          value={effcyHeat}
+                          placeholder="직접입력 하세요."
+                          onChange={OnEffcyHeatChange}
+                        />
                     </div>
                   </div>
                 </div>
@@ -186,10 +323,8 @@ function Step2() {
                           type="radio"
                           name="tab2"
                           value="EHP"
-                          checked={eqmtSelect === "EHP"}
-                          onChange={(e) => {
-                            setEqmtSelect(e.target.value);
-                          }}
+                          checked={cdEqmtCool === "EHP"}
+                          onChange={OnCdEqmtCoolChange}
                         />
                         <span>EHP</span>
                       </label>
@@ -199,10 +334,8 @@ function Step2() {
                           type="radio"
                           name="tab2"
                           value="중앙식"
-                          checked={eqmtSelect === "중앙식"}
-                          onChange={(e) => {
-                            setEqmtSelect(e.target.value);
-                          }}
+                          checked={cdEqmtCool === "중앙식"}
+                          onChange={OnCdEqmtCoolChange}
                         />
                         <span>중앙식</span>
                       </label>
@@ -210,7 +343,12 @@ function Step2() {
 
                     <div className={styles.input_wrap_box2}>
                       <span>효율(COP) :</span>
-                      <input type="number" placeholder="직접입력 하세요." />
+                      <input
+                          type="number"
+                          value={effcyHeat}
+                          placeholder="직접입력 하세요."
+                          onChange={OnEffcyCoolChange}
+                        />
                     </div>
                   </div>
                 </div>
@@ -225,12 +363,26 @@ function Step2() {
 
                 <div className={styles.tab_wrap}>
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
-                    <span>형광등 100%</span>
+                    <input
+                      type="radio"
+                      name="tab"
+                      value="형광등(100%)"
+                      checked={cdEqmtLight === "형광등(100%)"}
+                      onChange={OnCdEqmtLightChange}
+                    />
+                    <span>
+                      형광등 100%
+                    </span>
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                    <input
+                      type="radio"
+                      name="tab"
+                      value="LED(25%) 형광등(75%)"
+                      checked={cdEqmtLight === "LED(25%) 형광등(75%)"}
+                      onChange={OnCdEqmtLightChange}
+                    />
                     <span>
                       형광등 75%
                       <br /> LED 25%
@@ -238,7 +390,13 @@ function Step2() {
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                    <input
+                      type="radio"
+                      name="tab"
+                      value="LED(50%) 형광등(50%)"
+                      checked={cdEqmtLight === "LED(50%) 형광등(50%)"}
+                      onChange={OnCdEqmtLightChange}
+                    />
                     <span>
                       형광등 50%
                       <br /> LED 50%
@@ -246,7 +404,13 @@ function Step2() {
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                    <input
+                      type="radio"
+                      name="tab"
+                      value="LED(75%) 형광등(25%)"
+                      checked={cdEqmtLight === "LED(75%) 형광등(25%)"}
+                      onChange={OnCdEqmtLightChange}
+                    />
                     <span>
                       형광등 25%
                       <br /> LED 75%
@@ -254,7 +418,13 @@ function Step2() {
                   </label>
 
                   <label className={styles.tab}>
-                    <input type="radio" name="tab" />
+                    <input
+                      type="radio"
+                      name="tab"
+                      value="LED(100%)"
+                      checked={cdEqmtLight === "LED(100%)"}
+                      onChange={OnCdEqmtLightChange}
+                    />
                     <span>LED 100%</span>
                   </label>
                 </div>
@@ -262,7 +432,7 @@ function Step2() {
                 <div className={styles.input_wrapper}>
                   <div className={styles.input_box_wrap}>
                     <input type="checkbox" id="tab" />
-                    <label for="tab">직접입력 :</label>
+                    <label htmlFor="tab">직접입력 :</label>
                     <input type="number" placeholder="직접입력 하세요." />
                   </div>
                   <span>W/㎡K</span>

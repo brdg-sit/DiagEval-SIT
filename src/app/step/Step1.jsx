@@ -12,9 +12,9 @@ function Step1() {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [codes, setCodes] = useState({});
+  const [defaults, setDefaults] = useState({});
   const [address, setAddress] = useState("");
   const [cdNorthAxis, setCdNorthAxis] = useState("");
-  const [selectedNorthAxis, setSelectedNorthAxis] = useState("");
   const [cdUsageMain, setCdUsageMain] = useState("");
   const [usageSub, setUsageSub] = useState("");
   const [year, setYear] = useState("");
@@ -29,7 +29,7 @@ function Step1() {
       SetCodes();
       //코드 정보가 들어오면 기본값 세팅.
       if (Object.keys(codes).length > 0) {
-        SetDefaults();
+        SetDefaultData();
         setIsLoaded(true);
       }
     }
@@ -49,18 +49,18 @@ function Step1() {
     });
   };
 
-  const SetDefaults = async () => {
+  const SetDefaultData = async () => {
     await Data.GetDefaults().then((defaults) => {
       var data = defaults.data[0];
+      setDefaults(data);
       setCdNorthAxis(codes[data.cd_north_axis].name);
-      setSelectedNorthAxis(codes[data.cd_north_axis].name);
       setCdUsageMain(codes[data.cd_usage_main].name);
       setUsageSub(data.usage_sub);
       setYear(data.year);
       setArea(data.area);
       setWwr(data.wwr);
-      setIsetrWwr(data.isetr_wwr);
       setAspectRatio(data.aspect_ratio);
+      setIsetrWwr(data.isetr_wwr);
       setIsetrAspectRatio(data.isetr_aspect_ratio);
     });
   };
@@ -71,8 +71,8 @@ function Step1() {
     </Popup>
   );
 
-  const OnNorthAxisClicked = (e) => {
-    setSelectedNorthAxis(e.target.value);
+  const OnCdNorthAxisChanged = (e) => {
+    setCdNorthAxis(e.target.value);
   };
 
   const OnUsageSubChange = (e) => {
@@ -91,16 +91,16 @@ function Step1() {
     setWwr(e.target.value);
   };
 
+  const OnAspectRatioChange = (e) => {
+    setAspectRatio(e.target.value);
+  };
+
   const OnWwrCheckboxClicked = (e) => {
     if (isEtrWwr === 0) {
       setIsetrWwr(1);
     } else {
       setIsetrWwr(0);
     }
-  };
-
-  const OnAspectRatioChange = (e) => {
-    setAspectRatio(e.target.value);
   };
 
   const OnAspectRatioCheckboxClicked = (e) => {
@@ -129,6 +129,7 @@ function Step1() {
                     type="text"
                     placeholder="주소를 검색하세요."
                     value={address}
+                    onChange={() => console.log('')}
                   />
                   <SearchPostcodeButton
                     address={address}
@@ -150,8 +151,8 @@ function Step1() {
                       type="radio"
                       name="tab"
                       value="남"
-                      checked={selectedNorthAxis === "남"}
-                      onClick={OnNorthAxisClicked}
+                      checked={cdNorthAxis === "남"}
+                      onChange={OnCdNorthAxisChanged}
                     />
                     <span>남</span>
                   </label>
@@ -161,8 +162,8 @@ function Step1() {
                       type="radio"
                       name="tab"
                       value="남남서 (남남동)"
-                      checked={selectedNorthAxis === "남남서 (남남동)"}
-                      onClick={OnNorthAxisClicked}
+                      checked={cdNorthAxis === "남남서 (남남동)"}
+                      onChange={OnCdNorthAxisChanged}
                     />
                     <span>남남서 (남남동)</span>
                   </label>
@@ -172,8 +173,8 @@ function Step1() {
                       type="radio"
                       name="tab"
                       value="남서(남동)"
-                      checked={selectedNorthAxis === "남서(남동)"}
-                      onClick={OnNorthAxisClicked}
+                      checked={cdNorthAxis === "남서(남동)"}
+                      onChange={OnCdNorthAxisChanged}
                     />
                     <span>남서(남동)</span>
                   </label>
@@ -183,8 +184,8 @@ function Step1() {
                       type="radio"
                       name="tab"
                       value="서남서(동남동)"
-                      checked={selectedNorthAxis === "서남서(동남동)"}
-                      onClick={OnNorthAxisClicked}
+                      checked={cdNorthAxis === "서남서(동남동)"}
+                      onChange={OnCdNorthAxisChanged}
                     />
                     <span>서남서(동남동)</span>
                   </label>
@@ -194,8 +195,8 @@ function Step1() {
                       type="radio"
                       name="tab"
                       value="서(동)"
-                      checked={selectedNorthAxis === "서(동)"}
-                      onClick={OnNorthAxisClicked}
+                      checked={cdNorthAxis === "서(동)"}
+                      onChange={OnCdNorthAxisChanged}
                     />
                     <span>서(동)</span>
                   </label>
@@ -336,9 +337,9 @@ function Step1() {
                   state: {
                     isLoaded: isLoaded,
                     codes: codes,
+                    defaults: defaults,
                     address: address,
                     cdNorthAxis: cdNorthAxis,
-                    selectedNorthAxis: selectedNorthAxis,
                     cdUsageMain: cdUsageMain,
                     usageSub: usageSub,
                     year: year,
@@ -346,8 +347,8 @@ function Step1() {
                     wwr: wwr,
                     isEtrWwr: isEtrWwr,
                     aspectRatio: aspectRatio,
-                    isEtrAspectRatio: isEtrAspectRatio
-                  },
+                    isEtrAspectRatio: isEtrAspectRatio,
+                  }
                 })
               }
             >
