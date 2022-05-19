@@ -19,12 +19,10 @@ function Step1() {
   const [usageSub, setUsageSub] = useState("");
   const [year, setYear] = useState("");
   const [area, setArea] = useState("");
-  const [cdWwr, setCdWwr] = useState("");
+  const [wwr, setWwr] = useState("");
   const [isEtrWwr, setIsetrWwr] = useState(0);
-  const [vaWwr, setVaWwr] = useState("");
-  const [cdAspectRatio, setCdAspectRatio] = useState("");
+  const [aspectRatio, setAspectRatio] = useState("");
   const [isEtrAspectRatio, setIsetrAspectRatio] = useState(0);
-  const [vaAspectRatio, setVaAspectRatio] = useState("");
 
   useEffect(() => {
     if (isLoaded !== true) {
@@ -60,12 +58,10 @@ function Step1() {
       setUsageSub(data.usage_sub);
       setYear(data.year);
       setArea(data.area);
-      setCdWwr(codes[data.cd_wwr].name);
+      setWwr(data.wwr);
       setIsetrWwr(data.isetr_wwr);
-      setVaWwr(data.va_wwr);
-      setCdAspectRatio(codes[data.cd_aspect_ratio].name);
+      setAspectRatio(data.aspect_ratio);
       setIsetrAspectRatio(data.isetr_aspect_ratio);
-      setVaAspectRatio(data.va_aspect_ratio);
     });
   };
 
@@ -91,8 +87,8 @@ function Step1() {
     setArea(e.target.value);
   };
 
-  const OnCdWwrChange = (e) => {
-    setCdWwr(e.target.value);
+  const OnWwrChange = (e) => {
+    setWwr(e.target.value);
   };
 
   const OnWwrCheckboxClicked = (e) => {
@@ -103,12 +99,8 @@ function Step1() {
     }
   };
 
-  const OnVaWwrChange = (e) => {
-    setVaWwr(e.target.value);
-  };
-
-  const OnCdAspectRatioChange = (e) => {
-    setCdAspectRatio(e.target.value);
+  const OnAspectRatioChange = (e) => {
+    setAspectRatio(e.target.value);
   };
 
   const OnAspectRatioCheckboxClicked = (e) => {
@@ -117,10 +109,6 @@ function Step1() {
     } else {
       setIsetrAspectRatio(0);
     }
-  };
-
-  const OnVaAspectRatioChange = (e) => {
-    setVaAspectRatio(e.target.value);
   };
 
   return (
@@ -290,10 +278,10 @@ function Step1() {
                     &nbsp;&nbsp;
                     <input
                       type="number"
-                      value={vaWwr}
+                      value={wwr}
                       disabled={isEtrWwr === 0 ? true : false}
                       placeholder="창면적비를 입력하세요."
-                      onChange={OnVaWwrChange}
+                      onChange={OnWwrChange}
                     />
                   </div>
                 </div>
@@ -322,9 +310,9 @@ function Step1() {
                     <input
                       type="number"
                       disabled={isEtrAspectRatio === 0 ? true : false}
-                      value={vaAspectRatio}
+                      value={aspectRatio}
                       placeholder="장면적비의 뒷자리를 입력하세요."
-                      onChange={OnVaAspectRatioChange}
+                      onChange={OnAspectRatioChange}
                     />
                   </div>
                 </div>
@@ -355,12 +343,10 @@ function Step1() {
                     usageSub: usageSub,
                     year: year,
                     area: area,
-                    cdWwr: cdWwr,
+                    wwr: wwr,
                     isEtrWwr: isEtrWwr,
-                    vaWwr: vaWwr,
-                    cdAspectRatio: cdAspectRatio,
-                    isEtrAspectRatio: isEtrAspectRatio,
-                    vaAspectRatio: vaAspectRatio,
+                    aspectRatio: aspectRatio,
+                    isEtrAspectRatio: isEtrAspectRatio
                   },
                 })
               }
