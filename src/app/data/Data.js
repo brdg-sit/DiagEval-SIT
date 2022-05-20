@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-var url = "https://localhost:7037/";
+const baseuri = "https://sitapi.brdg.kr/api/sit/";
 
 const GetDefaults = () => {
     try{
-        return axios.get(url + 'defaults');
+        return axios.get(baseuri + 'defaults');
     }
     catch(error){
         console.error(error);
@@ -13,7 +13,7 @@ const GetDefaults = () => {
 
 const GetCodes = () => {
     try{
-        return axios.get(url + 'codes');
+        return axios.get(baseuri + 'codes');
     }
     catch(error){
         console.error(error);

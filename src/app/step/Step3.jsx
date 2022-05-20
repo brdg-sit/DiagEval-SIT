@@ -1,26 +1,72 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import styles from './css/step3.module.css'
 import stepStyles from './css/step-wrap.module.css'
 import StepHeader from '../common/StepHeader'
 
 function Step3() {
   const navigate = useNavigate()
-  const [weekdaySelect, setWeekdaySelect] = useState()
-  const [weekendSelect, setWeekendSelect] = useState()
-  const [allday, setAllday] = useState()
+  const location = useLocation();
+
+  const [step1States, setStep1States] = useState(location.state.step1States);
+  const [step2States, setStep2States] = useState(location.state);
+  const [codes, setCodes] = useState(location.state.codes);
+  const [defaults, setDefaults] = useState(location.state.defaults);
+  const [hurWday, setHurWday] = useState(''+location.state.defaults.hur_wday);
+  const [hurWend, setHurWend] = useState(''+location.state.defaults.hur_wend);
+  const [allDay, setAllDay] = useState("0");
+  const [menRsdt, setMenRsdt] = useState(location.state.defaults.men_rsdt);
+  const [menNorsdt, setMenNorsdt] = useState(location.state.defaults.men_norsdt);
+  const [tempCool, setTempCool] = useState(location.state.defaults.temp_cool);
+  const [tempHeat, setTempHeat] = useState(location.state.defaults.temp_heat);
 
   const submit = e => {
     e.preventDefault()
   }
 
-  const resetWeekSelect = () => {
-    setWeekdaySelect(null)
-    setWeekendSelect(null)
+  const OnHurWdayChange = (e) => {
+    if(allDay === "1"){
+      setAllDay("0");
+      setHurWend(''+location.state.defaults.hur_wend)
+    }
+    setHurWday(e.target.value);
   }
 
-  const resetAllDay24H = () => {
-    setAllday(null)
+  const OnHurWendChange = (e) => {
+    if(allDay === "1"){
+      setAllDay("0");
+      setHurWday(''+location.state.defaults.hur_wday)
+    }
+    setHurWend(e.target.value);
+  }
+
+  const OnMenRsdtChange = (e) => {
+    setMenRsdt(e.target.value);
+  }
+
+  const OnMenNorsdtChange = (e) => {
+    setMenNorsdt(e.target.value);
+  }
+
+  const OnTempCoolChange = (e) => {
+    setTempCool(e.target.value);
+  }
+
+  const OnTempHeatChange = (e) => {
+    setTempHeat(e.target.value);
+  }
+
+  const OnSetAlldayClick = (e) => {
+    if(e.target.value === "0"){
+      setAllDay("1");
+      setHurWday("");
+      setHurWend("");
+    }
+    else{
+      setAllDay("0");
+      setHurWday(''+location.state.defaults.hur_wday);
+      setHurWend(''+location.state.defaults.hur_wend);
+    }
   }
 
   return (
@@ -47,12 +93,9 @@ function Step3() {
                         <input
                           type="radio"
                           name="tab1"
-                          value="weekday8H"
-                          checked={weekdaySelect === 'weekday8H'}
-                          onChange={e => {
-                            setWeekdaySelect(e.target.value)
-                            resetAllDay24H()
-                          }}
+                          value="8"
+                          checked={hurWday === "8"}
+                          onChange={OnHurWdayChange}
                         />
                         <span>8H 근무</span>
                       </label>
@@ -61,12 +104,9 @@ function Step3() {
                         <input
                           type="radio"
                           name="tab1"
-                          value="weekday10H"
-                          checked={weekdaySelect === 'weekday10H'}
-                          onChange={e => {
-                            setWeekdaySelect(e.target.value)
-                            resetAllDay24H()
-                          }}
+                          value="10"
+                          checked={hurWday === "10"}
+                          onChange={OnHurWdayChange}
                         />
                         <span>10H 근무</span>
                       </label>
@@ -75,12 +115,9 @@ function Step3() {
                         <input
                           type="radio"
                           name="tab1"
-                          value="weekday12H"
-                          checked={weekdaySelect === 'weekday12H'}
-                          onChange={e => {
-                            setWeekdaySelect(e.target.value)
-                            resetAllDay24H()
-                          }}
+                          value="12"
+                          checked={hurWday === "12"}
+                          onChange={OnHurWdayChange}
                         />
                         <span>12H 근무</span>
                       </label>
@@ -96,12 +133,9 @@ function Step3() {
                         <input
                           type="radio"
                           name="tab2"
-                          value="weekendOff"
-                          checked={weekendSelect === 'weekendOff'}
-                          onChange={e => {
-                            setWeekendSelect(e.target.value)
-                            resetAllDay24H()
-                          }}
+                          value="0"
+                          checked={hurWend === "0"}
+                          onChange={OnHurWendChange}
                         />
                         <span>휴무</span>
                       </label>
@@ -110,12 +144,9 @@ function Step3() {
                         <input
                           type="radio"
                           name="tab2"
-                          value="weekend4H"
-                          checked={weekendSelect === 'weekend4H'}
-                          onChange={e => {
-                            setWeekendSelect(e.target.value)
-                            resetAllDay24H()
-                          }}
+                          value="4"
+                          checked={hurWend === "4"}
+                          onChange={OnHurWendChange}
                         />
                         <span>4H 근무</span>
                       </label>
@@ -124,12 +155,9 @@ function Step3() {
                         <input
                           type="radio"
                           name="tab2"
-                          value="weekend8H"
-                          checked={weekendSelect === 'weekend8H'}
-                          onChange={e => {
-                            setWeekendSelect(e.target.value)
-                            resetAllDay24H()
-                          }}
+                          value="8"
+                          checked={hurWend === "8"}
+                          onChange={OnHurWendChange}
                         />
                         <span>8H 근무</span>
                       </label>
@@ -147,18 +175,10 @@ function Step3() {
                         <input
                           type="radio"
                           name="tab3"
-                          value="allDay24H"
-                          checked={allday === 'allDay24H'}
-                          onChange={e => {}}
-                          onClick={e => {
-                            resetWeekSelect()
-
-                            if (allday === 'allDay24H') {
-                              setAllday(null)
-                            } else {
-                              setAllday('allDay24H')
-                            }
-                          }}
+                          value={allDay}
+                          checked={allDay === "1"}
+                          onClick={OnSetAlldayClick}
+                          onChange={() => console.log('')}
                         />
                         <span>주중~주말 24H 근무</span>
                       </label>
@@ -179,7 +199,11 @@ function Step3() {
                 <div className={styles.wrap_box}>
                   <label className={styles.title}>상주인원 (근무자)</label>
                   <div className={styles.input_box_wrap}>
-                    <input type="number" placeholder="직접입력" />
+                    <input type="number" 
+                      placeholder="직접입력"
+                      value={menRsdt}
+                      onChange={OnMenRsdtChange}
+                    />
                     <span>명</span>
                   </div>
                 </div>
@@ -187,7 +211,11 @@ function Step3() {
                 <div className={styles.wrap_box}>
                   <label className={styles.title}>비상주인원 (방문자)</label>
                   <div className={styles.input_box_wrap}>
-                    <input type="number" placeholder="직접입력" />
+                    <input type="number" 
+                      placeholder="직접입력"
+                      value={menNorsdt}
+                      onChange={OnMenNorsdtChange}
+                    />
                     <span>명</span>
                   </div>
                 </div>
@@ -203,7 +231,11 @@ function Step3() {
                 <div className={styles.wrap_box}>
                   <label className={styles.title}>냉방설정온도(18℃~ 22℃)</label>
                   <div className={styles.input_box_wrap}>
-                    <input type="number" placeholder="직접입력" />
+                    <input type="number" 
+                      placeholder="직접입력"
+                      value={tempCool}
+                      onChange={OnTempCoolChange}
+                    />
                     <span>℃</span>
                   </div>
                 </div>
@@ -211,7 +243,11 @@ function Step3() {
                 <div className={styles.wrap_box}>
                   <label className={styles.title}>난방설정온도(24℃~ 28℃)</label>
                   <div className={styles.input_box_wrap}>
-                    <input type="number" placeholder="직접입력" />
+                    <input type="number" 
+                      placeholder="직접입력"
+                      value={tempHeat}
+                      onChange={OnTempHeatChange}
+                    />
                     <span>℃</span>
                   </div>
                 </div>
@@ -230,7 +266,23 @@ function Step3() {
             </button>
             <button
               className={styles.submit}
-              onClick={() => navigate('/step4')}
+              onClick={() => 
+                navigate('/step4', {
+                state: {
+                  step1States: step1States,
+                  step2States: step2States,
+                  codes: codes,
+                  defaults: defaults,
+                  hurWday: hurWday,
+                  hurWend: hurWend,
+                  allDay: allDay,
+                  menRsdt: menRsdt,
+                  menNorsdt: menNorsdt,
+                  tempCool: tempCool,
+                  tempHeat: tempHeat
+                }
+              })
+            }
             >
               다음으로
             </button>

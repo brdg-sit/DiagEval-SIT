@@ -347,7 +347,7 @@ function Step1() {
                     wwr: wwr,
                     isEtrWwr: isEtrWwr,
                     aspectRatio: aspectRatio,
-                    isEtrAspectRatio: isEtrAspectRatio,
+                    isEtrAspectRatio: isEtrAspectRatio
                   }
                 })
               }

@@ -9,7 +9,6 @@ function Step2() {
   const navigate = useNavigate()
   const location = useLocation();
 
-  const [isLoaded, setIsLoaded] = useState(false);
   const [step1States, setStep1States] = useState(location.state);
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
@@ -78,6 +77,10 @@ function Step2() {
     setCdEqmtLight(e.target.value);
   };
 
+  const OnLevelLightChange = (e) => {
+    setLevelLight(e.target.value);
+  }
+
   const OnUWallCheckboxClick = (e) => {
     if (isetrUWall === 0) {
       setIsetrUWall(1);
@@ -118,7 +121,13 @@ function Step2() {
     }
   }
 
-  
+  const OnLevelLightCheckboxClick = (e) => {
+    if (isetrLight === 0) {
+      setIsetrLight(1);
+    } else {
+      setIsetrLight(0);
+    }
+  }
 
   return (
     <main className={stepStyles.step_wrapper}>
@@ -432,8 +441,14 @@ function Step2() {
                 <div className={styles.input_wrapper}>
                   <div className={styles.input_box_wrap}>
                     <input type="checkbox" id="tab" />
-                    <label htmlFor="tab">직접입력 :</label>
-                    <input type="number" placeholder="직접입력 하세요." />
+                    <label htmlFor="tab" onClick={OnLevelLightCheckboxClick}>직접입력 :</label>
+                    <input
+                          type="number"
+                          disabled={isetrLight === 0 ? true : false}
+                          value={levelLight}
+                          placeholder="직접입력 하세요."
+                          onChange={OnLevelLightChange}
+                      />
                   </div>
                   <span>W/㎡K</span>
                 </div>
@@ -452,7 +467,32 @@ function Step2() {
             </button>
             <button
               className={styles.submit}
-              onClick={() => navigate('/step3')}
+              onClick={() => 
+                navigate('/step3', {
+                state: {
+                  step1States: step1States,
+                  codes: codes,
+                  defaults: defaults,
+                  uWall: uWall,
+                  uRoof: uRoof,
+                  uFloor: uFloor,
+                  uWindow: uWindow,
+                  shgc: shgc,
+                  isetrUWall: isetrUWall,
+                  isetrURoof: isetrURoof,
+                  isetrUFloor: isetrUFloor,
+                  isetrUWindow: isetrUWindow,
+                  isetrShgc: isetrShgc,
+                  cdEqmtHeat: cdEqmtHeat,
+                  cdEqmtCool: cdEqmtCool,
+                  effcyHeat: effcyHeat,
+                  effcyCool: effcyCool,
+                  cdEqmtLight: cdEqmtLight,
+                  isetrLight: isetrLight,
+                  levelLight: levelLight
+                }
+              })
+            }
             >
               다음으로
             </button>
