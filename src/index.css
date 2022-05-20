@@ -40,7 +40,7 @@ button:hover {
   background-color: #d9e2ee;
 }
 
-a {
+/* a {
   background-color: #e3ebf5;
   border-radius: 14px;
   color: #003883;
@@ -51,7 +51,7 @@ a {
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
-}
+} */
 
 h1,
 h2,
@@ -125,4 +125,22 @@ input[type='number']::-webkit-inner-spin-button {
   background: #c2c2c2;
   border-radius: 100px;
   display: none;
+}
+
+.footer{
+  margin-top: 1rem;
+  padding: 0.7rem;
+  background-color: rgb(240, 209, 107);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.footer span{
+  float: left;
+}
+.footer a{
+  margin: 0px 20px 0px 0px;
+  float: right;
 }

@@ -5,6 +5,7 @@ import img1 from '../../@assets/main/img1.svg'
 import img2 from '../../@assets/main/img2.svg'
 import img3 from '../../@assets/main/img3.svg'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../footer'
 
 function Main() {
   const navigate = useNavigate()
@@ -34,6 +35,7 @@ function Main() {
 
         <button onClick={() => navigate('/step1')}>프로젝트 실행</button>
       </section>
+        <Footer/>
     </main>
   )
 }
