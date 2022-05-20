@@ -22,8 +22,9 @@ function Step2() {
   const [isetrUFloor, setIsetrUFloor] = useState(location.state.defaults.isetr_u_floor);
   const [isetrUWindow, setIsetrUWindow] = useState(location.state.defaults.isetr_u_window); 
   const [isetrShgc, setIsetrShgc] = useState(location.state.defaults.isetr_shgc);
-  const [cdEqmtHeat, setCdEqmtHeat] = useState(codes[location.state.defaults.cd_eqmt_heat].name);
-  const [cdEqmtCool, setCdEqmtCool] = useState(codes[location.state.defaults.cd_eqmt_cool].name);
+  const [cdEqmt, setCdEqmt] = useState(codes[location.state.defaults.cd_eqmt].name);
+  // Eqmt 하나로 운영 -- dukhyun
+  //const [cdEqmtCool, setCdEqmtCool] = useState(codes[location.state.defaults.cd_eqmt_cool].name);
   const [effcyHeat, setEffcyHeat] = useState(location.state.defaults.effcy_heat);
   const [effcyCool, setEffcyCool] = useState(location.state.defaults.effcy_cool);
   const [cdEqmtLight, setCdEqmtLight] = useState(codes[location.state.defaults.cd_eqmt_light].name);
@@ -31,6 +32,7 @@ function Step2() {
   const [levelLight, setLevelLight] = useState(location.state.defaults.level_light);
 
   useEffect(() => {
+    console.log(defaults);
   });
   
   const submit = e => {
@@ -57,16 +59,17 @@ function Step2() {
     setShgc(e.target.value);
   }
 
-  const OnCdEqmtHeatChange = (e) => {
-    setCdEqmtHeat(e.target.value);
+  const OnCdEqmtChange = (e) => {
+    setCdEqmt(e.target.value);
   }
+
+  // Eqmt 하나로 운영 -- dukhyun
+  //const OnCdEqmtCoolChange = (e) => {
+  //  setCdEqmtCool(e.target.value);
+  //}
 
   const OnEffcyHeatChange = (e) => {
     setEffcyHeat(e.target.value);
-  }
-
-  const OnCdEqmtCoolChange = (e) => {
-    setCdEqmtCool(e.target.value);
   }
 
   const OnEffcyCoolChange = (e) => {
@@ -106,7 +109,7 @@ function Step2() {
   }
 
   const OnUWindowCheckboxClick = (e) => {
-    if (isetrUFloor === 0) {
+    if (isetrUWindow === 0) {
       setIsetrUWindow(1);
     } else {
       setIsetrUWindow(0);
@@ -114,7 +117,7 @@ function Step2() {
   }
 
   const OnUShgcCheckboxClick = (e) => {
-    if (isetrUFloor === 0) {
+    if (isetrShgc === 0) {
       setIsetrShgc(1);
     } else {
       setIsetrShgc(0);
@@ -184,7 +187,7 @@ function Step2() {
                         <label htmlFor="check2" onClick={OnURoofCheckboxClick}>직접입력 :</label>
                         <input
                           type="number"
-                          disabled={isetrUWall === 0 ? true : false}
+                          disabled={isetrURoof === 0 ? true : false}
                           value={uRoof}
                           placeholder="직접입력 하세요."
                           onChange={OnURoofChange}
@@ -210,7 +213,7 @@ function Step2() {
                         <label htmlFor="check3" onClick={OnUFloorCheckboxClick}>직접입력 :</label>
                         <input
                           type="number"
-                          disabled={isetrUWall === 0 ? true : false}
+                          disabled={isetrUFloor === 0 ? true : false}
                           value={uFloor}
                           placeholder="직접입력 하세요."
                           onChange={OnUFloorChange}
@@ -292,8 +295,8 @@ function Step2() {
                           type="radio"
                           name="tab1"
                           value="EHP"
-                          checked={cdEqmtHeat === "EHP"}
-                          onChange={OnCdEqmtHeatChange}
+                          checked={cdEqmt === "EHP"}
+                          onChange={OnCdEqmtChange}
                         />
                         <span>EHP</span>
                       </label>
@@ -303,8 +306,8 @@ function Step2() {
                           type="radio"
                           name="tab1"
                           value="중앙식"
-                          checked={cdEqmtHeat === "중앙식"}
-                          onChange={OnCdEqmtHeatChange}
+                          checked={cdEqmt === "중앙식"}
+                          onChange={OnCdEqmtChange}
                         />
                         <span>중앙식</span>
                       </label>
@@ -332,8 +335,8 @@ function Step2() {
                           type="radio"
                           name="tab2"
                           value="EHP"
-                          checked={cdEqmtCool === "EHP"}
-                          onChange={OnCdEqmtCoolChange}
+                          checked={cdEqmt === "EHP"}
+                          onChange={OnCdEqmtChange}
                         />
                         <span>EHP</span>
                       </label>
@@ -343,8 +346,8 @@ function Step2() {
                           type="radio"
                           name="tab2"
                           value="중앙식"
-                          checked={cdEqmtCool === "중앙식"}
-                          onChange={OnCdEqmtCoolChange}
+                          checked={cdEqmt === "중앙식"}
+                          onChange={OnCdEqmtChange}
                         />
                         <span>중앙식</span>
                       </label>
@@ -483,8 +486,9 @@ function Step2() {
                   isetrUFloor: isetrUFloor,
                   isetrUWindow: isetrUWindow,
                   isetrShgc: isetrShgc,
-                  cdEqmtHeat: cdEqmtHeat,
-                  cdEqmtCool: cdEqmtCool,
+                  cdEqmt: cdEqmt,
+                  //  Eqmtn 하나로 운영 -- dukhyun
+                  //cdEqmtCool: cdEqmtCool,
                   effcyHeat: effcyHeat,
                   effcyCool: effcyCool,
                   cdEqmtLight: cdEqmtLight,

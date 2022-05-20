@@ -229,7 +229,7 @@ function Step3() {
                 </div>
 
                 <div className={styles.wrap_box}>
-                  <label className={styles.title}>냉방설정온도(18℃~ 22℃)</label>
+                  <label className={styles.title}>냉방설정온도(24℃~ 28℃)</label>
                   <div className={styles.input_box_wrap}>
                     <input type="number" 
                       placeholder="직접입력"
@@ -241,7 +241,7 @@ function Step3() {
                 </div>
 
                 <div className={styles.wrap_box}>
-                  <label className={styles.title}>난방설정온도(24℃~ 28℃)</label>
+                  <label className={styles.title}>난방설정온도(18℃~ 22℃)</label>
                   <div className={styles.input_box_wrap}>
                     <input type="number" 
                       placeholder="직접입력"
