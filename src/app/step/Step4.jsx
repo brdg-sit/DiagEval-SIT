@@ -104,9 +104,52 @@ function Step4() {
     updateState({});
   }
 
-  const OnNextButtonClick = (e) => {
+  const GetUserEnter= () => {
+    var userEnter = {};
+    userEnter["address"] = location.state.stateHistory[1].address;
+    userEnter["cd_north_axis"] = location.state.stateHistory[1].cdNorthAxis;
+    userEnter["cd_usage_main"] = location.state.stateHistory[1].cdUsageMain;
+    userEnter["usage_sub"] = location.state.stateHistory[1].usageSub;
+    userEnter["year"] = location.state.stateHistory[1].year;
+    userEnter["area"] = location.state.stateHistory[1].area;
+    userEnter["wwr"] = location.state.stateHistory[1].wwr;
+    userEnter["isetr_wwr"] = location.state.stateHistory[1].isEtrWwr;
+    userEnter["aspect_ratio"] = location.state.stateHistory[1].aspectRatio;
+    userEnter["isetr_aspect_ratio"] = location.state.stateHistory[1].isEtrAspectRatio;
+    userEnter["area_etr"] = location.state.stateHistory[1].etrArea;
+    userEnter["u_wall"] = location.state.stateHistory[2].uWall;
+    userEnter["u_roof"] = location.state.stateHistory[2].uRoof;
+    userEnter["u_floor"] = location.state.stateHistory[2].uFloor;
+    userEnter["u_window"] = location.state.stateHistory[2].uWindow;
+    userEnter["shgc"] = location.state.stateHistory[2].shgc;
+    userEnter["cd_eqmt"] = location.state.stateHistory[2].cdEqmt;
+    userEnter["effcy_heat"] = location.state.stateHistory[2].effcyHeat;
+    userEnter["effcy_cool"] = location.state.stateHistory[2].effcyCool;
+    userEnter["cd_eqmt_light"] = location.state.stateHistory[2].cdEqmtLight;
+    userEnter["level_light"] = location.state.stateHistory[2].levelLight;
+    userEnter["isetr_light"] = location.state.stateHistory[2].isetrLight;
+    userEnter["isetr_u_wall"] = location.state.stateHistory[2].isetrUWall;
+    userEnter["isetr_u_roof"] = location.state.stateHistory[2].isetrURoof;
+    userEnter["isetr_u_floor"] = location.state.stateHistory[2].isetrUFloor;
+    userEnter["isetr_u_window"] = location.state.stateHistory[2].isetrUWindow;
+    userEnter["isetr_shgc"] = location.state.stateHistory[2].isetrShgc;
+    userEnter["hur_wday"] = location.state.stateHistory[3].hurWday;
+    userEnter["hur_wend"] = location.state.stateHistory[3].hurWend;
+    userEnter["men_rsdt"] = location.state.stateHistory[3].menRsdt;
+    userEnter["men_norsdt"] = location.state.stateHistory[3].menNorsdt;
+    userEnter["temp_heat"] = location.state.stateHistory[3].tempHeat;
+    userEnter["temp_cool"] = location.state.stateHistory[3].tempCool;
+    userEnter["cd_unitgas"] =  location.state.stateHistory[3].typeVal;
 
-    Data.InsertEnergyUsage();
+    return userEnter;
+  }
+
+  const OnNextButtonClick = (e) => {
+    var userEnter = GetUserEnter();
+
+    // userEnter[]
+    Data.InsertUserEnter(userEnter);
+    //Data.InsertUsgTypes();
 
     navigate('/step5', {
       state: {
@@ -251,7 +294,7 @@ function Step4() {
             </button>
             <button
               className={styles.submit}
-              onClick={() => OnNextButtonClick}
+              onClick={OnNextButtonClick}
             >
               다음으로
             </button>
