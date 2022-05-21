@@ -30,6 +30,7 @@ function Step1() {
   useEffect(() => {
     if (isLoaded !== true) {
       if(location.state !== null){
+        location.state.stateHistory[2] = location.state;
         RetrieveData(location.state.stateHistory[1]);
         setIsLoaded(true);
       }
@@ -50,6 +51,7 @@ function Step1() {
   };
 
   const RetrieveData = (state) => {
+    setStateHistory(state.stateHistory);
     setCodes(state.codes);
     setDefaults(state.defaults);
     setAddress(state.address);

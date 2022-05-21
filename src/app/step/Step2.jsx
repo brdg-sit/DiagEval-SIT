@@ -37,8 +37,12 @@ function Step2() {
     if (isLoaded !== true) {
       if(location.state.stepNum === 1){
         location.state.stateHistory[1] = location.state;
+        if(location.state.stateHistory[2] != undefined){
+          RetrieveData(location.state.stateHistory[2]);
+        }
       }
       if(location.state.stepNum === 3){
+        location.state.stateHistory[3] = location.state;
         RetrieveData(location.state.stateHistory[2]);
       }
       setIsLoaded(true);
@@ -50,6 +54,7 @@ function Step2() {
   }
 
   const RetrieveData = (state) => {
+    setStateHistory(state.stateHistory);
     setUWall(state.uWall);
     setURoof(state.uRoof);
     setUFloor(state.uFloor);
@@ -513,12 +518,30 @@ function Step2() {
               className={styles.backBtn}
               onClick={() =>
                 navigate('/step1', {
-                state: {
-                  codes: codes,
-                  defaults: defaults,
-                  stepNum: stepNum,
-                  stateHistory: location.state.stateHistory
-                }
+                  state: {
+                    stepNum: stepNum,
+                    stateHistory: location.state.stateHistory,
+                    codes: codes,
+                    defaults: defaults,
+                    uWall: uWall,
+                    uRoof: uRoof,
+                    uFloor: uFloor,
+                    uWindow: uWindow,
+                    shgc: shgc,
+                    isetrUWall: isetrUWall,
+                    isetrURoof: isetrURoof,
+                    isetrUFloor: isetrUFloor,
+                    isetrUWindow: isetrUWindow,
+                    isetrShgc: isetrShgc,
+                    cdEqmt: cdEqmt,
+                    //  Eqmtn 하나로 운영 -- dukhyun
+                    //cdEqmtCool: cdEqmtCool,
+                    effcyHeat: effcyHeat,
+                    effcyCool: effcyCool,
+                    cdEqmtLight: cdEqmtLight,
+                    isetrLight: isetrLight,
+                    levelLight: levelLight
+                  }
               })}
             >
               이전으로

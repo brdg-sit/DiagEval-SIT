@@ -10,6 +10,7 @@ function Step3() {
 
   const [stepNum, setStepNum] = useState(3);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [stateHistory, setStateHistory] = useState(location.state.stateHistory);
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
   const [hurWday, setHurWday] = useState(''+location.state.defaults.hur_wday);
@@ -24,8 +25,12 @@ function Step3() {
     if (isLoaded !== true) {
       if(location.state.stepNum === 2){
         location.state.stateHistory[2] = location.state;
+        if(location.state.stateHistory[3] != undefined){
+          RetrieveData(location.state.stateHistory[3]);
+        }
       }
       if(location.state.stepNum === 4){
+        location.state.stateHistory[4] = location.state;
         RetrieveData(location.state.stateHistory[3]);
       }
       setIsLoaded(true);
@@ -37,6 +42,7 @@ function Step3() {
   }
 
   const RetrieveData = (state) => {
+    setStateHistory(state.stateHistory);
     setHurWday(state.hurWday);
     setHurWend(state.hurWend);
     setAllDay(state.allDay);
@@ -284,12 +290,19 @@ function Step3() {
               className={styles.backBtn}
               onClick={() =>
                 navigate('/step2', {
-                state: {
-                  codes: codes,
-                  defaults: defaults,
-                  stepNum: stepNum,
-                  stateHistory: location.state.stateHistory
-                }
+                  state: {
+                    stepNum: stepNum,
+                    stateHistory: location.state.stateHistory,
+                    codes: codes,
+                    defaults: defaults,
+                    hurWday: hurWday,
+                    hurWend: hurWend,
+                    allDay: allDay,
+                    menRsdt: menRsdt,
+                    menNorsdt: menNorsdt,
+                    tempCool: tempCool,
+                    tempHeat: tempHeat
+                  }
               })}
             >
               이전으로

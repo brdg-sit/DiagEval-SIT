@@ -4,7 +4,7 @@ import { CategoryScale } from 'chart.js'
 import Chart from 'chart.js/auto'
 Chart.register(CategoryScale)
 
-function Chart1() {
+function Chart1(props) {
   const options = {
     plugins: {
       legend: {
@@ -47,7 +47,21 @@ function Chart1() {
     ],
     datasets: [
       {
-        data: [1, 2, 3, 5, 0.5, 4, 3.5, 2, 3, 1, 5, 4.5], // 수치
+        data: 
+        [
+          props.electricData["01월"], 
+          props.electricData["02월"], 
+          props.electricData["03월"], 
+          props.electricData["04월"], 
+          props.electricData["05월"], 
+          props.electricData["06월"], 
+          props.electricData["07월"], 
+          props.electricData["08월"], 
+          props.electricData["09월"], 
+          props.electricData["10월"], 
+          props.electricData["11월"], 
+          props.electricData["12월"]
+        ], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 12,
         barPercentage: 0.5,

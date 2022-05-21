@@ -11,25 +11,70 @@ function Step4() {
   const navigate = useNavigate()
   const location = useLocation();
 
+  const [electricData, setElectricData] = useState({});
+  const [gasData, setGasData] = useState({});
+
+  const [, updateState] = React.useState();
+  //const forceUpdate = React.useCallback(() => updateState({}), []);
   const [stepNum, setStepNum] = useState(4);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [step1States, setStep1States] = useState(location.state.step1States);
-  const [step2States, setStep2States] = useState(location.state.step2States);
-  const [step3States, setStep3States] = useState(location.state);
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
-  const [idElec, setIdElect] = useState(location.state.defaults.id_elec);
-  const [idGas, setIdGas] = useState(location.state.defaults.id_gas);
+  const [stateHistory, setStateHistory] = useState(location.state.stateHistory);
+  
+  //TBL_USER_ENTER 에 삽입하는 값.
+  const [idElec, setIdElect] = useState(location.state.defaults.id);
+  const [idGas, setIdGas] = useState(location.state.defaults.id);
   const [cdUnitgas, setCdUnitGas] = useState(location.state.defaults.cd_unitgas);
-  const [idEnt, setIdEnt] = useState(location.state.defaults.id_ent);
-  const [typEngy, setTypEngy] = useState(location.state.defaults.typ_engy);
-  const [mnth, setMnth] = useState(location.state.defaults.mnth);
-  const [load, setLoad] = useState(location.state.defaults.load);
+  const [idEnt, setIdEnt] = useState(location.state.defaults.id);
+
+  //TBL_LOAD_ENERGY 에 삾입하는 값.
+  const [typEngy, setTypEngy] = useState();
+  const [mnth, setMnth] = useState();
+  const [load, setLoad] = useState();
+  const [unit, setUnit] = useState();
 
   useEffect(() => {
     if (isLoaded !== true) {
       if(location.state.stepNum === 3){
         location.state.stateHistory[3] = location.state;
+        if(location.state.stateHistory[4] != undefined){
+          RetrieveData(location.state.stateHistory[4]);
+        }
+        else{
+          const electricTemplate = {
+            '01월': 0,
+            '02월': 0,
+            '03월': 0,
+            '04월': 0,
+            '05월': 0,
+            '06월': 0,
+            '07월': 0,
+            '08월': 0,
+            '09월': 0,
+            '10월': 0,
+            '11월': 0,
+            '12월': 0
+          }
+
+          const gasTemplate = {
+            '01월': 0,
+            '02월': 0,
+            '03월': 0,
+            '04월': 0,
+            '05월': 0,
+            '06월': 0,
+            '07월': 0,
+            '08월': 0,
+            '09월': 0,
+            '10월': 0,
+            '11월': 0,
+            '12월': 0
+          }
+
+          setElectricData(electricTemplate);
+          setGasData(gasTemplate);
+        }
       }
       if(location.state.stepNum === 5){
         RetrieveData(location.state.stateHistory[4]);
@@ -43,48 +88,25 @@ function Step4() {
   }
 
   const RetrieveData = (state) => {
-
+    setStateHistory(state.stateHistory);
+    setElectricData(state.electricData);
+    setGasData(state.gasData);
+    setTypeVal(state.typeVal);
   }
 
-  const GetEnergyConsumption = async () => {
-    await Data.GetUsgTypes({id: 1}).then((usgTypes) => {
-      console.log(usgTypes);
-    });
+  const OnElectricConsumptionChange = (e) => {
+    electricData[e.target.name] = parseInt(e.target.value, 10);
+    updateState({});
+  }
+
+  const OnGasConsumptionChange = (e) => {
+    gasData[e.target.name] = parseInt(e.target.value, 10);
+    updateState({});
   }
 
   //   가스사용량 단위 탭
   const [typeVal, setTypeVal] = useState('mj')
-  const valData = {
-    val1: [
-      { name: '01월', value: '' },
-      { name: '02월', value: '' },
-      { name: '03월', value: '' },
-      { name: '04월', value: '' },
-      { name: '05월', value: '' },
-      { name: '06월', value: '' },
-      { name: '07월', value: '' },
-      { name: '08월', value: '' },
-      { name: '09월', value: '' },
-      { name: '10월', value: '' },
-      { name: '11월', value: '' },
-      { name: '12월', value: '' },
-    ],
-    val2: [
-      { name: '01월', value: '' },
-      { name: '02월', value: '' },
-      { name: '03월', value: '' },
-      { name: '04월', value: '' },
-      { name: '05월', value: '' },
-      { name: '06월', value: '' },
-      { name: '07월', value: '' },
-      { name: '08월', value: '' },
-      { name: '09월', value: '' },
-      { name: '10월', value: '' },
-      { name: '11월', value: '' },
-      { name: '12월', value: '' },
-    ],
-  }
-
+  
   return (
     <main className={stepStyles.step_wrapper}>
       <section className={stepStyles.step_container}>
@@ -100,13 +122,12 @@ function Step4() {
                 </div>
 
                 <ul className={styles.val_wrap}>
-                  {valData.val1.map((item, i) => {
+                  {Object.keys(electricData).map((item, i) => {
                     return (
                       <li key={i}>
-                        <p>{item.name}</p>
-
+                        <p>{item}</p>
                         <div className={styles.valBox}>
-                          <input type="number" placeholder="직접입력" />
+                          <input type="number" name={item} value={electricData[item]} onChange={OnElectricConsumptionChange} placeholder="직접입력" />
                           <span>kWh</span>
                         </div>
                       </li>
@@ -148,13 +169,13 @@ function Step4() {
                 </div>
 
                 <ul className={styles.val_wrap}>
-                  {valData.val2.map((item, i) => {
+                  {Object.keys(gasData).map((item, i) => {
                     return (
                       <li key={i}>
-                        <p>{item.name}</p>
+                        <p>{item}</p>
 
                         <div className={styles.valBox}>
-                          <input type="number" placeholder="직접입력" />
+                          <input type="number" name={item} value={gasData[item]} onChange={OnGasConsumptionChange} placeholder="직접입력" />
                           <span>{typeVal === 'mj' ? 'mJ' : 'm³'}</span>
                         </div>
                       </li>
@@ -173,7 +194,7 @@ function Step4() {
                 </div>
 
                 <div className={styles.val_wrap}>
-                  <Chart1 />
+                  <Chart1 electricData={electricData}/>
                 </div>
               </div>
 
@@ -181,11 +202,11 @@ function Step4() {
               <div className={styles.content_wrap}>
                 <div className={styles.title_label}>
                   <aside />
-                  냉난방 설정온도
+                  월별 가스 사용량
                 </div>
 
                 <div className={styles.val_wrap}>
-                  <Chart2 />
+                  <Chart2 gasData={gasData}/>
                 </div>
               </div>
             </div>
@@ -202,7 +223,10 @@ function Step4() {
                   codes: codes,
                   defaults: defaults,
                   stepNum: stepNum,
-                  stateHistory: location.state.stateHistory
+                  stateHistory: location.state.stateHistory,
+                  electricData: electricData,
+                  gasData: gasData,
+                  typeVal: typeVal
                 }
               })}
             >
@@ -210,7 +234,18 @@ function Step4() {
             </button>
             <button
               className={styles.submit}
-              onClick={() => navigate('/step5')}
+              onClick={() =>
+                navigate('/step5', {
+                state: {
+                  codes: codes,
+                  defaults: defaults,
+                  stepNum: stepNum,
+                  stateHistory: location.state.stateHistory,
+                  electricData: electricData,
+                  gasData: gasData,
+                  typeVal: typeVal
+                }
+              })}
             >
               다음으로
             </button>
