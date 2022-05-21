@@ -38,7 +38,7 @@ function Step2() {
       if (location.state.stepNum === 1) {
         location.state.stateHistory[1] = location.state;
         if (location.state.stateHistory[2] !== undefined) {
-          RetrieveData(location.state.stateHistory[2]);
+          RetrieveData(location.state.stateHistory[2], true);
         }
       }
       if (location.state.stepNum === 3) {
@@ -53,13 +53,8 @@ function Step2() {
     e.preventDefault();
   };
 
-  const RetrieveData = (state) => {
+  const RetrieveData = (state, isFromStep1) => {
     setStateHistory(state.stateHistory);
-    setUWall(state.uWall);
-    setURoof(state.uRoof);
-    setUFloor(state.uFloor);
-    setUWindow(state.uWindow);
-    setShgc(state.shgc);
     setIsetrUWall(state.isetrUWall);
     setIsetrURoof(state.isetrURoof);
     setIsetrUFloor(state.isetrUFloor);
@@ -71,6 +66,32 @@ function Step2() {
     setCdEqmtLight(state.cdEqmtLight);
     setIsetrLight(state.isetrLight);
     setLevelLight(state.levelLight);
+
+    if(!isFromStep1){
+      setUWall(state.uWall);
+      setURoof(state.uRoof);
+      setUFloor(state.uFloor);
+      setUWindow(state.uWindow);
+      setShgc(state.shgc);
+    }
+    else{
+      if(state.isetrUWall){
+        setUWall(state.uWall);
+      }
+      if(state.isetrURoof){
+        setURoof(state.uRoof);
+      }
+      if(state.isetrUFloor){
+        setUFloor(state.uFloor);
+      }
+      if(state.isetrUWindow){
+        setUWindow(state.uWindow);
+      }
+      if(state.isetrShgc){
+        setShgc(state.shgc);
+      }
+    }
+
   };
 
   // year 값에 따라 u_values 가져오기 기능 -- dukhyun
