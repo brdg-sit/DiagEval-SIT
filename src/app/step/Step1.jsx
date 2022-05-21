@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./css/step1.module.css";
 import stepStyles from "./css/step-wrap.module.css";
 import StepHeader from "../common/StepHeader";
@@ -9,8 +9,11 @@ import Data from "../data/Data";
 
 function Step1() {
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const [stepNum, setStepNum] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [stateHistory, setStateHistory] = useState({});
   const [codes, setCodes] = useState({});
   const [defaults, setDefaults] = useState({});
   const [address, setAddress] = useState("");
@@ -26,18 +29,40 @@ function Step1() {
 
   useEffect(() => {
     if (isLoaded !== true) {
-      SetCodes();
-      //코드 정보가 들어오면 기본값 세팅.
-      if (Object.keys(codes).length > 0) {
-        SetDefaultData();
+      if(location.state !== null){
+        RetrieveData(location.state.stateHistory[1]);
         setIsLoaded(true);
       }
+      else{
+        SetCodes();
+        //코드 정보가 들어오면 기본값 세팅.
+        if (Object.keys(codes).length > 0) {
+          SetDefaultData();
+          setIsLoaded(true);
+        }
+      }
+      
     }
   });
 
   const submit = (e) => {
     e.preventDefault();
   };
+
+  const RetrieveData = (state) => {
+    setCodes(state.codes);
+    setDefaults(state.defaults);
+    setAddress(state.address);
+    setCdNorthAxis(state.cdNorthAxis);
+    setCdUsageMain(state.cdUsageMain);
+    setUsageSub(state.usageSub);
+    setYear(state.year);
+    setArea(state.area);
+    setWwr(state.wwr);
+    setIsetrWwr(state.isEtrWwr);
+    setAspectRatio(state.aspectRatio);
+    setIsetrAspectRatio(state.isEtrAspectRatio);
+  }
 
   const SetCodes = async () => {
     await Data.GetCodes().then((codes) => {
@@ -272,8 +297,13 @@ function Step1() {
                     <p>60%</p>
                   </div>
                   <div className={styles.input_box_wrap}>
-                    <input type="checkbox" id="check1" />
-                    <label htmlFor="check1" onClick={OnWwrCheckboxClicked}>
+                    <input type="checkbox" 
+                      id="check1"
+                      checked={isEtrWwr === 0 ? false : true} 
+                      onChange={() => console.log('')}/>
+                    <label 
+                      htmlFor="check1" 
+                      onClick={OnWwrCheckboxClicked}>
                       직접입력 :
                     </label>{" "}
                     &nbsp;&nbsp;
@@ -300,11 +330,13 @@ function Step1() {
                     <p>1:1.91</p>
                   </div>
                   <div className={styles.input_box_wrap}>
-                    <input type="checkbox" id="check2" />
+                    <input type="checkbox" 
+                      checked={isEtrAspectRatio === 0 ? false : true} 
+                      id="check2" 
+                      onChange={() => console.log('')}/>
                     <label
                       htmlFor="check2"
-                      onClick={OnAspectRatioCheckboxClicked}
-                    >
+                      onClick={OnAspectRatioCheckboxClicked}>
                       직접입력 :&nbsp;&nbsp;
                     </label>
                     <span>1:</span>
@@ -335,9 +367,10 @@ function Step1() {
               onClick={() =>
                 navigate("/step2", {
                   state: {
-                    isLoaded: isLoaded,
+                    stepNum: stepNum,
                     codes: codes,
                     defaults: defaults,
+                    stateHistory: stateHistory,
                     address: address,
                     cdNorthAxis: cdNorthAxis,
                     cdUsageMain: cdUsageMain,

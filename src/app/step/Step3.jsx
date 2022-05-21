@@ -8,8 +8,8 @@ function Step3() {
   const navigate = useNavigate()
   const location = useLocation();
 
-  const [step1States, setStep1States] = useState(location.state.step1States);
-  const [step2States, setStep2States] = useState(location.state);
+  const [stepNum, setStepNum] = useState(3);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
   const [hurWday, setHurWday] = useState(''+location.state.defaults.hur_wday);
@@ -20,8 +20,30 @@ function Step3() {
   const [tempCool, setTempCool] = useState(location.state.defaults.temp_cool);
   const [tempHeat, setTempHeat] = useState(location.state.defaults.temp_heat);
 
+  useEffect(() => {
+    if (isLoaded !== true) {
+      if(location.state.stepNum === 2){
+        location.state.stateHistory[2] = location.state;
+      }
+      if(location.state.stepNum === 4){
+        RetrieveData(location.state.stateHistory[3]);
+      }
+      setIsLoaded(true);
+    }
+  });
+
   const submit = e => {
     e.preventDefault()
+  }
+
+  const RetrieveData = (state) => {
+    setHurWday(state.hurWday);
+    setHurWend(state.hurWend);
+    setAllDay(state.allDay);
+    setMenRsdt(state.menRsdt);
+    setMenNorsdt(state.menNorsdt);
+    setTempCool(state.tempCool);
+    setTempHeat(state.tempHeat);
   }
 
   const OnHurWdayChange = (e) => {
@@ -260,7 +282,15 @@ function Step3() {
             <button
               type="submit"
               className={styles.backBtn}
-              onClick={() => navigate(-1)}
+              onClick={() =>
+                navigate('/step2', {
+                state: {
+                  codes: codes,
+                  defaults: defaults,
+                  stepNum: stepNum,
+                  stateHistory: location.state.stateHistory
+                }
+              })}
             >
               이전으로
             </button>
@@ -269,8 +299,8 @@ function Step3() {
               onClick={() => 
                 navigate('/step4', {
                 state: {
-                  step1States: step1States,
-                  step2States: step2States,
+                  stepNum: stepNum,
+                  stateHistory: location.state.stateHistory,
                   codes: codes,
                   defaults: defaults,
                   hurWday: hurWday,

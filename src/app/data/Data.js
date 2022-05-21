@@ -20,4 +20,19 @@ const GetCodes = () => {
     }
 }
 
+const GetUsgTypes = (id) => {
+    try{
+        const headers = {'Content-Type': 'application/json'}
+        const response = axios.post(baseuri + 'typload',  id , {headers: headers})
+            .then(function a(response){
+                if(response!=undefined){
+                    return response;
+                }
+            });
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
 export default {GetDefaults, GetCodes}

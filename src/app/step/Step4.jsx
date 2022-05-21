@@ -1,15 +1,55 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, {useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Chart1 from './Charts/step4/Chart1'
 import Chart2 from './Charts/step4/Chart2'
 import styles from './css/step4.module.css'
 import stepStyles from './css/step-wrap.module.css'
 import StepHeader from '../common/StepHeader'
+import Data from "../data/Data";
 
 function Step4() {
   const navigate = useNavigate()
+  const location = useLocation();
+
+  const [stepNum, setStepNum] = useState(4);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [step1States, setStep1States] = useState(location.state.step1States);
+  const [step2States, setStep2States] = useState(location.state.step2States);
+  const [step3States, setStep3States] = useState(location.state);
+  const [codes, setCodes] = useState(location.state.codes);
+  const [defaults, setDefaults] = useState(location.state.defaults);
+  const [idElec, setIdElect] = useState(location.state.defaults.id_elec);
+  const [idGas, setIdGas] = useState(location.state.defaults.id_gas);
+  const [cdUnitgas, setCdUnitGas] = useState(location.state.defaults.cd_unitgas);
+  const [idEnt, setIdEnt] = useState(location.state.defaults.id_ent);
+  const [typEngy, setTypEngy] = useState(location.state.defaults.typ_engy);
+  const [mnth, setMnth] = useState(location.state.defaults.mnth);
+  const [load, setLoad] = useState(location.state.defaults.load);
+
+  useEffect(() => {
+    if (isLoaded !== true) {
+      if(location.state.stepNum === 3){
+        location.state.stateHistory[3] = location.state;
+      }
+      if(location.state.stepNum === 5){
+        RetrieveData(location.state.stateHistory[4]);
+      }
+      setIsLoaded(true);
+    }
+  });
+
   const submit = e => {
     e.preventDefault()
+  }
+
+  const RetrieveData = (state) => {
+
+  }
+
+  const GetEnergyConsumption = async () => {
+    await Data.GetUsgTypes({id: 1}).then((usgTypes) => {
+      console.log(usgTypes);
+    });
   }
 
   //   가스사용량 단위 탭
@@ -156,7 +196,15 @@ function Step4() {
             <button
               type="submit"
               className={styles.backBtn}
-              onClick={() => navigate(-1)}
+              onClick={() =>
+                navigate('/step3', {
+                state: {
+                  codes: codes,
+                  defaults: defaults,
+                  stepNum: stepNum,
+                  stateHistory: location.state.stateHistory
+                }
+              })}
             >
               이전으로
             </button>

@@ -9,7 +9,9 @@ function Step2() {
   const navigate = useNavigate()
   const location = useLocation();
 
-  const [step1States, setStep1States] = useState(location.state);
+  const [stepNum, setStepNum] = useState(2);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [stateHistory, setStateHistory] = useState(location.state.stateHistory);
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
   const [uWall, setUWall] = useState(location.state.defaults.u_wall);
@@ -32,11 +34,38 @@ function Step2() {
   const [levelLight, setLevelLight] = useState(location.state.defaults.level_light);
 
   useEffect(() => {
-    console.log(defaults);
+    if (isLoaded !== true) {
+      if(location.state.stepNum === 1){
+        location.state.stateHistory[1] = location.state;
+      }
+      if(location.state.stepNum === 3){
+        RetrieveData(location.state.stateHistory[2]);
+      }
+      setIsLoaded(true);
+    }
   });
   
   const submit = e => {
     e.preventDefault()
+  }
+
+  const RetrieveData = (state) => {
+    setUWall(state.uWall);
+    setURoof(state.uRoof);
+    setUFloor(state.uFloor);
+    setUWindow(state.uWindow);
+    setShgc(state.shgc);
+    setIsetrUWall(state.isetrUWall);
+    setIsetrURoof(state.isetrURoof);
+    setIsetrUFloor(state.isetrUFloor);
+    setIsetrUWindow(state.isetrUWindow);
+    setIsetrShgc(state.isetrShgc);
+    setCdEqmt(state.cdEqmt);
+    setEffcyHeat(state.effcyHeat);
+    setEffcyCool(state.effcyCool);
+    setCdEqmtLight(state.cdEqmtLight);
+    setIsetrLight(state.isetrLight);
+    setLevelLight(state.levelLight);
   }
 
   const OnUWallChange = (e) => {
@@ -157,7 +186,10 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" id="check1" />
+                        <input type="checkbox" 
+                          id="check1"
+                          checked={isetrUWall === 0 ? false : true} 
+                          onChange={() => console.log('')}/>
                         <label htmlFor="check1" onClick={OnUWallCheckboxClick}>직접입력 :</label>
                         <input
                           type="number"
@@ -183,7 +215,10 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" id="check2" />
+                        <input type="checkbox" 
+                          id="check2"
+                          checked={isetrURoof === 0 ? false : true} 
+                          onChange={() => console.log('')}/>
                         <label htmlFor="check2" onClick={OnURoofCheckboxClick}>직접입력 :</label>
                         <input
                           type="number"
@@ -209,7 +244,10 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" id="check3" />
+                        <input type="checkbox" 
+                          id="check3"
+                          checked={isetrUFloor === 0 ? false : true} 
+                          onChange={() => console.log('')}/>
                         <label htmlFor="check3" onClick={OnUFloorCheckboxClick}>직접입력 :</label>
                         <input
                           type="number"
@@ -235,7 +273,10 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" id="check4" />
+                        <input type="checkbox" 
+                          id="check4"
+                          checked={isetrUWindow === 0 ? false : true} 
+                          onChange={() => console.log('')}/>
                         <label htmlFor="check4" onClick={OnUWindowCheckboxClick}>직접입력 :</label>
                         <input
                           type="number"
@@ -260,7 +301,10 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" id="check5" />
+                        <input type="checkbox" 
+                          id="check5"
+                          checked={isetrShgc === 0 ? false : true} 
+                          onChange={() => console.log('')}/>
                         <label htmlFor="check5" onClick={OnUShgcCheckboxClick}>직접입력 :</label>
                         <input
                           type="number"
@@ -443,7 +487,10 @@ function Step2() {
 
                 <div className={styles.input_wrapper}>
                   <div className={styles.input_box_wrap}>
-                    <input type="checkbox" id="tab" />
+                    <input type="checkbox" 
+                      id="tab"
+                      checked={isetrLight === 0 ? false : true} 
+                      onChange={() => console.log('')}/>
                     <label htmlFor="tab" onClick={OnLevelLightCheckboxClick}>직접입력 :</label>
                     <input
                           type="number"
@@ -464,7 +511,15 @@ function Step2() {
             <button
               type="submit"
               className={styles.backBtn}
-              onClick={() => navigate(-1)}
+              onClick={() =>
+                navigate('/step1', {
+                state: {
+                  codes: codes,
+                  defaults: defaults,
+                  stepNum: stepNum,
+                  stateHistory: location.state.stateHistory
+                }
+              })}
             >
               이전으로
             </button>
@@ -473,7 +528,8 @@ function Step2() {
               onClick={() => 
                 navigate('/step3', {
                 state: {
-                  step1States: step1States,
+                  stepNum: stepNum,
+                  stateHistory: location.state.stateHistory,
                   codes: codes,
                   defaults: defaults,
                   uWall: uWall,
