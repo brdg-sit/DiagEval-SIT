@@ -104,6 +104,23 @@ function Step4() {
     updateState({});
   }
 
+  const OnNextButtonClick = (e) => {
+
+    Data.InsertEnergyUsage();
+
+    navigate('/step5', {
+      state: {
+        codes: codes,
+        defaults: defaults,
+        stepNum: stepNum,
+        stateHistory: location.state.stateHistory,
+        electricData: electricData,
+        gasData: gasData,
+        typeVal: typeVal
+      }
+    })
+  }
+
   //   가스사용량 단위 탭
   const [typeVal, setTypeVal] = useState('mj')
   
@@ -234,18 +251,7 @@ function Step4() {
             </button>
             <button
               className={styles.submit}
-              onClick={() =>
-                navigate('/step5', {
-                state: {
-                  codes: codes,
-                  defaults: defaults,
-                  stepNum: stepNum,
-                  stateHistory: location.state.stateHistory,
-                  electricData: electricData,
-                  gasData: gasData,
-                  typeVal: typeVal
-                }
-              })}
+              onClick={() => OnNextButtonClick}
             >
               다음으로
             </button>

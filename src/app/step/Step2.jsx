@@ -14,11 +14,11 @@ function Step2() {
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
   const [yearUValues, setYearUValues] = useState(location.state.yearUValues);
-  const [uWall, setUWall] = useState(location.state.defaults.u_wall);
-  const [uRoof, setURoof] = useState(location.state.defaults.u_roof);
-  const [uFloor, setUFloor] = useState(location.state.defaults.u_floor);
-  const [uWindow, setUWindow] = useState(location.state.defaults.u_window);
-  const [shgc, setShgc] = useState(location.state.defaults.shgc);
+  const [uWall, setUWall] = useState(location.state.uWall);
+  const [uRoof, setURoof] = useState(location.state.uRoof);
+  const [uFloor, setUFloor] = useState(location.state.uFloor);
+  const [uWindow, setUWindow] = useState(location.state.uWindow);
+  const [shgc, setShgc] = useState(location.state.shgc);
   const [isetrUWall, setIsetrUWall] = useState(location.state.defaults.isetr_u_wall);
   const [isetrURoof, setIsetrURoof] = useState(location.state.defaults.isetr_u_roof);
   const [isetrUFloor, setIsetrUFloor] = useState(location.state.defaults.isetr_u_floor);
@@ -37,7 +37,6 @@ function Step2() {
     if (isLoaded !== true) {
       if (location.state.stepNum === 1) {
         location.state.stateHistory[1] = location.state;
-        console.log("handleYearUValues");
         if (location.state.stateHistory[2] !== undefined) {
           RetrieveData(location.state.stateHistory[2]);
         }
@@ -78,23 +77,23 @@ function Step2() {
   // 1. 적용 못함
   // 2. step2 들어올때마다 무조건 적용하면 안됨
   // 3. [직접입력] 한 경우리면 그 값 재외하고 나머지 적용
-  const handleYearUValues = (y, u) => {
-    console.log("handleYearUValues");
-    const year = location.state.year;
-    const uvals = location.state.yearUValues;
+  // const handleYearUValues = (y, u) => {
+  //   console.log("handleYearUValues");
+  //   const year = location.state.year;
+  //   const uvals = location.state.yearUValues;
 
-    for (let i = 0; i < uvals.length; i++) {
-      const uval = u[i];
-      if (uval.year_stt <= year && year <= uval.year_end) {
-        setUWall(Number(uval.u_wall.toFixed(3)));
-        setURoof(Number(uval.u_roof.toFixed(3)));
-        setUFloor(Number(uval.u_floor.toFixed(3)));
-        setUWindow(Number(uval.u_window.toFixed(3)));
-        setShgc(Number(uval.shgc.toFixed(3)));
-        break;
-      }
-    }
-  };
+  //   for (let i = 0; i < uvals.length; i++) {
+  //     const uval = u[i];
+  //     if (uval.year_stt <= year && year <= uval.year_end) {
+  //       setUWall(Number(uval.u_wall.toFixed(3)));
+  //       setURoof(Number(uval.u_roof.toFixed(3)));
+  //       setUFloor(Number(uval.u_floor.toFixed(3)));
+  //       setUWindow(Number(uval.u_window.toFixed(3)));
+  //       setShgc(Number(uval.shgc.toFixed(3)));
+  //       break;
+  //     }
+  //   }
+  // };
 
   const OnUWallChange = (e) => {
     setUWall(e.target.value);

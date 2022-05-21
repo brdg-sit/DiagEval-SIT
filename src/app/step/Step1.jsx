@@ -28,6 +28,11 @@ function Step1() {
   const [isEtrWwr, setIsetrWwr] = useState(0);
   const [aspectRatio, setAspectRatio] = useState("");
   const [isEtrAspectRatio, setIsetrAspectRatio] = useState(0);
+  // const [uWall, setUWall] = useState(0);
+  // const [uRoof, setURoof] = useState(0);
+  // const [uFloor, setUFloor] = useState(0);
+  // const [uWindow, setUWindow] = useState(0);
+  // const [shgc, setShgc] = useState(0);
 
   useEffect(() => {
     if (isLoaded !== true) {
@@ -164,6 +169,54 @@ function Step1() {
       setIsetrAspectRatio(0);
     }
   };
+
+  const OnNextButtonClick = async (e) => {
+    await Data.GetUValues().then((uval) => {
+      var data = uval.data;
+
+      var uWall = 0;
+      var uRoof = 0;
+      var uFloor = 0;
+      var uWindow = 0;
+      var shgc = 0;
+
+      for(var i=0; i<data.length; i++){
+        if(data[i].year_stt <= year && year <= data[i].year_end){
+          uWall = data[i].u_wall.toFixed(3);
+          uRoof = data[i].u_roof.toFixed(3);
+          uFloor = data[i].u_floor.toFixed(3);
+          uWindow = data[i].u_window.toFixed(3);
+          shgc = data[i].shgc.toFixed(3);
+        }
+      }
+
+      navigate("/step2", {
+        state: {
+          stepNum: stepNum,
+          codes: codes,
+          defaults: defaults,
+          yearUValues: yearUValues,
+          stateHistory: stateHistory,
+          address: address,
+          cdNorthAxis: cdNorthAxis,
+          cdUsageMain: cdUsageMain,
+          usageSub: usageSub,
+          year: year,
+          area: area,
+          etrArea: etrArea,
+          wwr: wwr,
+          isEtrWwr: isEtrWwr,
+          aspectRatio: aspectRatio,
+          isEtrAspectRatio: isEtrAspectRatio,
+          uWall: uWall,
+          uRoof: uRoof,
+          uFloor: uFloor,
+          uWindow: uWindow,
+          shgc: shgc
+        },
+      })
+    });
+  }
 
   return (
     <main className={stepStyles.step_wrapper}>
@@ -396,28 +449,7 @@ function Step1() {
             </button>
             <button
               className={styles.submit}
-              onClick={() =>
-                navigate("/step2", {
-                  state: {
-                    stepNum: stepNum,
-                    codes: codes,
-                    defaults: defaults,
-                    yearUValues: yearUValues,
-                    stateHistory: stateHistory,
-                    address: address,
-                    cdNorthAxis: cdNorthAxis,
-                    cdUsageMain: cdUsageMain,
-                    usageSub: usageSub,
-                    year: year,
-                    area: area,
-                    etrArea: etrArea,
-                    wwr: wwr,
-                    isEtrWwr: isEtrWwr,
-                    aspectRatio: aspectRatio,
-                    isEtrAspectRatio: isEtrAspectRatio,
-                  },
-                })
-              }
+              onClick={OnNextButtonClick}
             >
               다음으로
             </button>

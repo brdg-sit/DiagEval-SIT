@@ -44,4 +44,8 @@ const GetUsgTypes = (id) => {
     }
 }
 
-export default {GetDefaults, GetCodes, GetUValues}
+const InsertEnergyUsage = () => {
+
+}
+
+export default {GetDefaults, GetCodes, GetUValues, InsertEnergyUsage}
