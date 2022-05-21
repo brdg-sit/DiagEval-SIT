@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from 'react-router-dom'
-import StepHeader from '../common/StepHeader'
-import styles from './css/step2.module.css'
-import stepStyles from './css/step-wrap.module.css'
+import { useNavigate, useLocation } from "react-router-dom";
+import StepHeader from "../common/StepHeader";
+import styles from "./css/step2.module.css";
+import stepStyles from "./css/step-wrap.module.css";
 
 function Step2() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
 
   const [stepNum, setStepNum] = useState(2);
@@ -14,6 +13,7 @@ function Step2() {
   const [stateHistory, setStateHistory] = useState(location.state.stateHistory);
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
+  const [yearUValues, setYearUValues] = useState(location.state.yearUValues);
   const [uWall, setUWall] = useState(location.state.defaults.u_wall);
   const [uRoof, setURoof] = useState(location.state.defaults.u_roof);
   const [uFloor, setUFloor] = useState(location.state.defaults.u_floor);
@@ -22,7 +22,7 @@ function Step2() {
   const [isetrUWall, setIsetrUWall] = useState(location.state.defaults.isetr_u_wall);
   const [isetrURoof, setIsetrURoof] = useState(location.state.defaults.isetr_u_roof);
   const [isetrUFloor, setIsetrUFloor] = useState(location.state.defaults.isetr_u_floor);
-  const [isetrUWindow, setIsetrUWindow] = useState(location.state.defaults.isetr_u_window); 
+  const [isetrUWindow, setIsetrUWindow] = useState(location.state.defaults.isetr_u_window);
   const [isetrShgc, setIsetrShgc] = useState(location.state.defaults.isetr_shgc);
   const [cdEqmt, setCdEqmt] = useState(codes[location.state.defaults.cd_eqmt].name);
   // Eqmt 하나로 운영 -- dukhyun
@@ -35,23 +35,24 @@ function Step2() {
 
   useEffect(() => {
     if (isLoaded !== true) {
-      if(location.state.stepNum === 1){
+      if (location.state.stepNum === 1) {
         location.state.stateHistory[1] = location.state;
-        if(location.state.stateHistory[2] != undefined){
+        console.log("handleYearUValues");
+        if (location.state.stateHistory[2] !== undefined) {
           RetrieveData(location.state.stateHistory[2]);
         }
       }
-      if(location.state.stepNum === 3){
+      if (location.state.stepNum === 3) {
         location.state.stateHistory[3] = location.state;
         RetrieveData(location.state.stateHistory[2]);
       }
       setIsLoaded(true);
     }
   });
-  
-  const submit = e => {
-    e.preventDefault()
-  }
+
+  const submit = (e) => {
+    e.preventDefault();
+  };
 
   const RetrieveData = (state) => {
     setStateHistory(state.stateHistory);
@@ -71,31 +72,53 @@ function Step2() {
     setCdEqmtLight(state.cdEqmtLight);
     setIsetrLight(state.isetrLight);
     setLevelLight(state.levelLight);
-  }
+  };
+
+  // year 값에 따라 u_values 가져오기 기능 -- dukhyun
+  // 1. 적용 못함
+  // 2. step2 들어올때마다 무조건 적용하면 안됨
+  // 3. [직접입력] 한 경우리면 그 값 재외하고 나머지 적용
+  const handleYearUValues = (y, u) => {
+    console.log("handleYearUValues");
+    const year = location.state.year;
+    const uvals = location.state.yearUValues;
+
+    for (let i = 0; i < uvals.length; i++) {
+      const uval = u[i];
+      if (uval.year_stt <= year && year <= uval.year_end) {
+        setUWall(Number(uval.u_wall.toFixed(3)));
+        setURoof(Number(uval.u_roof.toFixed(3)));
+        setUFloor(Number(uval.u_floor.toFixed(3)));
+        setUWindow(Number(uval.u_window.toFixed(3)));
+        setShgc(Number(uval.shgc.toFixed(3)));
+        break;
+      }
+    }
+  };
 
   const OnUWallChange = (e) => {
     setUWall(e.target.value);
-  }
+  };
 
   const OnURoofChange = (e) => {
     setURoof(e.target.value);
-  }
+  };
 
   const OnUFloorChange = (e) => {
     setUFloor(e.target.value);
-  }
+  };
 
   const OnUWindowChange = (e) => {
     setUWindow(e.target.value);
-  }
+  };
 
   const OnUShgcChange = (e) => {
     setShgc(e.target.value);
-  }
+  };
 
   const OnCdEqmtChange = (e) => {
     setCdEqmt(e.target.value);
-  }
+  };
 
   // Eqmt 하나로 운영 -- dukhyun
   //const OnCdEqmtCoolChange = (e) => {
@@ -104,11 +127,11 @@ function Step2() {
 
   const OnEffcyHeatChange = (e) => {
     setEffcyHeat(e.target.value);
-  }
+  };
 
   const OnEffcyCoolChange = (e) => {
     setEffcyCool(e.target.value);
-  }
+  };
 
   const OnCdEqmtLightChange = (e) => {
     setCdEqmtLight(e.target.value);
@@ -116,7 +139,7 @@ function Step2() {
 
   const OnLevelLightChange = (e) => {
     setLevelLight(e.target.value);
-  }
+  };
 
   const OnUWallCheckboxClick = (e) => {
     if (isetrUWall === 0) {
@@ -124,7 +147,7 @@ function Step2() {
     } else {
       setIsetrUWall(0);
     }
-  }
+  };
 
   const OnURoofCheckboxClick = (e) => {
     if (isetrURoof === 0) {
@@ -132,7 +155,7 @@ function Step2() {
     } else {
       setIsetrURoof(0);
     }
-  }
+  };
 
   const OnUFloorCheckboxClick = (e) => {
     if (isetrUFloor === 0) {
@@ -140,7 +163,7 @@ function Step2() {
     } else {
       setIsetrUFloor(0);
     }
-  }
+  };
 
   const OnUWindowCheckboxClick = (e) => {
     if (isetrUWindow === 0) {
@@ -148,7 +171,7 @@ function Step2() {
     } else {
       setIsetrUWindow(0);
     }
-  }
+  };
 
   const OnUShgcCheckboxClick = (e) => {
     if (isetrShgc === 0) {
@@ -156,7 +179,7 @@ function Step2() {
     } else {
       setIsetrShgc(0);
     }
-  }
+  };
 
   const OnLevelLightCheckboxClick = (e) => {
     if (isetrLight === 0) {
@@ -164,7 +187,7 @@ function Step2() {
     } else {
       setIsetrLight(0);
     }
-  }
+  };
 
   return (
     <main className={stepStyles.step_wrapper}>
@@ -191,11 +214,15 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" 
+                        <input
+                          type="checkbox"
                           id="check1"
-                          checked={isetrUWall === 0 ? false : true} 
-                          onChange={() => console.log('')}/>
-                        <label htmlFor="check1" onClick={OnUWallCheckboxClick}>직접입력 :</label>
+                          checked={isetrUWall === 0 ? false : true}
+                          onChange={() => console.log("")}
+                        />
+                        <label htmlFor="check1" onClick={OnUWallCheckboxClick}>
+                          직접입력 :
+                        </label>
                         <input
                           type="number"
                           disabled={isetrUWall === 0 ? true : false}
@@ -220,11 +247,15 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" 
+                        <input
+                          type="checkbox"
                           id="check2"
-                          checked={isetrURoof === 0 ? false : true} 
-                          onChange={() => console.log('')}/>
-                        <label htmlFor="check2" onClick={OnURoofCheckboxClick}>직접입력 :</label>
+                          checked={isetrURoof === 0 ? false : true}
+                          onChange={() => console.log("")}
+                        />
+                        <label htmlFor="check2" onClick={OnURoofCheckboxClick}>
+                          직접입력 :
+                        </label>
                         <input
                           type="number"
                           disabled={isetrURoof === 0 ? true : false}
@@ -249,11 +280,15 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" 
+                        <input
+                          type="checkbox"
                           id="check3"
-                          checked={isetrUFloor === 0 ? false : true} 
-                          onChange={() => console.log('')}/>
-                        <label htmlFor="check3" onClick={OnUFloorCheckboxClick}>직접입력 :</label>
+                          checked={isetrUFloor === 0 ? false : true}
+                          onChange={() => console.log("")}
+                        />
+                        <label htmlFor="check3" onClick={OnUFloorCheckboxClick}>
+                          직접입력 :
+                        </label>
                         <input
                           type="number"
                           disabled={isetrUFloor === 0 ? true : false}
@@ -278,11 +313,18 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" 
+                        <input
+                          type="checkbox"
                           id="check4"
-                          checked={isetrUWindow === 0 ? false : true} 
-                          onChange={() => console.log('')}/>
-                        <label htmlFor="check4" onClick={OnUWindowCheckboxClick}>직접입력 :</label>
+                          checked={isetrUWindow === 0 ? false : true}
+                          onChange={() => console.log("")}
+                        />
+                        <label
+                          htmlFor="check4"
+                          onClick={OnUWindowCheckboxClick}
+                        >
+                          직접입력 :
+                        </label>
                         <input
                           type="number"
                           disabled={isetrUWindow === 0 ? true : false}
@@ -306,11 +348,15 @@ function Step2() {
 
                     <div className={styles.input_wrapper}>
                       <div className={styles.input_box_wrap}>
-                        <input type="checkbox" 
+                        <input
+                          type="checkbox"
                           id="check5"
-                          checked={isetrShgc === 0 ? false : true} 
-                          onChange={() => console.log('')}/>
-                        <label htmlFor="check5" onClick={OnUShgcCheckboxClick}>직접입력 :</label>
+                          checked={isetrShgc === 0 ? false : true}
+                          onChange={() => console.log("")}
+                        />
+                        <label htmlFor="check5" onClick={OnUShgcCheckboxClick}>
+                          직접입력 :
+                        </label>
                         <input
                           type="number"
                           disabled={isetrShgc === 0 ? true : false}
@@ -365,11 +411,11 @@ function Step2() {
                     <div className={styles.input_wrap_box2}>
                       <span>효율(COP) :</span>
                       <input
-                          type="number"
-                          value={effcyHeat}
-                          placeholder="직접입력 하세요."
-                          onChange={OnEffcyHeatChange}
-                        />
+                        type="number"
+                        value={effcyHeat}
+                        placeholder="직접입력 하세요."
+                        onChange={OnEffcyHeatChange}
+                      />
                     </div>
                   </div>
                 </div>
@@ -405,11 +451,11 @@ function Step2() {
                     <div className={styles.input_wrap_box2}>
                       <span>효율(COP) :</span>
                       <input
-                          type="number"
-                          value={effcyHeat}
-                          placeholder="직접입력 하세요."
-                          onChange={OnEffcyCoolChange}
-                        />
+                        type="number"
+                        value={effcyHeat}
+                        placeholder="직접입력 하세요."
+                        onChange={OnEffcyCoolChange}
+                      />
                     </div>
                   </div>
                 </div>
@@ -431,9 +477,7 @@ function Step2() {
                       checked={cdEqmtLight === "형광등(100%)"}
                       onChange={OnCdEqmtLightChange}
                     />
-                    <span>
-                      형광등 100%
-                    </span>
+                    <span>형광등 100%</span>
                   </label>
 
                   <label className={styles.tab}>
@@ -492,18 +536,22 @@ function Step2() {
 
                 <div className={styles.input_wrapper}>
                   <div className={styles.input_box_wrap}>
-                    <input type="checkbox" 
-                      id="tab"
-                      checked={isetrLight === 0 ? false : true} 
-                      onChange={() => console.log('')}/>
-                    <label htmlFor="tab" onClick={OnLevelLightCheckboxClick}>직접입력 :</label>
                     <input
-                          type="number"
-                          disabled={isetrLight === 0 ? true : false}
-                          value={levelLight}
-                          placeholder="직접입력 하세요."
-                          onChange={OnLevelLightChange}
-                      />
+                      type="checkbox"
+                      id="tab"
+                      checked={isetrLight === 0 ? false : true}
+                      onChange={() => console.log("")}
+                    />
+                    <label htmlFor="tab" onClick={OnLevelLightCheckboxClick}>
+                      직접입력 :
+                    </label>
+                    <input
+                      type="number"
+                      disabled={isetrLight === 0 ? true : false}
+                      value={levelLight}
+                      placeholder="직접입력 하세요."
+                      onChange={OnLevelLightChange}
+                    />
                   </div>
                   <span>W/㎡K</span>
                 </div>
@@ -517,7 +565,41 @@ function Step2() {
               type="submit"
               className={styles.backBtn}
               onClick={() =>
-                navigate('/step1', {
+                navigate("/step1", {
+                  state: {
+                    stepNum: stepNum,
+                    stateHistory: location.state.stateHistory,
+                    codes: codes,
+                    defaults: defaults,
+                    yearUValues: yearUValues,
+                    uWall: uWall,
+                    uRoof: uRoof,
+                    uFloor: uFloor,
+                    uWindow: uWindow,
+                    shgc: shgc,
+                    isetrUWall: isetrUWall,
+                    isetrURoof: isetrURoof,
+                    isetrUFloor: isetrUFloor,
+                    isetrUWindow: isetrUWindow,
+                    isetrShgc: isetrShgc,
+                    cdEqmt: cdEqmt,
+                    //  Eqmtn 하나로 운영 -- dukhyun
+                    //cdEqmtCool: cdEqmtCool,
+                    effcyHeat: effcyHeat,
+                    effcyCool: effcyCool,
+                    cdEqmtLight: cdEqmtLight,
+                    isetrLight: isetrLight,
+                    levelLight: levelLight,
+                  },
+                })
+              }
+            >
+              이전으로
+            </button>
+            <button
+              className={styles.submit}
+              onClick={() =>
+                navigate("/step3", {
                   state: {
                     stepNum: stepNum,
                     stateHistory: location.state.stateHistory,
@@ -540,42 +622,10 @@ function Step2() {
                     effcyCool: effcyCool,
                     cdEqmtLight: cdEqmtLight,
                     isetrLight: isetrLight,
-                    levelLight: levelLight
-                  }
-              })}
-            >
-              이전으로
-            </button>
-            <button
-              className={styles.submit}
-              onClick={() => 
-                navigate('/step3', {
-                state: {
-                  stepNum: stepNum,
-                  stateHistory: location.state.stateHistory,
-                  codes: codes,
-                  defaults: defaults,
-                  uWall: uWall,
-                  uRoof: uRoof,
-                  uFloor: uFloor,
-                  uWindow: uWindow,
-                  shgc: shgc,
-                  isetrUWall: isetrUWall,
-                  isetrURoof: isetrURoof,
-                  isetrUFloor: isetrUFloor,
-                  isetrUWindow: isetrUWindow,
-                  isetrShgc: isetrShgc,
-                  cdEqmt: cdEqmt,
-                  //  Eqmtn 하나로 운영 -- dukhyun
-                  //cdEqmtCool: cdEqmtCool,
-                  effcyHeat: effcyHeat,
-                  effcyCool: effcyCool,
-                  cdEqmtLight: cdEqmtLight,
-                  isetrLight: isetrLight,
-                  levelLight: levelLight
-                }
-              })
-            }
+                    levelLight: levelLight,
+                  },
+                })
+              }
             >
               다음으로
             </button>
@@ -583,7 +633,7 @@ function Step2() {
         </form>
       </section>
     </main>
-  )
+  );
 }
 
-export default Step2
+export default Step2;

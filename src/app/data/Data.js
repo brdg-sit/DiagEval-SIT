@@ -20,6 +20,15 @@ const GetCodes = () => {
     }
 }
 
+const GetUValues = () => {
+    try{
+        return axios.get(baseuri + 'uval');
+    }
+    catch(error){
+        console.error(error);
+    }
+}
+
 const GetUsgTypes = (id) => {
     try{
         const headers = {'Content-Type': 'application/json'}
@@ -35,4 +44,4 @@ const GetUsgTypes = (id) => {
     }
 }
 
-export default {GetDefaults, GetCodes}
+export default {GetDefaults, GetCodes, GetUValues}

@@ -16,12 +16,14 @@ function Step1() {
   const [stateHistory, setStateHistory] = useState({});
   const [codes, setCodes] = useState({});
   const [defaults, setDefaults] = useState({});
+  const [yearUValues, setYearUValues] = useState([]);
   const [address, setAddress] = useState("");
   const [cdNorthAxis, setCdNorthAxis] = useState("");
   const [cdUsageMain, setCdUsageMain] = useState("");
   const [usageSub, setUsageSub] = useState("");
   const [year, setYear] = useState("");
   const [area, setArea] = useState("");
+  const [etrArea, setEtrArea] = useState("");
   const [wwr, setWwr] = useState("");
   const [isEtrWwr, setIsetrWwr] = useState(0);
   const [aspectRatio, setAspectRatio] = useState("");
@@ -29,20 +31,19 @@ function Step1() {
 
   useEffect(() => {
     if (isLoaded !== true) {
-      if(location.state !== null){
+      if (location.state !== null){
         location.state.stateHistory[2] = location.state;
         RetrieveData(location.state.stateHistory[1]);
         setIsLoaded(true);
-      }
-      else{
+      } else {
         SetCodes();
         //코드 정보가 들어오면 기본값 세팅.
         if (Object.keys(codes).length > 0) {
           SetDefaultData();
+          SetYearUValues();
           setIsLoaded(true);
         }
       }
-      
     }
   });
 
@@ -54,17 +55,19 @@ function Step1() {
     setStateHistory(state.stateHistory);
     setCodes(state.codes);
     setDefaults(state.defaults);
+    setYearUValues(state.yearUValues);
     setAddress(state.address);
     setCdNorthAxis(state.cdNorthAxis);
     setCdUsageMain(state.cdUsageMain);
     setUsageSub(state.usageSub);
     setYear(state.year);
     setArea(state.area);
+    setEtrArea(state.etrArea);
     setWwr(state.wwr);
     setIsetrWwr(state.isEtrWwr);
     setAspectRatio(state.aspectRatio);
     setIsetrAspectRatio(state.isEtrAspectRatio);
-  }
+  };
 
   const SetCodes = async () => {
     await Data.GetCodes().then((codes) => {
@@ -85,10 +88,18 @@ function Step1() {
       setUsageSub(data.usage_sub);
       setYear(data.year);
       setArea(data.area);
+      setEtrArea(data.area_etr);
       setWwr(data.wwr);
       setAspectRatio(data.aspect_ratio);
       setIsetrWwr(data.isetr_wwr);
       setIsetrAspectRatio(data.isetr_aspect_ratio);
+    });
+  };
+
+  const SetYearUValues = async () => {
+    await Data.GetUValues().then((uvals) => {
+      var datas = uvals.data;
+      setYearUValues(datas);
     });
   };
 
@@ -110,8 +121,24 @@ function Step1() {
     setYear(e.target.value);
   };
 
+  // etrArea: 입력값, area: 범위에의한 변환 -- dukhyun
+  // 화면에 보여지는 것은 etrArea로. ML에서는 area로.
   const OnAreaChange = (e) => {
-    setArea(e.target.value);
+    setEtrArea(e.target.value);
+    setArea(handleArea(e.target.value));
+  };
+  const handleArea = (e) => {
+    let area = 0;
+    if (e < 1000) {
+      area = 1000;
+    } else if (1000 <= e && e < 3000) {
+      area = 1904;
+    } else if  (3000 <= e && e < 10000) {
+      area = 5703;
+    } else if  (e <= 10000) {
+      area = 26565;
+    }
+    return area;
   };
 
   const OnWwrChange = (e) => {
@@ -156,7 +183,7 @@ function Step1() {
                     type="text"
                     placeholder="주소를 검색하세요."
                     value={address}
-                    onChange={() => console.log('')}
+                    onChange={() => console.log("")}
                   />
                   <SearchPostcodeButton
                     address={address}
@@ -279,7 +306,7 @@ function Step1() {
                 <div className={styles.input_box_wrap2}>
                   <input
                     type="number"
-                    value={area}
+                    value={etrArea}
                     placeholder="연면적을 입력하세요."
                     onChange={OnAreaChange}
                   />
@@ -299,13 +326,13 @@ function Step1() {
                     <p>60%</p>
                   </div>
                   <div className={styles.input_box_wrap}>
-                    <input type="checkbox" 
+                    <input
+                      type="checkbox"
                       id="check1"
-                      checked={isEtrWwr === 0 ? false : true} 
-                      onChange={() => console.log('')}/>
-                    <label 
-                      htmlFor="check1" 
-                      onClick={OnWwrCheckboxClicked}>
+                      checked={isEtrWwr === 0 ? false : true}
+                      onChange={() => console.log("")}
+                    />
+                    <label htmlFor="check1" onClick={OnWwrCheckboxClicked}>
                       직접입력 :
                     </label>{" "}
                     &nbsp;&nbsp;
@@ -332,13 +359,16 @@ function Step1() {
                     <p>1:1.91</p>
                   </div>
                   <div className={styles.input_box_wrap}>
-                    <input type="checkbox" 
-                      checked={isEtrAspectRatio === 0 ? false : true} 
-                      id="check2" 
-                      onChange={() => console.log('')}/>
+                    <input
+                      type="checkbox"
+                      checked={isEtrAspectRatio === 0 ? false : true}
+                      id="check2"
+                      onChange={() => console.log("")}
+                    />
                     <label
                       htmlFor="check2"
-                      onClick={OnAspectRatioCheckboxClicked}>
+                      onClick={OnAspectRatioCheckboxClicked}
+                    >
                       직접입력 :&nbsp;&nbsp;
                     </label>
                     <span>1:</span>
@@ -372,6 +402,7 @@ function Step1() {
                     stepNum: stepNum,
                     codes: codes,
                     defaults: defaults,
+                    yearUValues: yearUValues,
                     stateHistory: stateHistory,
                     address: address,
                     cdNorthAxis: cdNorthAxis,
@@ -379,11 +410,12 @@ function Step1() {
                     usageSub: usageSub,
                     year: year,
                     area: area,
+                    etrArea: etrArea,
                     wwr: wwr,
                     isEtrWwr: isEtrWwr,
                     aspectRatio: aspectRatio,
-                    isEtrAspectRatio: isEtrAspectRatio
-                  }
+                    isEtrAspectRatio: isEtrAspectRatio,
+                  },
                 })
               }
             >
