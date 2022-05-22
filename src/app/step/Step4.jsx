@@ -216,8 +216,8 @@ function Step4() {
     return userEnter;
   }
 
-  // const baseuri = "https://sitapi.brdg.kr/api/sit/";
-  const baseuri = "https://localhost:7037/";
+  const baseuri = "https://sitapi.brdg.kr/api/sit/";
+  // const baseuri = "https://localhost:7037/";
 
   const InsertEnergyTypeIntoDB = (id_etr, electricDict, gasDict) => {
     var energyType = {};
