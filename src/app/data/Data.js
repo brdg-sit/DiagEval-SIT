@@ -48,10 +48,11 @@ const GetUsgTypes = (id) => {
 const InsertUserEnter = (userEnter) => {
     try{
         var userEnterValues = JSON.stringify(userEnter);
-        //const test = { Word1: "abc", Word2: "def", Word3: "ghi" };
-        const response = axios.post(baseuri + 'userenter', userEnterValues,
+       axios.post(baseuri + 'userenter', userEnterValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
-        )
+        ).then(response => {
+            return response.data
+        });
     }
     catch(error){
         console.error(error);

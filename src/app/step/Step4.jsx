@@ -6,6 +6,7 @@ import styles from './css/step4.module.css'
 import stepStyles from './css/step-wrap.module.css'
 import StepHeader from '../common/StepHeader'
 import Data from "../data/Data";
+import axios from 'axios'
 
 function Step4() {
   const navigate = useNavigate()
@@ -107,8 +108,37 @@ function Step4() {
   const GetUserEnter= () => {
     var userEnter = {};
     userEnter["address"] = location.state.stateHistory[1].address;
-    userEnter["cd_north_axis"] = location.state.stateHistory[1].cdNorthAxis;
-    userEnter["cd_usage_main"] = location.state.stateHistory[1].cdUsageMain;
+
+    var north_axis = location.state.stateHistory[1].cdNorthAxis;
+    var north_axis_code = 0;
+
+    if(north_axis === "남남서(남동동)"){
+      north_axis_code = 22.5;
+    }
+    else if(north_axis === "남서(남동)"){
+      north_axis_code = 45;
+    }
+    else if(north_axis === "서남서(동남동)"){
+      north_axis_code = 67.5;
+    }
+    else if(north_axis === "서(동)"){
+      north_axis_code = 90;
+    }
+    //남
+    else{
+      north_axis_code = 0;
+    }
+
+    userEnter["cd_north_axis"] = north_axis_code;
+
+    var usage_main = location.state.stateHistory[1].cdUsageMain;
+    var usage_main_code = 0;
+
+    if(usage_main === "업무시설"){
+      usage_main_code = 701;
+    }
+
+    userEnter["cd_usage_main"] = usage_main_code;
     userEnter["usage_sub"] = location.state.stateHistory[1].usageSub;
     userEnter["year"] = location.state.stateHistory[1].year;
     userEnter["area"] = location.state.stateHistory[1].area;
@@ -122,10 +152,41 @@ function Step4() {
     userEnter["u_floor"] = location.state.stateHistory[2].uFloor;
     userEnter["u_window"] = location.state.stateHistory[2].uWindow;
     userEnter["shgc"] = location.state.stateHistory[2].shgc;
-    userEnter["cd_eqmt"] = location.state.stateHistory[2].cdEqmt;
+
+    var eqmt = location.state.stateHistory[2].cdEqmt;
+    var eqmt_code = 0;
+
+    if(eqmt === "EHP"){
+      eqmt_code = 401;
+    }
+    else{
+      eqmt_code = 402
+    }
+
+    userEnter["cd_eqmt"] = eqmt_code;
     userEnter["effcy_heat"] = location.state.stateHistory[2].effcyHeat;
     userEnter["effcy_cool"] = location.state.stateHistory[2].effcyCool;
-    userEnter["cd_eqmt_light"] = location.state.stateHistory[2].cdEqmtLight;
+
+    var eqmt_light = location.state.stateHistory[2].cdEqmtLight;
+    var eqmt_light_code = 0;
+
+    if(eqmt_light === "LED(100%)"){
+      eqmt_light_code = 301;
+    }
+    else if(eqmt_light === "LED(75%) 형광등(25%)"){
+      eqmt_light_code = 302;
+    }
+    else if(eqmt_light === "LED(50%) 형광등(50%)"){
+      eqmt_light_code = 303;
+    }
+    else if(eqmt_light === "LED(25%) 형광등(75%)"){
+      eqmt_light_code = 304;
+    }
+    else{
+      eqmt_light_code = 305;
+    }
+
+    userEnter["cd_eqmt_light"] = eqmt_light_code;
     userEnter["level_light"] = location.state.stateHistory[2].levelLight;
     userEnter["isetr_light"] = location.state.stateHistory[2].isetrLight;
     userEnter["isetr_u_wall"] = location.state.stateHistory[2].isetrUWall;
@@ -139,33 +200,90 @@ function Step4() {
     userEnter["men_norsdt"] = location.state.stateHistory[3].menNorsdt;
     userEnter["temp_heat"] = location.state.stateHistory[3].tempHeat;
     userEnter["temp_cool"] = location.state.stateHistory[3].tempCool;
-    userEnter["cd_unitgas"] =  location.state.stateHistory[3].typeVal;
+
+    var unitgas = typeVal;
+    var unitgas_code = 0;
+
+    if(typeVal === 'MJ'){
+      unitgas_code = 201;
+    }
+    else if(typeVal ==='NM3'){
+      unitgas_code = 202;
+    }
+
+    userEnter["cd_unitgas"] =  unitgas_code;
 
     return userEnter;
+  }
+
+  const baseuri = "https://sitapi.brdg.kr/api/sit/";
+  // const baseuri = "https://localhost:7037/";
+
+  const InsertEnergyTypeIntoDB = (id_etr) => {
+    var electricDict = {};
+    var electricDataKeys = Object.keys(electricData)
+    for(var i=0; i<electricDataKeys.length; i++){
+      electricDict[electricDataKeys[i]] = electricData[electricDataKeys[i]];
+    }
+
+    var gasDict = {};
+    var gasDataKeys = Object.keys(gasData)
+    for(var i=0; i<gasDataKeys.length; i++){
+      gasDict[gasDataKeys[i]] = gasData[gasDataKeys[i]];
+    }
+
+    var energyType = {};
+
+    energyType["id_etr"] = id_etr;
+    energyType["unit_elec"] = 203;
+    energyType["unit_gas"] = (typeVal == "MJ") ? 201 : 202
+    energyType["elec_data"] = electricDict;
+    energyType["gas_data"] = gasDict;
+
+    try{
+      var energyTypeValues = JSON.stringify(energyType);
+      axios.post(baseuri + 'energytyp', energyTypeValues,
+            { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
+        ).then(response => {
+          console.log(response.data);
+        });
+    }
+    catch(error){
+        console.error(error);
+    }
   }
 
   const OnNextButtonClick = (e) => {
     var userEnter = GetUserEnter();
 
-    // userEnter[]
-    Data.InsertUserEnter(userEnter);
-    //Data.InsertUsgTypes();
+    try{
+      var userEnterValues = JSON.stringify(userEnter);
+      axios.post(baseuri + 'userenter', userEnterValues,
+            { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
+        ).then(response => {
+          var id_etr = response.data;
+          InsertEnergyTypeIntoDB(id_etr);
+        });
+    }
+    catch(error){
+        console.error(error);
+    }
 
-    navigate('/step5', {
-      state: {
-        codes: codes,
-        defaults: defaults,
-        stepNum: stepNum,
-        stateHistory: location.state.stateHistory,
-        electricData: electricData,
-        gasData: gasData,
-        typeVal: typeVal
-      }
-    })
+    // navigate('/step5', {
+    //   state: {
+    //     codes: codes,
+    //     defaults: defaults,
+    //     stepNum: stepNum,
+    //     stateHistory: location.state.stateHistory,
+    //     electricData: electricData,
+    //     gasData: gasData,
+    //     typeVal: typeVal
+    //   }
+    // })
   }
 
   //   가스사용량 단위 탭
-  const [typeVal, setTypeVal] = useState('mj')
+  const [typeVal, setTypeVal] = useState('MJ')
   
   return (
     <main className={stepStyles.step_wrapper}>
@@ -207,23 +325,23 @@ function Step4() {
                   <div className={styles.choice_wrap}>
                     <button
                       className={
-                        typeVal === 'mj'
+                        typeVal === 'MJ'
                           ? styles.tabType_active
                           : styles.tabType
                       }
-                      onClick={() => setTypeVal('mj')}
+                      onClick={() => setTypeVal('MJ')}
                     >
-                      mJ
+                      MJ
                     </button>
                     <button
                       className={
-                        typeVal !== 'mj'
+                        typeVal !== 'MJ'
                           ? styles.tabType_active
                           : styles.tabType
                       }
-                      onClick={() => setTypeVal('m3')}
+                      onClick={() => setTypeVal('NM3')}
                     >
-                      m³
+                      NM³
                     </button>
                   </div>
                 </div>
@@ -236,7 +354,7 @@ function Step4() {
 
                         <div className={styles.valBox}>
                           <input type="number" name={item} value={gasData[item]} onChange={OnGasConsumptionChange} placeholder="직접입력" />
-                          <span>{typeVal === 'mj' ? 'mJ' : 'm³'}</span>
+                          <span>{typeVal === 'MJ' ? 'MJ' : 'NM³'}</span>
                         </div>
                       </li>
                     )
