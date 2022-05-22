@@ -5,7 +5,40 @@ import { CategoryScale } from 'chart.js'
 import Chart from 'chart.js/auto'
 Chart.register(CategoryScale)
 
-function Chart2() {
+function Chart2(props) {
+
+  const GetLoadHeatData = () => {
+    var totalHeat = [];
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalHeat.push(props.energyUsage[i].load_heat);
+    }
+    return totalHeat;
+  }
+
+  const GetLoadCoolData = () => {
+    var totalCool = [];
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalCool.push(props.energyUsage[i].load_cool);
+    }
+    return totalCool;
+  }
+
+  const GetLoadBaseElecData = () => {
+    var totalBaseElec = [];
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalBaseElec.push(props.energyUsage[i].load_baseElec);
+    }
+    return totalBaseElec;
+  }
+
+  const GetLoadBaseGasData = () => {
+    var totalBaseGas = [];
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalBaseGas.push(props.energyUsage[i].load_baseGas);
+    }
+    return totalBaseGas;
+  }
+
   const options = {
     plugins: {
       legend: {
@@ -48,7 +81,7 @@ function Chart2() {
     ],
     datasets: [
       {
-        data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // 수치
+        data: GetLoadHeatData(), // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -58,7 +91,7 @@ function Chart2() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], // 수치
+        data: GetLoadCoolData(), // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -68,7 +101,7 @@ function Chart2() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], // 수치
+        data: GetLoadBaseElecData(), // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -78,7 +111,7 @@ function Chart2() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4], // 수치
+        data: GetLoadBaseGasData(), // 수치
         backgroundColor: '#FBCE48', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,

@@ -1,15 +1,51 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import styles from './css/step5.module.css'
 import stepStyles from './css/step-wrap.module.css'
 import StepHeader from '../common/StepHeader'
 import StepV1 from './step5-value/StepV1'
 import StepV2 from './step5-value/StepV2'
 import StepV3 from './step5-value/StepV3'
+import axios from 'axios'
 
 function Step5() {
-  const [step, setStep] = useState(0)
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [step, setStep] = useState(0);
+
+  const [stepNum, setStepNum] = useState(5);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [codes, setCodes] = useState(location.state.codes);
+  const [defaults, setDefaults] = useState(location.state.defaults);
+  const [stateHistory, setStateHistory] = useState(location.state.stateHistory);
+
+  const [energyUsage, setEnergyUsage] = useState({});
+  const [idEtr, setIdEtr] = useState(location.state.idEtr);
+
+  //const baseuri = "https://sitapi.brdg.kr/api/sit/";
+  const baseuri = "https://localhost:7037/";
+
+  useEffect(() => {
+    if(isLoaded !== true){
+      GetEnergyUsage();
+      setIsLoaded(true);
+    }
+  });
+
+  const GetEnergyUsage = async () => {
+    try{
+      axios.get(baseuri + 'get-energyusage', { 
+        params: {id_etr:idEtr}
+    })
+      .then((response) => {
+        setEnergyUsage(response.data);
+      });
+    }
+    catch(error){
+        console.error(error);
+    }
+  }
 
   const handleBtn = () => {
     if (step === 2) {
@@ -56,7 +92,15 @@ function Step5() {
           <button
             type="submit"
             className={styles.backBtn}
-            onClick={() => navigate(-1)}
+            onClick={() => {navigate('/step4', {
+              state: {
+                codes: codes,
+                defaults: defaults,
+                stepNum: stepNum,
+                stateHistory: location.state.stateHistory,
+
+              }
+            })}}
           >
             이전으로
           </button>
@@ -90,9 +134,9 @@ function Step5() {
           </div>
 
           <div className={styles.view_wrapper}>
-            {step === 0 && <StepV1 />}
-            {step === 1 && <StepV2 />}
-            {step === 2 && <StepV3 />}
+            {step === 0 && <StepV1 energyUsage={energyUsage} />}
+            {step === 1 && <StepV2 energyUsage={energyUsage} />}
+            {step === 2 && <StepV3 energyUsage={energyUsage} />}
           </div>
 
           {/* ==== 버튼 영역 ==== */}

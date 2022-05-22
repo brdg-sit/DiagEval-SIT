@@ -11,6 +11,7 @@ function Step1() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [, updateState] = React.useState();
   const [stepNum, setStepNum] = useState(1);
   const [isLoaded, setIsLoaded] = useState(false);
   const [stateHistory, setStateHistory] = useState({});

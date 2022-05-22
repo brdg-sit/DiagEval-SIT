@@ -3,7 +3,19 @@ import styles from '../css/step5.module.css'
 import Chart2 from '../Charts/step5/stepV1/Chart2'
 import Chart1 from '../Charts/step5/stepV1/Chart1'
 
-function StepV1() {
+function StepV1(props) {
+
+  if(Object.keys(props.energyUsage).length > 0){
+    var tableDataKeys = Object.keys(tableData.val[0]);
+  
+    for(var i=1; i<tableDataKeys.length; i++){
+      tableData.val[0][tableDataKeys[i]] = props.energyUsage[i-1].load_heat;
+      tableData.val[1][tableDataKeys[i]] = props.energyUsage[i-1].load_cool;
+      tableData.val[2][tableDataKeys[i]] = props.energyUsage[i-1].load_baseElec;
+      tableData.val[3][tableDataKeys[i]] = props.energyUsage[i-1].load_baseGas;
+    }
+  }
+
   return (
     <>
       <div className={styles.stepV1_wrappper}>
@@ -25,7 +37,7 @@ function StepV1() {
           </ul>
         </div>
         <div style={{ marginBottom: 50 }}>
-          <Chart1 />
+          <Chart1 energyUsage={props.energyUsage}/>
         </div>
 
         <div className={styles.title_wrap}>
@@ -46,11 +58,11 @@ function StepV1() {
           </ul>
         </div>
         <div className={styles.chart_wrap}>
-          <Chart2 />
+          <Chart2 energyUsage={props.energyUsage}/>
         </div>
 
         {/* 테이블 */}
-        <table className={styles.table_val} cellspacing="0">
+        <table className={styles.table_val} cellSpacing="0">
           {/* <thead>
             <tr align="center">
               <td></td>
@@ -96,64 +108,64 @@ export const chartLabel = [
 export const tableData = {
   val: [
     {
-      th: '난방',
-      t1: '00',
-      t2: '00',
-      t3: '00',
-      t4: '00',
-      t5: '00',
-      t6: '00',
-      t7: '00',
-      t8: '00',
-      t9: '00',
-      t10: '00',
-      t11: '00',
-      t12: '00',
+      "th": '난방',
+      "t1": '00',
+      "t2": '00',
+      "t3": '00',
+      "t4": '00',
+      "t5": '00',
+      "t6": '00',
+      "t7": '00',
+      "t8": '00',
+      "t9": '00',
+      "t10": '00',
+      "t11": '00',
+      "t12": '00',
     },
     {
-      th: '냉방',
-      t1: '00',
-      t2: '00',
-      t3: '00',
-      t4: '00',
-      t5: '00',
-      t6: '00',
-      t7: '00',
-      t8: '00',
-      t9: '00',
-      t10: '00',
-      t11: '00',
-      t12: '00',
+      "th": '냉방',
+      "t1": '00',
+      "t2": '00',
+      "t3": '00',
+      "t4": '00',
+      "t5": '00',
+      "t6": '00',
+      "t7": '00',
+      "t8": '00',
+      "t9": '00',
+      "t10": '00',
+      "t11": '00',
+      "t12": '00',
     },
     {
-      th: '기저',
-      t1: '00',
-      t2: '00',
-      t3: '00',
-      t4: '00',
-      t5: '00',
-      t6: '00',
-      t7: '00',
-      t8: '00',
-      t9: '00',
-      t10: '00',
-      t11: '00',
-      t12: '00',
+      "th": '기저',
+      "t1": '00',
+      "t2": '00',
+      "t3": '00',
+      "t4": '00',
+      "t5": '00',
+      "t6": '00',
+      "t7": '00',
+      "t8": '00',
+      "t9": '00',
+      "t10": '00',
+      "t11": '00',
+      "t12": '00',
     },
     {
-      th: '급탕/취사',
-      t1: '00',
-      t2: '00',
-      t3: '00',
-      t4: '00',
-      t5: '00',
-      t6: '00',
-      t7: '00',
-      t8: '00',
-      t9: '00',
-      t10: '00',
-      t11: '00',
-      t12: '00',
+      "th": '급탕/취사',
+      "t1": '00',
+      "t2": '00',
+      "t3": '00',
+      "t4": '00',
+      "t5": '00',
+      "t6": '00',
+      "t7": '00',
+      "t8": '00',
+      "t9": '00',
+      "t10": '00',
+      "t11": '00',
+      "t12": '00',
     },
   ],
 }

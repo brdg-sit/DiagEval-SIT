@@ -7,7 +7,40 @@ import Chart from 'chart.js/auto';
 // not working not showing
 Chart.register(CategoryScale, ChartDataLabels)
 
-function Chart1() {
+function Chart1(props) {
+
+  const GetLoadHeatData = () => {
+    var totalHeat = 0;
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalHeat += props.energyUsage[i].load_heat;
+    }
+    return [totalHeat];
+  }
+
+  const GetLoadCoolData = () => {
+    var totalCool = 0;
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalCool += props.energyUsage[i].load_cool;
+    }
+    return [totalCool];
+  }
+
+  const GetLoadBaseElecData = () => {
+    var totalBaseElec = 0;
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalBaseElec += props.energyUsage[i].load_baseElec;
+    }
+    return [totalBaseElec];
+  }
+
+  const GetLoadBaseGasData = () => {
+    var totalBaseGas = 0;
+    for(var i=0; i<props.energyUsage.length; i++){
+      totalBaseGas += props.energyUsage[i].load_baseGas;
+    }
+    return [totalBaseGas];
+  }
+
   const options = {
     indexAxis: 'y',
     elements: {
@@ -42,6 +75,7 @@ function Chart1() {
         },
       },
     },
+    maintainAspectRatio: true,
   }
 
   const data = {
@@ -49,7 +83,7 @@ function Chart1() {
     labels: ['항목1'],
     datasets: [
       {
-        data: [1], // 수치
+        data: GetLoadHeatData(), // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 24,
 
@@ -60,7 +94,7 @@ function Chart1() {
       },
 
       {
-        data: [2], // 수치
+        data: GetLoadCoolData(), // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 24,
         label: '냉방',
@@ -70,7 +104,7 @@ function Chart1() {
       },
 
       {
-        data: [3], // 수치
+        data: GetLoadBaseElecData(), // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 24,
         label: '기저',
@@ -79,7 +113,7 @@ function Chart1() {
       },
 
       {
-        data: [4], // 수치
+        data: GetLoadBaseGasData(), // 수치
         backgroundColor: '#FBCE48', // 각 막대 색
         barThickness: 24,
         barPercentage: 0.5,

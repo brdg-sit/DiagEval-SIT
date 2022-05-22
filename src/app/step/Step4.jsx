@@ -16,7 +16,7 @@ function Step4() {
   const [gasData, setGasData] = useState({});
 
   const [, updateState] = React.useState();
-  //const forceUpdate = React.useCallback(() => updateState({}), []);
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   const [stepNum, setStepNum] = useState(4);
   const [isLoaded, setIsLoaded] = useState(false);
   const [codes, setCodes] = useState(location.state.codes);
@@ -325,23 +325,24 @@ function Step4() {
             var gasEC = GetBaseConsumption(gasData);
             InsertEnergyUsageIntoDB(id_etr, gasEC, electricDict, gasDict, false);
           }
+
+          navigate('/step5', {
+            state: {
+              codes: codes,
+              defaults: defaults,
+              stepNum: stepNum,
+              stateHistory: location.state.stateHistory,
+              electricData: electricData,
+              gasData: gasData,
+              typeVal: typeVal,
+              idEtr: id_etr
+            }
+          })
         });
     }
     catch(error){
         console.error(error);
     }
-
-    // navigate('/step5', {
-    //   state: {
-    //     codes: codes,
-    //     defaults: defaults,
-    //     stepNum: stepNum,
-    //     stateHistory: location.state.stateHistory,
-    //     electricData: electricData,
-    //     gasData: gasData,
-    //     typeVal: typeVal
-    //   }
-    // })
   }
 
   //   가스사용량 단위 탭

@@ -30,6 +30,7 @@ const GetUValues = () => {
     }
 }
 
+
 const GetUsgTypes = (id) => {
     try{
         const headers = {'Content-Type': 'application/json'}
