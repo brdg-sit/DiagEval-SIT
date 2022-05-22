@@ -216,22 +216,10 @@ function Step4() {
     return userEnter;
   }
 
-  const baseuri = "https://sitapi.brdg.kr/api/sit/";
-  // const baseuri = "https://localhost:7037/";
+  // const baseuri = "https://sitapi.brdg.kr/api/sit/";
+  const baseuri = "https://localhost:7037/";
 
-  const InsertEnergyTypeIntoDB = (id_etr) => {
-    var electricDict = {};
-    var electricDataKeys = Object.keys(electricData)
-    for(var i=0; i<electricDataKeys.length; i++){
-      electricDict[electricDataKeys[i]] = electricData[electricDataKeys[i]];
-    }
-
-    var gasDict = {};
-    var gasDataKeys = Object.keys(gasData)
-    for(var i=0; i<gasDataKeys.length; i++){
-      gasDict[gasDataKeys[i]] = gasData[gasDataKeys[i]];
-    }
-
+  const InsertEnergyTypeIntoDB = (id_etr, electricDict, gasDict) => {
     var energyType = {};
 
     energyType["id_etr"] = id_etr;
@@ -253,6 +241,54 @@ function Step4() {
     }
   }
 
+  const InsertEnergyUsageIntoDB = (id_etr, baseEC, electricDict, gasDict, isEHP) => {
+
+    var energyUsage = {};
+
+    if(isEHP){
+      energyUsage["id_etr"] = id_etr;
+      energyUsage["base_ec"] = baseEC;
+      energyUsage["unit_elec"] = 203;
+      energyUsage["unit_gas"] = (typeVal == "MJ") ? 201 : 202
+      energyUsage["gas_data"] = gasDict;
+      energyUsage["elec_data"] = electricDict;
+      energyUsage["is_ehp"] = isEHP;
+    }
+    else{
+      energyUsage["id_etr"] = id_etr;
+      energyUsage["base_ec"] = baseEC;
+      energyUsage["unit_elec"] = 203;
+      energyUsage["unit_gas"] = (typeVal == "MJ") ? 201 : 202
+      energyUsage["gas_data"] = gasDict;
+      energyUsage["elec_data"] = electricDict;
+      energyUsage["is_ehp"] = isEHP;
+    }
+
+    try{
+      var energyUsageValues = JSON.stringify(energyUsage);
+      axios.post(baseuri + 'energyusage', energyUsageValues,
+            { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
+        ).then(response => {
+          console.log(response.data);
+        });
+    }
+    catch(error){
+        console.error(error);
+    }
+  }
+
+  const GetBaseConsumption = (data) => {
+    var dataKeys = Object.keys(data)
+    var lowestEC = data[dataKeys[0]];
+
+    for(var i=1; i<dataKeys.length; i++){
+      if(data[dataKeys[i]] < lowestEC){
+        lowestEC = data[dataKeys[i]];
+      }
+    }
+    return lowestEC;
+  }
+
   const OnNextButtonClick = (e) => {
     var userEnter = GetUserEnter();
 
@@ -262,7 +298,33 @@ function Step4() {
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
           var id_etr = response.data;
-          InsertEnergyTypeIntoDB(id_etr);
+
+          var electricDict = {};
+          var electricDataKeys = Object.keys(electricData)
+          for(var i=0; i<electricDataKeys.length; i++){
+            electricDict[electricDataKeys[i]] = electricData[electricDataKeys[i]];
+          }
+
+          var gasDict = {};
+          var gasDataKeys = Object.keys(gasData)
+          for(var i=0; i<gasDataKeys.length; i++){
+            gasDict[gasDataKeys[i]] = gasData[gasDataKeys[i]];
+          }
+
+          InsertEnergyTypeIntoDB(id_etr, electricDict, gasDict);
+          
+          var cd_eqmt = location.state.stateHistory[2].cdEqmt;
+
+          var baseEC = 0;
+
+          if(cd_eqmt === "EHP"){
+            var elecEC = GetBaseConsumption(electricData);
+            InsertEnergyUsageIntoDB(id_etr, elecEC, electricDict, gasDict, true);
+          }
+          else{
+            var gasEC = GetBaseConsumption(gasData);
+            InsertEnergyUsageIntoDB(id_etr, gasEC, electricDict, gasDict, false);
+          }
         });
     }
     catch(error){
