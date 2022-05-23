@@ -23,8 +23,8 @@ function Step5() {
   const [energyUsage, setEnergyUsage] = useState({});
   const [idEtr, setIdEtr] = useState(location.state.idEtr);
 
-  //const baseuri = "https://sitapi.brdg.kr/api/sit/";
-  const baseuri = "https://localhost:7037/";
+  const baseuri = "https://sitapi.brdg.kr/api/sit/";
+  // const baseuri = "https://localhost:7037/";
 
   useEffect(() => {
     if(isLoaded !== true){
