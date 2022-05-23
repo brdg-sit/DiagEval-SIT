@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import styles from './css/step5.module.css'
-import stepStyles from './css/step-wrap.module.css'
-import StepHeader from '../common/StepHeader'
-import StepV1 from './step5-value/StepV1'
-import StepV2 from './step5-value/StepV2'
-import StepV3 from './step5-value/StepV3'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from "./css/step5.module.css";
+import stepStyles from "./css/step-wrap.module.css";
+import StepHeader from "../common/StepHeader";
+import StepV1 from "./step5-value/StepV1";
+import StepV2 from "./step5-value/StepV2";
+import StepV3 from "./step5-value/StepV3";
+import axios from "axios";
 
 function Step5() {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function Step5() {
   // const baseuri = "https://localhost:7037/";
 
   useEffect(() => {
-    if(isLoaded !== true){
+    if (isLoaded !== true) {
       location.state.stateHistory[4] = location.state;
 
       GetEnergyUsage();
@@ -46,62 +46,62 @@ function Step5() {
   });
 
   const GetEnergyUsage = async () => {
-    try{
-      axios.get(baseuri + 'get-energyusage', { 
-        params: {id_etr:idEtr}
-    })
-      .then((response) => {
-        setEnergyUsage(response.data);
-      });
+    try {
+      axios
+        .get(baseuri + "get-energyusage", {
+          params: { id_etr: idEtr },
+        })
+        .then((response) => {
+          setEnergyUsage(response.data);
+        });
+    } catch (error) {
+      console.error(error);
     }
-    catch(error){
-        console.error(error);
-    }
-  }
+  };
 
   const GetEnergyUserML = async () => {
     //console.log("idEtr, area, eqmt", idEtr, area, eqmt)
-    try{
-      axios.get(baseuri + 'get-energyusage-ml', { 
-        params: {id_etr:idEtr, area:area, eqmt:eqmt}
-    })
-      .then((response) => {
-        setEnergyUserML(response.data);
-        //console.log("GetEnergyUserML response.data", response.data)
-      });
+    try {
+      axios
+        .get(baseuri + "get-energyusage-ml", {
+          params: { id_etr: idEtr, area: area, eqmt: eqmt },
+        })
+        .then((response) => {
+          setEnergyUserML(response.data);
+          //console.log("GetEnergyUserML response.data", response.data)
+        });
+    } catch (error) {
+      console.error(error);
     }
-    catch(error){
-        console.error(error);
-    }
-  }
+  };
 
   const GetEnergyStddML = async () => {
-    try{
-      axios.get(baseuri + 'get-energyusage', { 
-        params: {id_etr:idEtr, is_sep:"3"}
-    })
-      .then((response) => {
-        setEnergyStddML(response.data);
-      });
+    try {
+      axios
+        .get(baseuri + "get-energyusage", {
+          params: { id_etr: idEtr, is_sep: "3" },
+        })
+        .then((response) => {
+          setEnergyStddML(response.data);
+        });
+    } catch (error) {
+      console.error(error);
     }
-    catch(error){
-        console.error(error);
-    }
-  }
+  };
 
   const GetEnergyUsageAvg = async () => {
-    try{
-      axios.get(baseuri + 'get-energyusage-avg', { 
-        params: { area:area, eqmt:eqmt, wday:wday, wend:wend }
-    })
-      .then((response) => {
-        setEnergyUsageAvg(response.data);
-      });
+    try {
+      axios
+        .get(baseuri + "get-energyusage-avg", {
+          params: { area: area, eqmt: eqmt, wday: wday, wend: wend },
+        })
+        .then((response) => {
+          setEnergyUsageAvg(response.data);
+        });
+    } catch (error) {
+      console.error(error);
     }
-    catch(error){
-        console.error(error);
-    }
-  }
+  };
 
   const handleBtn = () => {
     if (step === 2) {
@@ -110,66 +110,68 @@ function Step5() {
           <button
             type="submit"
             className={styles.backBtn}
-            onClick={() => setStep(cur => cur - 1)}
+            onClick={() => setStep((cur) => cur - 1)}
           >
             이전으로
           </button>
           <button
             type="button"
             className={styles.submit}
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           >
             다음으로
           </button>
         </>
-      )
+      );
     } else if (step === 1) {
       return (
         <>
           <button
             type="submit"
             className={styles.backBtn}
-            onClick={() => setStep(cur => cur - 1)}
+            onClick={() => setStep((cur) => cur - 1)}
           >
             이전으로
           </button>
           <button
             type="button"
             className={styles.submit}
-            onClick={() => setStep(cur => cur + 1)}
+            onClick={() => setStep((cur) => cur + 1)}
           >
             다음으로
           </button>
         </>
-      )
+      );
     } else if (step === 0) {
       return (
         <>
           <button
             type="submit"
             className={styles.backBtn}
-            onClick={() => {navigate('/step4', {
-              state: {
-                codes: codes,
-                defaults: defaults,
-                stepNum: stepNum,
-                stateHistory: stateHistory
-              }
-            })}}
+            onClick={() => {
+              navigate("/step4", {
+                state: {
+                  codes: codes,
+                  defaults: defaults,
+                  stepNum: stepNum,
+                  stateHistory: stateHistory,
+                },
+              });
+            }}
           >
             이전으로
           </button>
           <button
             type="button"
             className={styles.submit}
-            onClick={() => setStep(cur => cur + 1)}
+            onClick={() => setStep((cur) => cur + 1)}
           >
             다음으로
           </button>
         </>
-      )
+      );
     }
-  }
+  };
 
   return (
     <main className={stepStyles.step_wrapper}>
@@ -190,29 +192,40 @@ function Step5() {
 
           <div className={styles.view_wrapper}>
             {step === 0 && <StepV1 energyUsage={energyUsage} />}
-            {step === 1 && <StepV2 energyUsage={energyUsage} energyUserML={energyUserML} />}
-            {step === 2 && <StepV3 energyUsage={energyUsage} energyUsageAvg={energyUsageAvg} />}
+            {step === 1 && (
+              <StepV2 energyUsage={energyUsage} energyUserML={energyUserML} />
+            )}
+            {step === 2 && (
+              <StepV3
+                energyUsage={energyUsage}
+                energyUsageAvg={energyUsageAvg}
+              />
+            )}
           </div>
 
           {/* ==== 버튼 영역 ==== */}
           <div className={styles.btn_wrap}>
             {handleBtn()}
-            <button type="button" className={styles.printBtn} onClick={() =>
-          navigate(
-            window.open(
-              '/print1',
-              '_blank',
-              'location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes'
-            )
-          )
-        }>
+            <button
+              type="button"
+              className={styles.printBtn}
+              onClick={() =>
+                navigate(
+                  window.open(
+                    "/print1",
+                    "_blank",
+                    "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
+                  )
+                )
+              }
+            >
               결과물 출력
             </button>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }
 
 export default Step5;
