@@ -113,20 +113,20 @@ function Step4() {
     var north_axis_code = 0;
 
     if(north_axis === "남남서(남동동)"){
-      north_axis_code = 22.5;
+      north_axis_code = 502;
     }
     else if(north_axis === "남서(남동)"){
-      north_axis_code = 45;
+      north_axis_code = 503;
     }
     else if(north_axis === "서남서(동남동)"){
-      north_axis_code = 67.5;
+      north_axis_code = 504;
     }
     else if(north_axis === "서(동)"){
-      north_axis_code = 90;
+      north_axis_code = 505;
     }
     //남
     else{
-      north_axis_code = 0;
+      north_axis_code = 501;
     }
 
     userEnter["cd_north_axis"] = north_axis_code;

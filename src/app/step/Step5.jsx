@@ -30,6 +30,7 @@ function Step5() {
     if(isLoaded !== true){
       GetEnergyUsage();
       setIsLoaded(true);
+      location.state.stateHistory[4] = location.state;
     }
   });
 
@@ -97,8 +98,7 @@ function Step5() {
                 codes: codes,
                 defaults: defaults,
                 stepNum: stepNum,
-                stateHistory: location.state.stateHistory,
-
+                stateHistory: stateHistory
               }
             })}}
           >
