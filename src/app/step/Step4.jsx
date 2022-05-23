@@ -288,6 +288,48 @@ function Step4() {
     }
     return lowestEC;
   }
+<<<<<<< HEAD
+=======
+
+  // ML INSERT -- dukhyun
+  const InsertMLIntoDB = (id_etr, userEnter, occupancy, pwr_eqmt) => {
+    var ml = {};
+
+    ml["id_etr"] = id_etr;
+    ml["year"] = userEnter["year"];
+    ml["cd_eqmt"] = userEnter["cd_eqmt"];
+    ml["area"] = userEnter["area"];
+    ml["aspect_ratio"] = userEnter["aspect_ratio"];
+    ml["effcy_cool"] = userEnter["effcy_cool"];
+    ml["pwr_eqmt"] = pwr_eqmt;
+    ml["effcy_heat"] = userEnter["effcy_heat"];
+    ml["level_light"] = userEnter["level_light"];
+    ml["cd_north_axis"] = userEnter["cd_north_axis"];
+    ml["occupancy"] = occupancy;
+    ml["shgc"] = userEnter["shgc"];
+    ml["u_wall"] = userEnter["u_wall"];
+    ml["u_roof"] = userEnter["u_roof"];
+    ml["u_floor"] = userEnter["u_floor"];
+    ml["u_window"] = userEnter["u_window"];
+    ml["hur_wday"] = userEnter["hur_wday"];
+    ml["hur_wend"] = userEnter["hur_wend"];
+    ml["wwr"] = userEnter["wwr"];
+    ml["effcy_heat"] = userEnter["effcy_heat"];
+    ml["effcy_cool"] = userEnter["effcy_cool"];
+
+    try{
+      var mlValues = JSON.stringify(ml);
+      axios.post(baseuri + 'ml', mlValues,
+            { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
+        ).then(response => {
+          console.log(response.data);
+        });
+    }
+    catch(error){
+        console.error(error);
+    }
+  };
+>>>>>>> d4c825b376437b2b2cd9bd1b8b37ee40688b2600
   
   const OnNextButtonClick = (e) => {
     var userEnter = GetUserEnter();
@@ -337,6 +379,9 @@ function Step4() {
             var gasEC = GetBaseConsumption(gasData);
             InsertEnergyUsageIntoDB(id_etr, gasEC, electricDict, gasDict, false);
           }
+
+          // ML INSERT -- dukhyun
+          InsertMLIntoDB(id_etr, userEnter, occupancy, pwr_eqmt);
 
           navigate('/step5', {
             state: {
