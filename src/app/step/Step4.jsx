@@ -289,8 +289,22 @@ function Step4() {
     return lowestEC;
   }
 
+
+  
   const OnNextButtonClick = (e) => {
     var userEnter = GetUserEnter();
+
+    // 알고리즘 부분
+    const men_rsdt = userEnter["men_rsdt"]
+    const men_norsdt = userEnter["men_norsdt"]
+    const area = userEnter["area"]
+    // 1)재실밀도
+    const occupancyA = men_rsdt / area;
+    const occupancyB = men_norsdt / area / 8;
+    const occupancy = occupancyA + occupancyB;
+    // 2)기기발열량
+    const pwr_eqmt = occupancyA * 250;
+    // TBL_ML 인서트 할때 occupancy, pwr_eqmt 가져가기
 
     try{
       var userEnterValues = JSON.stringify(userEnter);
@@ -486,4 +500,4 @@ function Step4() {
   )
 }
 
-export default Step4
+export default Step4;
