@@ -488,7 +488,7 @@ function Step4() {
               <div className={styles.content_wrap}>
                 <div className={styles.title_label}>
                   <aside />
-                  전기 월별 사용량
+                  월별 전기 사용량
                 </div>
 
                 <div className={styles.val_wrap}>

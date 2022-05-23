@@ -20,10 +20,10 @@ function Step5() {
   const [defaults, setDefaults] = useState(location.state.defaults);
   const [stateHistory, setStateHistory] = useState(location.state.stateHistory);
 
-  const [area, setArea] = useState("");
-  const [eqmt, setEqmt] = useState("");
-  const [hurWday, setHurWday] = useState("");
-  const [hurWend, setHurWend] = useState("");
+  const [area, setArea] = useState(location.state.stateHistory[1].area);
+  const [eqmt, setEqmt] = useState(location.state.stateHistory[2].cdEqmt);
+  const [wday, setHurWday] = useState(location.state.stateHistory[3].hurWday);
+  const [wend, setHurWend] = useState(location.state.stateHistory[3].hurWend);
   const [energyUsage, setEnergyUsage] = useState({});
   const [energyUserML, setEnergyUserML] = useState({});
   const [energyStddML, setEnergyStddML] = useState({});
@@ -35,18 +35,13 @@ function Step5() {
 
   useEffect(() => {
     if(isLoaded !== true){
-      GetEnergyUsage();
-      GetEnergyUserML();
-      GetEnergyStddML();
-      setIsLoaded(true);
       location.state.stateHistory[4] = location.state;
 
-      setArea(location.state.stateHistory[1].area)
-      setEqmt(location.state.stateHistory[2].cdEqmt)
-      setHurWday(location.state.stateHistory[3].hurWday)
-      setHurWend(location.state.stateHistory[3].hurWend)
-      
+      GetEnergyUsage();
+      GetEnergyUserML();
       GetEnergyUsageAvg();
+
+      setIsLoaded(true);
     }
   });
 
@@ -65,12 +60,14 @@ function Step5() {
   }
 
   const GetEnergyUserML = async () => {
+    //console.log("idEtr, area, eqmt", idEtr, area, eqmt)
     try{
       axios.get(baseuri + 'get-energyusage-ml', { 
         params: {id_etr:idEtr, area:area, eqmt:eqmt}
     })
       .then((response) => {
         setEnergyUserML(response.data);
+        //console.log("GetEnergyUserML response.data", response.data)
       });
     }
     catch(error){
@@ -95,7 +92,7 @@ function Step5() {
   const GetEnergyUsageAvg = async () => {
     try{
       axios.get(baseuri + 'get-energyusage-avg', { 
-        params: {area:area, eqmt:eqmt, wday:hurWday, wend:hurWend}
+        params: { area:area, eqmt:eqmt, wday:wday, wend:wend }
     })
       .then((response) => {
         setEnergyUsageAvg(response.data);
@@ -194,7 +191,7 @@ function Step5() {
           <div className={styles.view_wrapper}>
             {step === 0 && <StepV1 energyUsage={energyUsage} />}
             {step === 1 && <StepV2 energyUsage={energyUsage} energyUserML={energyUserML} />}
-            {step === 2 && <StepV3 energyUsage={energyUsage} energyStddML={energyUsageAvg} />}
+            {step === 2 && <StepV3 energyUsage={energyUsage} energyUsageAvg={energyUsageAvg} />}
           </div>
 
           {/* ==== 버튼 영역 ==== */}

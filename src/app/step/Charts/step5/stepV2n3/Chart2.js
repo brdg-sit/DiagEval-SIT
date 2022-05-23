@@ -58,7 +58,7 @@ function Chart2(props) {
         borderColor: "rgba(255, 255, 255, 0)",
       },
       {
-        data: props.energyStdd, // 수치
+        data: props.energyUsage2, // 수치
         backgroundColor: "#F18246", // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,

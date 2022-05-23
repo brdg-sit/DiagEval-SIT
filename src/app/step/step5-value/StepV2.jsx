@@ -136,7 +136,7 @@ function StepV2(props) {
             <aside />
             난방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyUserML={props.energyUserML.map((usg) => usg.load_heat)} />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyUsage2={props.energyUserML.map((usg) => usg.load_heat)} />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -144,7 +144,7 @@ function StepV2(props) {
             <aside />
             냉방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyUserML={props.energyUserML.map((usg) => usg.load_cool)}/>
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyUsage2={props.energyUserML.map((usg) => usg.load_cool)}/>
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -152,7 +152,7 @@ function StepV2(props) {
             <aside />
             기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyUserML={props.energyUserML.map((usg) => usg.load_baseElec)} />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyUsage2={props.energyUserML.map((usg) => usg.load_baseElec)} />
         </div>
       </div>
     </div>
