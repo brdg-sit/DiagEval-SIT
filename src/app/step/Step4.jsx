@@ -288,8 +288,6 @@ function Step4() {
     }
     return lowestEC;
   }
-
-
   
   const OnNextButtonClick = (e) => {
     var userEnter = GetUserEnter();
