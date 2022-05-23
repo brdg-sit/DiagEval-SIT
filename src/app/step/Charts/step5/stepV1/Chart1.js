@@ -68,7 +68,6 @@ function Chart1(props) {
       },
 
       X: {
-        max: 5,
         min: 0,
         ticks: {
           stepSize: 0.5,

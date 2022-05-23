@@ -288,8 +288,6 @@ function Step4() {
     }
     return lowestEC;
   }
-<<<<<<< HEAD
-=======
 
   // ML INSERT -- dukhyun
   const InsertMLIntoDB = (id_etr, userEnter, occupancy, pwr_eqmt) => {
@@ -300,9 +298,9 @@ function Step4() {
     ml["cd_eqmt"] = userEnter["cd_eqmt"];
     ml["area"] = userEnter["area"];
     ml["aspect_ratio"] = userEnter["aspect_ratio"];
-    ml["effcy_cool"] = userEnter["effcy_cool"];
+    ml["temp_cool"] = userEnter["temp_cool"];
     ml["pwr_eqmt"] = pwr_eqmt;
-    ml["effcy_heat"] = userEnter["effcy_heat"];
+    ml["temp_heat"] = userEnter["temp_heat"];
     ml["level_light"] = userEnter["level_light"];
     ml["cd_north_axis"] = userEnter["cd_north_axis"];
     ml["occupancy"] = occupancy;
@@ -318,18 +316,18 @@ function Step4() {
     ml["effcy_cool"] = userEnter["effcy_cool"];
 
     try{
-      var mlValues = JSON.stringify(ml);
+      var mlValues = JSON.stringify(ml);      
       axios.post(baseuri + 'ml', mlValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
           console.log(response.data);
+          return response.data;
         });
     }
     catch(error){
         console.error(error);
     }
   };
->>>>>>> d4c825b376437b2b2cd9bd1b8b37ee40688b2600
   
   const OnNextButtonClick = (e) => {
     var userEnter = GetUserEnter();
@@ -380,8 +378,10 @@ function Step4() {
             InsertEnergyUsageIntoDB(id_etr, gasEC, electricDict, gasDict, false);
           }
 
-          // ML INSERT -- dukhyun
-          InsertMLIntoDB(id_etr, userEnter, occupancy, pwr_eqmt);
+          // ML, ML_STANDARD INSERT -- dukhyun
+          // {"id_ml":80003,"id_ml_stdd":1} 이렇게 넘어옴
+          // id_ml: 사용자입력, id_ml_stdd: 일반사용형태
+          var json_id_ml_mlstdd = InsertMLIntoDB(id_etr, userEnter, occupancy, pwr_eqmt);
 
           navigate('/step5', {
             state: {
