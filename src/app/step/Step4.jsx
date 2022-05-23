@@ -320,7 +320,7 @@ function Step4() {
       axios.post(baseuri + 'ml', mlValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
-          console.log(response.data);
+          //console.log(response.data);
           return response.data;
         });
     }

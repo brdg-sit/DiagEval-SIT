@@ -5,7 +5,7 @@ import { CategoryScale } from 'chart.js'
 import Chart from 'chart.js/auto'
 Chart.register(CategoryScale)
 
-function Chart1() {
+function Chart1(props) {
   const options = {
     plugins: {
       legend: {

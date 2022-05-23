@@ -4,7 +4,7 @@ import styles from '../css/step5.module.css'
 import waitIcon from '../../../@assets/step5/waitIcon.svg'
 import Chart2 from '../Charts/step5/stepV2n3/Chart2'
 
-function StepV3() {
+function StepV3(props) {
   return (
     <div className={styles.stepV_wrappper}>
       {/* 좌측  */}
@@ -100,7 +100,7 @@ function StepV3() {
             <aside />
             난방 월간 사용량
           </div>
-          <Chart2 />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyStddML={props.energyStddML.map((usg) => usg.load_heat)} />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -108,7 +108,7 @@ function StepV3() {
             <aside />
             냉방 월간 사용량
           </div>
-          <Chart2 />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyStddML={props.energyStddML.map((usg) => usg.load_cool)}/>
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -116,7 +116,7 @@ function StepV3() {
             <aside />
             기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
           </div>
-          <Chart2 />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyStddML={props.energyStddML.map((usg) => usg.load_baseElec)} />
         </div>
       </div>
     </div>

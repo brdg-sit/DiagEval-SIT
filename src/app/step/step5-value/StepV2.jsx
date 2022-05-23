@@ -1,10 +1,46 @@
-import React from 'react'
-import Chart1 from '../Charts/step5/stepV2n3/Chart1'
-import styles from '../css/step5.module.css'
-import waitIcon from '../../../@assets/step5/waitIcon.svg'
-import Chart2 from '../Charts/step5/stepV2n3/Chart2'
+import React, { useEffect, useState } from "react";
+import Chart1 from "../Charts/step5/stepV2n3/Chart1";
+import styles from "../css/step5.module.css";
+import waitIcon from "../../../@assets/step5/waitIcon.svg";
+import Chart2 from "../Charts/step5/stepV2n3/Chart2";
 
-function StepV2() {
+function StepV2(props) {
+  const [loadHeatData, setLoadHeatData] = useState([]);
+  const [loadCoolData, setLoadCoolData] = useState([]);
+  const [loadBaseElecData, setLoadBaseElecData] = useState([]);
+
+  //   useEffect(() => {
+  //  //GetLoadHeatData();
+  //   //   GetLoadCoolData();
+  //   //   GetLoadBaseElecData();
+  //     console.log("loadHeatData", loadHeatData);
+  //   }
+  //   );
+
+  const GetLoadHeatData = () => {
+    var totalHeat = [];
+    for (var i = 0; i < props.energyUsage.length; i++) {
+      totalHeat.push(props.energyUsage[i].load_heat);
+    }
+    setLoadHeatData(totalHeat);
+  };
+
+  const GetLoadCoolData = () => {
+    var totalCool = [];
+    for (var i = 0; i < props.energyUsage.length; i++) {
+      totalCool.push(props.energyUsage[i].load_cool);
+    }
+    setLoadCoolData(totalCool);
+  };
+
+  const GetLoadBaseElecData = () => {
+    var totalBaseElec = [];
+    for (var i = 0; i < props.energyUsage.length; i++) {
+      totalBaseElec.push(props.energyUsage[i].load_baseElec);
+    }
+    setLoadBaseElecData(totalBaseElec);
+  };
+
   return (
     <div className={styles.stepV_wrappper}>
       {/* 좌측  */}
@@ -16,13 +52,13 @@ function StepV2() {
           </div>
 
           <ul className={styles.tag_wrap}>
-            {chartLabel.map(i => {
+            {chartLabel.map((i) => {
               return (
                 <li>
                   <div style={{ background: `${i.color}` }} />
                   {i.name}
                 </li>
-              )
+              );
             })}
           </ul>
         </div>
@@ -100,7 +136,7 @@ function StepV2() {
             <aside />
             난방 월간 사용량
           </div>
-          <Chart2 />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyUserML={props.energyUserML.map((usg) => usg.load_heat)} />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -108,7 +144,7 @@ function StepV2() {
             <aside />
             냉방 월간 사용량
           </div>
-          <Chart2 />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyUserML={props.energyUserML.map((usg) => usg.load_cool)}/>
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -116,17 +152,16 @@ function StepV2() {
             <aside />
             기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
           </div>
-          <Chart2 />
+          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyUserML={props.energyUserML.map((usg) => usg.load_baseElec)} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default StepV2
+export default StepV2;
 
 export const chartLabel = [
-  { name: '난방', color: '#F66060' },
-  { name: '냉방', color: '#6799F4' },
-  { name: '기저', color: '#B4BEC5' },
-]
+  { name: "난방", color: "#F66060" },
+  { name: "냉방", color: "#6799F4" },
+];
