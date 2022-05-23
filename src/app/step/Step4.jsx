@@ -39,7 +39,7 @@ function Step4() {
     if (isLoaded !== true) {
       if(location.state.stepNum === 3){
         location.state.stateHistory[3] = location.state;
-        if(location.state.stateHistory[4] != undefined){
+        if(location.state.stateHistory[4] !== undefined){
           RetrieveData(location.state.stateHistory[4]);
         }
         else{
@@ -207,7 +207,7 @@ function Step4() {
     if(typeVal === 'MJ'){
       unitgas_code = 201;
     }
-    else if(typeVal ==='NM3'){
+    else if(typeVal ==='Nm3'){
       unitgas_code = 202;
     }
 
@@ -224,7 +224,7 @@ function Step4() {
 
     energyType["id_etr"] = id_etr;
     energyType["unit_elec"] = 203;
-    energyType["unit_gas"] = (typeVal == "MJ") ? 201 : 202
+    energyType["unit_gas"] = (typeVal === "MJ") ? 201 : 202
     energyType["elec_data"] = electricDict;
     energyType["gas_data"] = gasDict;
 
@@ -249,7 +249,7 @@ function Step4() {
       energyUsage["id_etr"] = id_etr;
       energyUsage["base_ec"] = baseEC;
       energyUsage["unit_elec"] = 203;
-      energyUsage["unit_gas"] = (typeVal == "MJ") ? 201 : 202
+      energyUsage["unit_gas"] = (typeVal === "MJ") ? 201 : 202
       energyUsage["gas_data"] = gasDict;
       energyUsage["elec_data"] = electricDict;
       energyUsage["is_ehp"] = isEHP;
@@ -258,7 +258,7 @@ function Step4() {
       energyUsage["id_etr"] = id_etr;
       energyUsage["base_ec"] = baseEC;
       energyUsage["unit_elec"] = 203;
-      energyUsage["unit_gas"] = (typeVal == "MJ") ? 201 : 202
+      energyUsage["unit_gas"] = (typeVal === "MJ") ? 201 : 202
       energyUsage["gas_data"] = gasDict;
       energyUsage["elec_data"] = electricDict;
       energyUsage["is_ehp"] = isEHP;
@@ -459,9 +459,9 @@ function Step4() {
                           ? styles.tabType_active
                           : styles.tabType
                       }
-                      onClick={() => setTypeVal('NM3')}
+                      onClick={() => setTypeVal('Nm3')}
                     >
-                      NM³
+                      Nm3
                     </button>
                   </div>
                 </div>
@@ -474,7 +474,7 @@ function Step4() {
 
                         <div className={styles.valBox}>
                           <input type="number" name={item} value={gasData[item]} onChange={OnGasConsumptionChange} placeholder="직접입력" />
-                          <span>{typeVal === 'MJ' ? 'MJ' : 'NM³'}</span>
+                          <span>{typeVal === 'MJ' ? 'MJ' : 'Nm3'}</span>
                         </div>
                       </li>
                     )

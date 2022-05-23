@@ -11,7 +11,7 @@ function StepHeader() {
       <div className={styles.title_wrap}>
         <img src={logo} alt="" />
         <h1>
-          서울시 사용행태 정보 기반 <b>공공건축물 진단 프로그램</b>
+          서울시 사용행태 정보 기반 <b>공공건축물 에너지 진단 프로그램</b>
         </h1>
       </div>
 

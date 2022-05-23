@@ -162,6 +162,7 @@ function StepV2(props) {
 export default StepV2;
 
 export const chartLabel = [
-  { name: "난방", color: "#F66060" },
-  { name: "냉방", color: "#6799F4" },
+  { name: '난방', color: '#F66060' },
+  { name: '냉방', color: '#6799F4' },
+  { name: '기저', color: '#B4BEC5' },
 ];
