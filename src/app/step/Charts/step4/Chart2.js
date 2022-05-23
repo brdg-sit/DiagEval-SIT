@@ -16,7 +16,6 @@ function Chart2(props) {
     },
     scales: {
       y: {
-        max: 6,
         min: 0,
         ticks: {
           stepSize: 0,
