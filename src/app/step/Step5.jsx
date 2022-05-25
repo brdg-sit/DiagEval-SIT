@@ -25,6 +25,12 @@ function Step5() {
   const [wday, setHurWday] = useState(location.state.stateHistory[3].hurWday);
   const [wend, setHurWend] = useState(location.state.stateHistory[3].hurWend);
   const [energyUsage, setEnergyUsage] = useState({});
+  const [energyUsageYrHeat, setEnergyUsageYrHeat] = useState({});
+  const [energyUsageYrCool, setEnergyUsageYrCool] = useState({});
+  const [energyUsageYrBC, setEnergyUsageYrBC] = useState({});
+  const [energyUsageCO2Heat, setEnergyUsageCO2Heat] = useState({});
+  const [energyUsageCO2Cool, setEnergyUsageCO2Cool] = useState({});
+  const [energyUsageCO2BC, setEnergyUsageCO2BC] = useState({});
   const [energyUserML, setEnergyUserML] = useState({});
   const [energyStddML, setEnergyStddML] = useState({});
   const [energyUsageAvg, setEnergyUsageAvg] = useState({});
@@ -46,13 +52,26 @@ function Step5() {
   });
 
   const GetEnergyUsage = async () => {
+    //console.log("idEtr", idEtr);
     try {
       axios
         .get(baseuri + "get-energyusage", {
           params: { id_etr: idEtr },
         })
         .then((response) => {
-          setEnergyUsage(response.data);
+          console.log("response.data", response.data);
+          // console.log("response.data[0]", response.data[0]);
+          // console.log("response.data[1]", response.data[1]);
+          // console.log("response.data[2]", response.data[2]);
+          setEnergyUsage(response.data[0]);
+          setEnergyUserML(response.data[1]);
+          // setEnergyUsageYrHeat(response.data[1][0].yr_load_heat);
+          // setEnergyUsageYrCool(response.data[1][0].yr_load_cool);
+          // setEnergyUsageYrBC(response.data[1][0].yr_load_baseElec);
+          // setEnergyUsageCO2Heat(response.data[1][0].yr_load_heat);
+          // setEnergyUsageCO2Cool(response.data[1][0].yr_load_cool);
+          // setEnergyUsageCO2BC(response.data[1][0].yr_load_baseElec);
+          //setEnergyUsageCO2(response.data[2]);
         });
     } catch (error) {
       console.error(error);
@@ -193,7 +212,16 @@ function Step5() {
           <div className={styles.view_wrapper}>
             {step === 0 && <StepV1 energyUsage={energyUsage} />}
             {step === 1 && (
-              <StepV2 energyUsage={energyUsage} energyUserML={energyUserML} />
+              <StepV2
+                energyUsage={energyUsage}
+                energyUserML={energyUserML}
+                // energyUsageYrHeat={energyUsageYrHeat}
+                // energyUsageYrCool={energyUsageYrHeat}
+                // energyUsageYrBC={energyUsageYrHeat}
+                // energyUsageCO2Heat={energyUsageCO2Heat}
+                // energyUsageCO2Cool={energyUsageCO2Cool}
+                // energyUsageCO2BC={energyUsageCO2BC}
+              />
             )}
             {step === 2 && (
               <StepV3

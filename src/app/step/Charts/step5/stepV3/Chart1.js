@@ -32,10 +32,10 @@ function Chart1(props) {
 
   const data = {
     // 각 막대별 라벨
-    labels: ['항목1', '항목2'],
+    labels: ['사용자입력', '유사사례'],
     datasets: [
       {
-        data: [1, 1], // 수치
+        data: [props.energyUsageYrHeat, props.energyUsageYrHeat], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,

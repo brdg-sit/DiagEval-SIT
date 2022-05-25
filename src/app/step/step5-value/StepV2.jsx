@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Chart1 from "../Charts/step5/stepV2n3/Chart1";
+import Chart1 from "../Charts/step5/stepV2/Chart1";
 import styles from "../css/step5.module.css";
 import waitIcon from "../../../@assets/step5/waitIcon.svg";
-import Chart2 from "../Charts/step5/stepV2n3/Chart2";
+import Chart2 from "../Charts/step5/stepV2/Chart2";
 
 function StepV2(props) {
   const [loadHeatData, setLoadHeatData] = useState([]);
@@ -66,7 +66,14 @@ function StepV2(props) {
         <ul className={styles.step1_chart_wrap}>
           <li>
             <h2>연간 에너지 사용량 (kWh)</h2>
-            <Chart1 />
+            <Chart1
+                // energyUsageYrHeat={props.energyUsageYrHeat}
+                // energyUsageYrCool={props.energyUsageYrHeat}
+                // energyUsageYrBC={props.energyUsageYrHeat}
+                // energyUsageCO2Heat={props.energyUsageCO2Heat}
+                // energyUsageCO2Cool={props.energyUsageCO2Cool}
+                // energyUsageCO2BC={props.energyUsageCO2BC}
+                 />
           </li>
 
           <li>

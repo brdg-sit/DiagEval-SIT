@@ -1,8 +1,8 @@
 import React from 'react'
-import Chart1 from '../Charts/step5/stepV2n3/Chart1'
+import Chart1 from '../Charts/step5/stepV2/Chart1'
 import styles from '../css/step5.module.css'
 import waitIcon from '../../../@assets/step5/waitIcon.svg'
-import Chart2 from '../Charts/step5/stepV2n3/Chart2'
+import Chart2 from '../Charts/step5/stepV3/Chart2'
 
 function StepV3(props) {
   return (

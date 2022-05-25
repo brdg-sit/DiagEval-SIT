@@ -44,33 +44,33 @@ function Step4() {
         }
         else{
           const electricTemplate = {
-            '01월': 0,
-            '02월': 0,
-            '03월': 0,
-            '04월': 0,
-            '05월': 0,
-            '06월': 0,
-            '07월': 0,
-            '08월': 0,
-            '09월': 0,
-            '10월': 0,
-            '11월': 0,
-            '12월': 0
+            '01월': 100,
+            '02월': 70,
+            '03월': 30,
+            '04월': 40,
+            '05월': 20,
+            '06월': 50,
+            '07월': 60,
+            '08월': 80,
+            '09월': 100,
+            '10월': 120,
+            '11월': 100,
+            '12월': 100
           }
 
           const gasTemplate = {
-            '01월': 0,
-            '02월': 0,
-            '03월': 0,
-            '04월': 0,
-            '05월': 0,
-            '06월': 0,
-            '07월': 0,
-            '08월': 0,
-            '09월': 0,
-            '10월': 0,
-            '11월': 0,
-            '12월': 0
+            '01월': 100,
+            '02월': 100,
+            '03월': 100,
+            '04월': 100,
+            '05월': 100,
+            '06월': 100,
+            '07월': 100,
+            '08월': 100,
+            '09월': 100,
+            '10월': 100,
+            '11월': 100,
+            '12월': 100
           }
 
           setElectricData(electricTemplate);
@@ -266,6 +266,7 @@ function Step4() {
 
     try{
       var energyUsageValues = JSON.stringify(energyUsage);
+      console.log(energyUsageValues)
       axios.post(baseuri + 'energyusage', energyUsageValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
