@@ -317,6 +317,7 @@ function Step1() {
                   <aside />
                   건축물 용도
                 </div>
+                
 
                 <div className={styles.input_wrap2}>
                   <select>
