@@ -2,7 +2,8 @@ import React from 'react'
 import Chart1 from '../Charts/step5/stepV2/Chart1'
 import styles from '../css/step5.module.css'
 import waitIcon from '../../../@assets/step5/waitIcon.svg'
-import Chart2 from '../Charts/step5/stepV3/Chart2'
+import Chart2 from "../Charts/step5/stepV3/Chart2";
+import Chart3 from "../Charts/step5/stepV3/Chart3";
 
 function StepV3(props) {
   return (
@@ -30,12 +31,32 @@ function StepV3(props) {
         <ul className={styles.step1_chart_wrap}>
           <li>
             <h2>연간 에너지 사용량 (kWh)</h2>
-            <Chart1 />
+              {/* <StepV3
+                energyUsage={energyUsage}
+                energyUsageAvg={energyUsageAvg}
+                energyUsageYr={energyUsageYr}
+                energyUsageAvgYr={energyUsageAvgYr}
+                co2UsageYr={co2UsageYr}
+                co2UsageAvgYr={co2UsageAvgYr}
+              /> */}
+            <Chart1 
+              usageYrHeat={props.energyUsageYr.yr_load_heat}
+              usageAvgYrHeat={props.energyUsageAvgYr.yr_load_heat}
+              usageYrCool={props.energyUsageYr.yr_load_cool}
+              usageAvgYrCool={props.energyUsageAvgYr.yr_load_cool}
+              usageYrBC={props.energyUsageYr.yr_load_baseElec}  
+              usageAvgYrBC={props.energyUsageAvgYr.yr_load_baseElec}    />
           </li>
 
           <li>
             <h2>연간 CO2 배출량</h2>
-            <Chart1 />
+            <Chart2
+              usageYrHeat={props.co2UsageYr.yr_co2_cool}
+              usageAvgYrHeat={props.co2UsageAvgYr.yr_co2_cool}
+              usageYrCool={props.co2UsageYr.yr_co2_baseElec}
+              usageAvgYrCool={props.co2UsageAvgYr.yr_co2_baseElec}
+              usageYrBC={props.co2UsageYr.yr_co2_heat} 
+              usageAvgYrBC={props.co2UsageAvgYr.yr_co2_heat}   />
           </li>
         </ul>
 
@@ -100,7 +121,7 @@ function StepV3(props) {
             <aside />
             난방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyUsage2={props.energyUsageAvg.map((usg) => usg.load_heat)} />
+          <Chart3 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyUsage2={props.energyUsageAvg.map((usg) => usg.load_heat)} />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -108,7 +129,7 @@ function StepV3(props) {
             <aside />
             냉방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyUsage2={props.energyUsageAvg.map((usg) => usg.load_cool)}/>
+          <Chart3 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyUsage2={props.energyUsageAvg.map((usg) => usg.load_cool)}/>
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -116,7 +137,7 @@ function StepV3(props) {
             <aside />
             기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyUsage2={props.energyUsageAvg.map((usg) => usg.load_baseElec)} />
+          <Chart3 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyUsage2={props.energyUsageAvg.map((usg) => usg.load_baseElec)} />
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import Chart1 from "../Charts/step5/stepV2/Chart1";
 import styles from "../css/step5.module.css";
 import waitIcon from "../../../@assets/step5/waitIcon.svg";
 import Chart2 from "../Charts/step5/stepV2/Chart2";
+import Chart3 from "../Charts/step5/stepV2/Chart3";
 
 function StepV2(props) {
   const [loadHeatData, setLoadHeatData] = useState([]);
@@ -67,18 +68,37 @@ function StepV2(props) {
           <li>
             <h2>연간 에너지 사용량 (kWh)</h2>
             <Chart1
-                // energyUsageYrHeat={props.energyUsageYrHeat}
-                // energyUsageYrCool={props.energyUsageYrHeat}
-                // energyUsageYrBC={props.energyUsageYrHeat}
-                // energyUsageCO2Heat={props.energyUsageCO2Heat}
-                // energyUsageCO2Cool={props.energyUsageCO2Cool}
-                // energyUsageCO2BC={props.energyUsageCO2BC}
-                 />
+              usageYrHeat={props.energyUsageYr.yr_load_heat}
+              usageYrCool={props.energyUsageYr.yr_load_cool}
+              usageYrBC={props.energyUsageYr.yr_load_baseElec}
+              usageMLYrHeat={props.energyUsageMLYr.yr_load_heat}
+              usageMLYrCool={props.energyUsageMLYr.yr_load_cool}
+              usageMLYrBC={props.energyUsageMLYr.yr_load_baseElec}
+
+              // energyUsageYrCool={props.energyUsageYrHeat}
+              // energyUsageYrBC={props.energyUsageYrHeat}
+              // energyUsageCO2Heat={props.energyUsageCO2Heat}
+              // energyUsageCO2Cool={props.energyUsageCO2Cool}
+              // energyUsageCO2BC={props.energyUsageCO2BC}
+            />
           </li>
 
           <li>
+                {/* energyUsage={energyUsage}
+                energyUserML={energyUserML}
+                energyUsageYr={energyUsageYr}
+                energyUsageMLYr={energyUsageMLYr}
+                co2UsageYr={co2UsageYr}
+                co2UsageMLYr={co2UsageMLYr} */}
             <h2>연간 CO2 배출량</h2>
-            <Chart1 />
+            <Chart2
+              usageYrHeat={props.co2UsageYr.yr_co2_heat}
+              usageYrCool={props.co2UsageYr.yr_co2_cool}
+              usageYrBC={props.co2UsageYr.yr_co2_baseElec}
+              usageMLYrHeat={props.co2UsageMLYr.yr_co2_heat}
+              usageMLYrCool={props.co2UsageMLYr.yr_co2_cool}
+              usageMLYrBC={props.co2UsageMLYr.yr_co2_baseElec}
+            />
           </li>
         </ul>
 
@@ -143,7 +163,10 @@ function StepV2(props) {
             <aside />
             난방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyUsage2={props.energyUserML.map((usg) => usg.load_heat)} />
+          <Chart3
+            energyUsage={props.energyUsage.map((usg) => usg.load_heat)}
+            energyUsage2={props.energyUserML.map((usg) => usg.load_heat)}
+          />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -151,7 +174,10 @@ function StepV2(props) {
             <aside />
             냉방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyUsage2={props.energyUserML.map((usg) => usg.load_cool)}/>
+          <Chart3
+            energyUsage={props.energyUsage.map((usg) => usg.load_cool)}
+            energyUsage2={props.energyUserML.map((usg) => usg.load_cool)}
+          />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -159,7 +185,10 @@ function StepV2(props) {
             <aside />
             기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyUsage2={props.energyUserML.map((usg) => usg.load_baseElec)} />
+          <Chart3
+            energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)}
+            energyUsage2={props.energyUserML.map((usg) => usg.load_baseElec)}
+          />
         </div>
       </div>
     </div>
@@ -169,7 +198,7 @@ function StepV2(props) {
 export default StepV2;
 
 export const chartLabel = [
-  { name: '난방', color: '#F66060' },
-  { name: '냉방', color: '#6799F4' },
-  { name: '기저', color: '#B4BEC5' },
+  { name: "난방", color: "#F66060" },
+  { name: "냉방", color: "#6799F4" },
+  { name: "기저", color: "#B4BEC5" },
 ];

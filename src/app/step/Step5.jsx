@@ -24,16 +24,26 @@ function Step5() {
   const [eqmt, setEqmt] = useState(location.state.stateHistory[2].cdEqmt);
   const [wday, setHurWday] = useState(location.state.stateHistory[3].hurWday);
   const [wend, setHurWend] = useState(location.state.stateHistory[3].hurWend);
-  const [energyUsage, setEnergyUsage] = useState({});
+
+  const [energyUsage, setEnergyUsage] = useState([]);
+  const [energyUserML, setEnergyUserML] = useState([]);
+  const [energyUsageAvg, setEnergyUsageAvg] = useState([]);
+  const [co2UsageAvg, setCo2UsageAvg] = useState([]);
+
+  const [energyUsageYr, setEnergyUsageYr] = useState({});
+  const [energyUsageMLYr, setEnergyUsageMLYr] = useState({});
+  const [energyUsageAvgYr, setEnergyUsageAvgYr] = useState({});
+
+  const [co2UsageYr, setCo2UsageYr] = useState({});
+  const [co2UsageMLYr, setCo2UsageMLYr] = useState({});
+  const [co2UsageAvgYr, setCo2UsageAvgYr] = useState({});
+
   const [energyUsageYrHeat, setEnergyUsageYrHeat] = useState({});
   const [energyUsageYrCool, setEnergyUsageYrCool] = useState({});
   const [energyUsageYrBC, setEnergyUsageYrBC] = useState({});
   const [energyUsageCO2Heat, setEnergyUsageCO2Heat] = useState({});
   const [energyUsageCO2Cool, setEnergyUsageCO2Cool] = useState({});
   const [energyUsageCO2BC, setEnergyUsageCO2BC] = useState({});
-  const [energyUserML, setEnergyUserML] = useState({});
-  const [energyStddML, setEnergyStddML] = useState({});
-  const [energyUsageAvg, setEnergyUsageAvg] = useState({});
   const [idEtr, setIdEtr] = useState(location.state.idEtr);
 
   const baseuri = "https://sitapi.brdg.kr/api/sit/";
@@ -51,7 +61,7 @@ function Step5() {
     }
   });
 
-  const GetEnergyUsage = async () => {
+  const GetEnergyUsage = () => {
     //console.log("idEtr", idEtr);
     try {
       axios
@@ -59,12 +69,30 @@ function Step5() {
           params: { id_etr: idEtr },
         })
         .then((response) => {
-          console.log("response.data", response.data);
-          // console.log("response.data[0]", response.data[0]);
+          //console.log("response.data[0]", response.data[0]);
           // console.log("response.data[1]", response.data[1]);
           // console.log("response.data[2]", response.data[2]);
           setEnergyUsage(response.data[0]);
           setEnergyUserML(response.data[1]);
+          setEnergyUsageAvg(response.data[2]);
+          setCo2UsageAvg(response.data[3]);
+
+          setEnergyUsageYr(response.data[4][0]);
+          setEnergyUsageMLYr(response.data[5][0]);
+          setEnergyUsageAvgYr({
+            yr_load_heat: response.data[2].reduce((a,v) =>  a = a + v.load_heat, 0),
+            yr_load_cool: response.data[2].reduce((a,v) =>  a = a + v.load_cool, 0),
+            yr_load_baseElec: response.data[2].reduce((a,v) =>  a = a + v.load_baseElec, 0)
+          });
+
+          setCo2UsageYr(response.data[6][0]);
+          setCo2UsageMLYr(response.data[7][0]);
+          setCo2UsageAvgYr({
+            yr_co2_heat: response.data[3].reduce((a,v) =>  a = a + v.co2_heat, 0),
+            yr_co2_cool: response.data[3].reduce((a,v) =>  a = a + v.co2_cool, 0),
+            yr_co2_baseElec: response.data[3].reduce((a,v) =>  a = a + v.co2_baseElec, 0)
+          });
+
           // setEnergyUsageYrHeat(response.data[1][0].yr_load_heat);
           // setEnergyUsageYrCool(response.data[1][0].yr_load_cool);
           // setEnergyUsageYrBC(response.data[1][0].yr_load_baseElec);
@@ -79,7 +107,6 @@ function Step5() {
   };
 
   const GetEnergyUserML = async () => {
-    //console.log("idEtr, area, eqmt", idEtr, area, eqmt)
     try {
       axios
         .get(baseuri + "get-energyusage-ml", {
@@ -87,21 +114,6 @@ function Step5() {
         })
         .then((response) => {
           setEnergyUserML(response.data);
-          //console.log("GetEnergyUserML response.data", response.data)
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const GetEnergyStddML = async () => {
-    try {
-      axios
-        .get(baseuri + "get-energyusage", {
-          params: { id_etr: idEtr, is_sep: "3" },
-        })
-        .then((response) => {
-          setEnergyStddML(response.data);
         });
     } catch (error) {
       console.error(error);
@@ -210,14 +222,18 @@ function Step5() {
           </div>
 
           <div className={styles.view_wrapper}>
-            {step === 0 && <StepV1 energyUsage={energyUsage} />}
+            {step === 0 && (
+              <StepV1 energyUsage={energyUsage} energyUsageYr={energyUsageYr} />
+            )}
             {step === 1 && (
               <StepV2
                 energyUsage={energyUsage}
                 energyUserML={energyUserML}
-                // energyUsageYrHeat={energyUsageYrHeat}
-                // energyUsageYrCool={energyUsageYrHeat}
-                // energyUsageYrBC={energyUsageYrHeat}
+                energyUsageYr={energyUsageYr}
+                energyUsageMLYr={energyUsageMLYr}
+                co2UsageYr={co2UsageYr}
+                co2UsageMLYr={co2UsageMLYr}
+
                 // energyUsageCO2Heat={energyUsageCO2Heat}
                 // energyUsageCO2Cool={energyUsageCO2Cool}
                 // energyUsageCO2BC={energyUsageCO2BC}
@@ -227,6 +243,10 @@ function Step5() {
               <StepV3
                 energyUsage={energyUsage}
                 energyUsageAvg={energyUsageAvg}
+                energyUsageYr={energyUsageYr}
+                energyUsageAvgYr={energyUsageAvgYr}
+                co2UsageYr={co2UsageYr}
+                co2UsageAvgYr={co2UsageAvgYr}
               />
             )}
           </div>
