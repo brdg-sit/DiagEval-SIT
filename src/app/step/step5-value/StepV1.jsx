@@ -12,7 +12,7 @@ function StepV1(props) {
       tableData.val[0][tableDataKeys[i]] = props.energyUsage[i-1].load_heat;
       tableData.val[1][tableDataKeys[i]] = props.energyUsage[i-1].load_cool;
       tableData.val[2][tableDataKeys[i]] = props.energyUsage[i-1].load_baseElec;
-      tableData.val[3][tableDataKeys[i]] = props.energyUsage[i-1].load_baseGas;
+      tableData.val[3][tableDataKeys[i]] = parseFloat(props.energyUsage[i-1].load_baseGas.toFixed(2));
     }
   }
 

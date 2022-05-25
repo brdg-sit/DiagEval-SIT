@@ -34,7 +34,7 @@ function Chart2(props) {
   const GetLoadBaseGasData = () => {
     var totalBaseGas = [];
     for(var i=0; i<props.energyUsage.length; i++){
-      totalBaseGas.push(props.energyUsage[i].load_baseGas);
+      totalBaseGas.push(parseFloat(props.energyUsage[i].load_baseGas.toFixed(2)));
     }
     return totalBaseGas;
   }
