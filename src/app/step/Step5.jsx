@@ -258,12 +258,10 @@ function Step5() {
               type="button"
               className={styles.printBtn}
               onClick={() =>
-                navigate(
                   window.open(
                     "/print1",
                     "_blank",
                     "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
-                  )
                 )
               }
             >
