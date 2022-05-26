@@ -152,18 +152,7 @@ function Step4() {
     userEnter["u_floor"] = location.state.stateHistory[2].uFloor;
     userEnter["u_window"] = location.state.stateHistory[2].uWindow;
     userEnter["shgc"] = location.state.stateHistory[2].shgc;
-
-    var eqmt = location.state.stateHistory[2].cdEqmt;
-    var eqmt_code = 0;
-
-    if(eqmt === "EHP"){
-      eqmt_code = 401;
-    }
-    else{
-      eqmt_code = 402
-    }
-
-    userEnter["cd_eqmt"] = eqmt_code;
+    userEnter["cd_eqmt"] = location.state.stateHistory[2].cdEqmt;
     userEnter["effcy_heat"] = location.state.stateHistory[2].effcyHeat;
     userEnter["effcy_cool"] = location.state.stateHistory[2].effcyCool;
 
@@ -291,6 +280,9 @@ function Step4() {
   const InsertMLIntoDB = (id_etr, userEnter, occupancy, pwr_eqmt) => {
     var ml = {};
 
+    console.log("userEnter", userEnter)
+
+
     ml["id_etr"] = id_etr;
     ml["year"] = userEnter["year"];
     ml["cd_eqmt"] = userEnter["cd_eqmt"];
@@ -314,7 +306,8 @@ function Step4() {
     ml["effcy_cool"] = userEnter["effcy_cool"];
 
     try{
-      var mlValues = JSON.stringify(ml);      
+      var mlValues = JSON.stringify(ml);    
+      console.log(mlValues);  
       axios.post(baseuri + 'ml', mlValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
