@@ -7,6 +7,7 @@ import StepV1 from "./step5-value/StepV1";
 import StepV2 from "./step5-value/StepV2";
 import StepV3 from "./step5-value/StepV3";
 import axios from "axios";
+import Print1 from "../../print/Print1";
 
 
 function Step5() {
@@ -214,6 +215,17 @@ function Step5() {
     }
   };
 
+  const OnPrintResultClick = () => {
+    window.open(
+      "/print1",
+      "_blank",
+      "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
+
+    )
+
+    Print1({energy}, {energyYr});
+  }
+
   return (
     <main className={stepStyles.step_wrapper}>
       <section className={stepStyles.step_container}>
@@ -261,15 +273,7 @@ function Step5() {
             <button
               type="button"
               className={styles.printBtn}
-              onClick={() =>
-                
-               window.open(
-                    "/print1",
-                    "_blank",
-                    "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
-
-                )
-              }
+              onClick={OnPrintResultClick}
             >
               결과물 출력
             </button>

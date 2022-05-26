@@ -13,7 +13,7 @@ import Cp3 from './component/print1/Cp3'
 import Cp4 from './component/print1/Cp4'
 import Cp5 from './component/print1/Cp5'
 
-function Print1() {
+function Print1(energy, energyYr) {
   const printRef = useRef(null)
   return (
     <>
