@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../css/print1/cp5.module.css'
 import { Bar } from 'react-chartjs-2'
 import { CategoryScale } from 'chart.js'
@@ -7,7 +7,35 @@ import Chart from 'chart.js/auto'
 // not working not showing
 Chart.register(CategoryScale)
 
-function Cp5() {
+function Cp5(props) {
+
+  if(props.energyHeat.length > 0){
+    var tableDataKeys = Object.keys(tableData[0]);
+
+    for(var i=1; i<tableDataKeys.length; i++){
+      tableData[0][tableDataKeys[i]] = props.energyHeat[i-1];
+      tableData[1][tableDataKeys[i]] = props.energyCool[i-1];
+      tableData[2][tableDataKeys[i]] = props.energyBaseElec[i-1];
+      tableData[3][tableDataKeys[i]] = (props.energyBaseGas[i-1] != undefined) ? parseFloat(props.energyBaseGas[i-1].toFixed(2)) : props.energyBaseGas; 
+    }
+  }
+
+  const [loadHeat, setLoadHeat] = useState([]);
+  const [loadCool, setLoadCool] = useState([]);
+  const [loadBaseElec, setLoadBaseElec] = useState([]);
+  const [loadBaseGas, setLoadBaseGas] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if(!isLoaded && props.energyHeat.length > 0){
+      setLoadHeat(props.energyHeat);
+      setLoadCool(props.energyCool);
+      setLoadBaseElec(props.energyBaseElec);
+      setLoadBaseGas(props.energyBaseGas);
+      setIsLoaded(true);
+    }
+  });
+
   const options = {
     elements: {
       bar: {
@@ -19,7 +47,7 @@ function Cp5() {
         display: false,
       },
       datalabels: {
-        display: true,
+        display: false,
         color: '#fff',
         anchor: 'end',
         clamp: false,
@@ -45,7 +73,7 @@ function Cp5() {
       },
 
       X: {
-        max: 5,
+        max: 11,
         min: 0,
         ticks: {
           stepSize: 0.5,
@@ -64,10 +92,10 @@ function Cp5() {
 
   const data = {
     // 각 막대별 라벨
-    labels: ['항목1', '항목2', '항목3', '항목4'],
+    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
     datasets: [
       {
-        data: [1, 1, 1, 1], // 수치
+        data: loadHeat, // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 8,
         barPercentage: 0.5,
@@ -77,7 +105,7 @@ function Cp5() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [2, 2, 2, 2], // 수치
+        data: loadCool, // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 8,
         barPercentage: 0.5,
@@ -87,7 +115,7 @@ function Cp5() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [3, 3, 3, 3], // 수치
+        data: loadBaseElec, // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 8,
         barPercentage: 0.5,
@@ -97,7 +125,7 @@ function Cp5() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [4, 4, 4, 4], // 수치
+        data: loadBaseGas, // 수치
         backgroundColor: '#FBCE48', // 각 막대 색
         barThickness: 8,
         barPercentage: 0.5,
@@ -146,22 +174,22 @@ function Cp5() {
           </tr>
         </thead>
         <tbody>
-          {tableData.map((item, key) => {
+          {tableData.map((i, key) => {
             return (
               <tr align="center" bgcolor="white">
-                <th>{item.th}</th>
-                <td>{item.jan}</td>
-                <td>{item.feb}</td>
-                <td>{item.mar}</td>
-                <td>{item.apr}</td>
-                <td>{item.may}</td>
-                <td>{item.jun}</td>
-                <td>{item.july}</td>
-                <td>{item.aug}</td>
-                <td>{item.sept}</td>
-                <td>{item.oct}</td>
-                <td>{item.nove}</td>
-                <td>{item.dec}</td>
+                <th>{i.th}</th>
+                <td>{i.t1}</td>
+                <td>{i.t2}</td>
+                <td>{i.t3}</td>
+                <td>{i.t4}</td>
+                <td>{i.t5}</td>
+                <td>{i.t6}</td>
+                <td>{i.t7}</td>
+                <td>{i.t8}</td>
+                <td>{i.t9}</td>
+                <td>{i.t10}</td>
+                <td>{i.t11}</td>
+                <td>{i.t12}</td>
               </tr>
             )
           })}
@@ -181,64 +209,64 @@ export const chartLabel = [
 ]
 
 export const tableData = [
-  {
-    th: '난방',
-    jan: '00',
-    feb: '00',
-    mar: '00',
-    apr: '00',
-    may: '00',
-    jun: '00',
-    july: '00',
-    aug: '00',
-    sept: '00',
-    oct: '00',
-    nove: '00',
-    dec: '00',
-  },
-  {
-    th: '냉방',
-    jan: '00',
-    feb: '00',
-    mar: '00',
-    apr: '00',
-    may: '00',
-    jun: '00',
-    july: '00',
-    aug: '00',
-    sept: '00',
-    oct: '00',
-    nove: '00',
-    dec: '00',
-  },
-  {
-    th: '기저',
-    jan: '00',
-    feb: '00',
-    mar: '00',
-    apr: '00',
-    may: '00',
-    jun: '00',
-    july: '00',
-    aug: '00',
-    sept: '00',
-    oct: '00',
-    nove: '00',
-    dec: '00',
-  },
-  {
-    th: '급탕\n취사',
-    jan: '00',
-    feb: '00',
-    mar: '00',
-    apr: '00',
-    may: '00',
-    jun: '00',
-    july: '00',
-    aug: '00',
-    sept: '00',
-    oct: '00',
-    nove: '00',
-    dec: '00',
-  },
-]
+    {
+      th: "난방",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
+    },
+    {
+      th: "냉방",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
+    },
+    {
+      th: "기저",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
+    },
+    {
+      th: "급탕/취사",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
+    },
+  ];

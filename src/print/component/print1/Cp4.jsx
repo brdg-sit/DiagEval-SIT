@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../css/print1/cp4.module.css'
 import { Bar } from 'react-chartjs-2'
 import { CategoryScale } from 'chart.js'
@@ -8,7 +8,24 @@ import Chart from 'chart.js/auto'
 // not working not showing
 Chart.register(CategoryScale, ChartDataLabels)
 
-function Cp4() {
+function Cp4(props) {
+
+  const [loadHeat, setLoadHeat] = useState([]);
+  const [loadCool, setLoadCool] = useState([]);
+  const [loadBaseElec, setLoadBaseElec] = useState([]);
+  const [loadBaseGas, setLoadBaseGas] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if(!isLoaded && props.energy.yr_load_cool != undefined){
+      setLoadHeat(props.energy.yr_load_heat);
+      setLoadCool(props.energy.yr_load_cool);
+      setLoadBaseElec(props.energy.yr_load_baseElec);
+      setLoadBaseGas(props.energy.yr_load_baseGas);
+      setIsLoaded(true);
+    }
+  });
+
   const options = {
     indexAxis: 'y',
     elements: {
@@ -21,7 +38,7 @@ function Cp4() {
         display: false,
       },
       datalabels: {
-        display: true,
+        display: false,
         color: '#fff',
         anchor: 'end',
         clamp: false,
@@ -72,7 +89,7 @@ function Cp4() {
     labels: ['항목1'],
     datasets: [
       {
-        data: [1], // 수치
+        data: [loadHeat], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 24,
 
@@ -83,7 +100,7 @@ function Cp4() {
       },
 
       {
-        data: [2], // 수치
+        data: [loadCool], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 24,
         label: '냉방',
@@ -93,7 +110,7 @@ function Cp4() {
       },
 
       {
-        data: [3], // 수치
+        data: [loadBaseElec], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 24,
         label: '기저',
@@ -102,7 +119,7 @@ function Cp4() {
       },
 
       {
-        data: [4], // 수치
+        data: [loadBaseGas], // 수치
         backgroundColor: '#FBCE48', // 각 막대 색
         barThickness: 24,
         barPercentage: 0.5,

@@ -20,13 +20,17 @@ function Print1() {
   const printRef = null;
 
   const [energy, setEnergy] = useState([]);
+  const [energyYr, setEnergyYr] = useState([]);
+  const [energyType, setEnergyType] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   
   useEffect(() => {
     if(!isLoaded){
       const urlParams = new URLSearchParams(window.location.search);
       let idEtr = urlParams.get('id_etr');
-      var energy = GetEnergyType(idEtr);
+      GetEnergyType(idEtr);
+      GetEnergyUsage(idEtr);
+      
       setIsLoaded(true);
     }
   })
@@ -38,7 +42,7 @@ function Print1() {
           params: { id_etr: idEtr},
         })
         .then((response) => {
-          setEnergy(response.data);
+          setEnergyType(response.data);
         });
     } catch (error) {
       console.error(error);
@@ -53,6 +57,7 @@ function Print1() {
         })
         .then((response) => {
           setEnergy(response.data[0]);
+          setEnergyYr(response.data[3][0]);
         });
     } catch (error) {
       console.error(error);
@@ -84,8 +89,8 @@ function Print1() {
           <div className={styles.sec1_cp_wrap}>
             <h3>고지서 정보</h3>
             <div className={styles.cp_wrap}>
-              <Cp2 energy = {energy}/>
-              <Cp3 energy = {energy} />
+              <Cp2 energy = {energyType}/>
+              <Cp3 energy = {energyType} />
             </div>
           </div>
 
@@ -97,8 +102,13 @@ function Print1() {
             </h2>
           </div>
           <div className={styles.sec2_cp_wrap}>
-            <Cp4 />
-            <Cp5 />
+            <Cp4 energy = {energyYr}/>
+            <Cp5
+              energyHeat={energy.map((usg) => usg.load_heat)}
+              energyCool={energy.map((usg) => usg.load_cool)}
+              energyBaseElec={energy.map((usg) => usg.load_baseElec)}
+              energyBaseGas={energy.map((usg) => parseFloat(usg.load_baseGas.toFixed(2)))}
+            />
           </div>
 
           {/* 프린트 버튼 */}
