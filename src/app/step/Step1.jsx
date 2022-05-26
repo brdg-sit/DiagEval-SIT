@@ -452,7 +452,7 @@ function Step1() {
             <button
               type="submit"
               className={styles.backBtn}
-              onClick={() => navigate(-1)}
+              onClick={() => navigate('/')}
             >
               이전으로
             </button>

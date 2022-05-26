@@ -70,33 +70,33 @@ function StepV2(props) {
             <tr align="center" bgcolor="white">
               <th rowSpan="2">에너지 사용량</th>
               <th>분석건물</th>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
+              <td>{props.energyYr.yr_load_heat}</td>
+              <td>{props.energyYr.yr_load_cool}</td>
+              <td>{props.energyYr.yr_load_baseElec}</td>
+              <td>{props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec}</td>
             </tr>
             <tr align="center" bgcolor="white">
               <th>일반 사용행태 건물</th>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
+              <td>{props.energyMLYr.yr_load_heat}</td>
+              <td>{props.energyMLYr.yr_load_cool}</td>
+              <td>{props.energyMLYr.yr_load_baseElec}</td>
+              <td>{props.energyMLYr.yr_load_heat + props.energyMLYr.yr_load_cool + props.energyMLYr.yr_load_baseElec}</td>
             </tr>
 
             <tr align="center" bgcolor="white">
               <th rowSpan="2">C02 배출량</th>
               <th>분석건물</th>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
+              <td>{props.co2Yr.yr_co2_heat}</td>
+              <td>{props.co2Yr.yr_co2_cool}</td>
+              <td>{props.co2Yr.yr_co2_baseElec}</td>
+              <td>{props.co2Yr.yr_co2_heat + props.co2Yr.yr_co2_cool + props.co2Yr.yr_co2_baseElec}</td>
             </tr>
             <tr align="center" bgcolor="white">
               <th>일반 사용행태 건물</th>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
-              <td>00</td>
+              <td>{props.co2MLYr.yr_co2_heat}</td>
+              <td>{props.co2MLYr.yr_co2_cool}</td>
+              <td>{props.co2MLYr.yr_co2_baseElec}</td>
+              <td>{props.co2MLYr.yr_co2_heat + props.co2MLYr.yr_co2_cool + props.co2MLYr.yr_co2_baseElec}</td>
             </tr>
           </tbody>
         </table>
