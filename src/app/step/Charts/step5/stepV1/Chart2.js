@@ -74,7 +74,7 @@ function Chart2(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: props.energyBaseGas, // 수치
+        data: props.energyBaseGas,// 수치
         backgroundColor: '#FBCE48', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
