@@ -75,7 +75,7 @@ function Chart1(props) {
       },
 
       {
-        data: [props.energyYr.yr_load_baseGas], // 수치
+        data: [(props.energyYr.yr_load_baseGas != undefined) ? parseFloat(props.energyYr.yr_load_baseGas.toFixed(2)) : props.energyYr.yr_load_baseGas], // 수치
         backgroundColor: '#FBCE48', // 각 막대 색
         barThickness: 24,
         barPercentage: 0.5,
