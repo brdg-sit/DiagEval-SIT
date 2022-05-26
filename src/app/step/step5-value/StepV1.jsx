@@ -4,6 +4,16 @@ import Chart2 from "../Charts/step5/stepV1/Chart2";
 import Chart1 from "../Charts/step5/stepV1/Chart1";
 
 function StepV1(props) {
+  if(Object.keys(props.energy).length > 0){
+    var tableDataKeys = Object.keys(tableData.val[0]);
+
+    for(var i=1; i<tableDataKeys.length; i++){
+      tableData.val[0][tableDataKeys[i]] = props.energy[i-1].load_heat;
+      tableData.val[1][tableDataKeys[i]] = props.energy[i-1].load_cool;
+      tableData.val[2][tableDataKeys[i]] = props.energy[i-1].load_baseElec;
+      tableData.val[3][tableDataKeys[i]] = props.energy[i-1].load_baseGas;
+    }
+  }
   return (
     <>
       <div className={styles.stepV1_wrappper}>
