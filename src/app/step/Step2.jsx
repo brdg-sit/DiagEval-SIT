@@ -24,12 +24,12 @@ function Step2() {
   const [isetrUFloor, setIsetrUFloor] = useState(location.state.defaults.isetr_u_floor);
   const [isetrUWindow, setIsetrUWindow] = useState(location.state.defaults.isetr_u_window);
   const [isetrShgc, setIsetrShgc] = useState(location.state.defaults.isetr_shgc);
-  const [cdEqmt, setCdEqmt] = useState(codes[location.state.defaults.cd_eqmt].name);
+  const [cdEqmt, setCdEqmt] = useState(location.state.defaults.cd_eqmt);
   // Eqmt 하나로 운영 -- dukhyun
   //const [cdEqmtCool, setCdEqmtCool] = useState(codes[location.state.defaults.cd_eqmt_cool].name);
   const [effcyHeat, setEffcyHeat] = useState(location.state.defaults.effcy_heat);
   const [effcyCool, setEffcyCool] = useState(location.state.defaults.effcy_cool);
-  const [cdEqmtLight, setCdEqmtLight] = useState(codes[location.state.defaults.cd_eqmt_light].name);
+  const [cdEqmtLight, setCdEqmtLight] = useState(location.state.defaults.cd_eqmt_light);
   const [isetrLight, setIsetrLight] = useState(location.state.defaults.isetr_light);
   const [levelLight, setLevelLight] = useState(location.state.defaults.level_light);
 
@@ -137,7 +137,12 @@ function Step2() {
   };
 
   const OnCdEqmtChange = (e) => {
-    setCdEqmt(e.target.value);
+    if(e.target.value === "EHP"){
+      setCdEqmt("401");
+    }
+    else{
+      setCdEqmt("402");
+    }
   };
 
   // Eqmt 하나로 운영 -- dukhyun
@@ -154,7 +159,21 @@ function Step2() {
   };
 
   const OnCdEqmtLightChange = (e) => {
-    setCdEqmtLight(e.target.value);
+    if(e.target.value === "LED(100%)"){
+      setCdEqmtLight("301");
+    }
+    else if(e.target.value === "LED(75%) 형광등(25%)"){
+      setCdEqmtLight("302");
+    }
+    else if(e.target.value === "LED(50%) 형광등(50%)"){
+      setCdEqmtLight("303");
+    }
+    else if(e.target.value === "LED(25%) 형광등(75%)"){
+      setCdEqmtLight("304");
+    }
+    else{
+      setCdEqmtLight("305");
+    }
   };
 
   const OnLevelLightChange = (e) => {
@@ -410,7 +429,7 @@ function Step2() {
                           type="radio"
                           name="tab1"
                           value="EHP"
-                          checked={cdEqmt === "EHP"}
+                          checked={cdEqmt === "401"}
                           onChange={OnCdEqmtChange}
                         />
                         <span>EHP</span>
@@ -421,7 +440,7 @@ function Step2() {
                           type="radio"
                           name="tab1"
                           value="중앙식"
-                          checked={cdEqmt === "중앙식"}
+                          checked={cdEqmt === "402"}
                           onChange={OnCdEqmtChange}
                         />
                         <span>중앙식</span>
@@ -450,7 +469,7 @@ function Step2() {
                           type="radio"
                           name="tab2"
                           value="EHP"
-                          checked={cdEqmt === "EHP"}
+                          checked={cdEqmt === "401"}
                           onChange={OnCdEqmtChange}
                         />
                         <span>EHP</span>
@@ -461,7 +480,7 @@ function Step2() {
                           type="radio"
                           name="tab2"
                           value="중앙식"
-                          checked={cdEqmt === "중앙식"}
+                          checked={cdEqmt === "402"}
                           onChange={OnCdEqmtChange}
                         />
                         <span>중앙식</span>
@@ -494,7 +513,7 @@ function Step2() {
                       type="radio"
                       name="tab"
                       value="형광등(100%)"
-                      checked={cdEqmtLight === "형광등(100%)"}
+                      checked={cdEqmtLight === "305"}
                       onChange={OnCdEqmtLightChange}
                     />
                     <span>형광등 100%</span>
@@ -505,7 +524,7 @@ function Step2() {
                       type="radio"
                       name="tab"
                       value="LED(25%) 형광등(75%)"
-                      checked={cdEqmtLight === "LED(25%) 형광등(75%)"}
+                      checked={cdEqmtLight === "304"}
                       onChange={OnCdEqmtLightChange}
                     />
                     <span>
@@ -519,7 +538,7 @@ function Step2() {
                       type="radio"
                       name="tab"
                       value="LED(50%) 형광등(50%)"
-                      checked={cdEqmtLight === "LED(50%) 형광등(50%)"}
+                      checked={cdEqmtLight === "303"}
                       onChange={OnCdEqmtLightChange}
                     />
                     <span>
@@ -533,7 +552,7 @@ function Step2() {
                       type="radio"
                       name="tab"
                       value="LED(75%) 형광등(25%)"
-                      checked={cdEqmtLight === "LED(75%) 형광등(25%)"}
+                      checked={cdEqmtLight === "302"}
                       onChange={OnCdEqmtLightChange}
                     />
                     <span>
@@ -547,7 +566,7 @@ function Step2() {
                       type="radio"
                       name="tab"
                       value="LED(100%)"
-                      checked={cdEqmtLight === "LED(100%)"}
+                      checked={cdEqmtLight === "301"}
                       onChange={OnCdEqmtLightChange}
                     />
                     <span>LED 100%</span>
