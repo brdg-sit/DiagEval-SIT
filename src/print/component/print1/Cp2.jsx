@@ -1,11 +1,40 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import styles from '../../css/print1/cp2n3.module.css'
-import { Bar } from 'react-chartjs-2'
+import { Bar, getDatasetAtEvent } from 'react-chartjs-2'
 import { CategoryScale } from 'chart.js'
 import Chart from 'chart.js/auto'
 Chart.register(CategoryScale)
 
-function Cp2() {
+function Cp2(props) {
+
+  const [gas, setGas] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const GetGas = () => {
+    var gas = [];
+    for(const key in props.energy){
+      gas.push(props.energy[key].load_gas);
+    }
+    return gas;
+  }
+
+  useEffect(()=>{
+    var gas = GetGas();
+    if(gas.length > 0 && !isLoaded){
+      var tableDataKeys = Object.keys(tableData.val[0]);
+
+      for(var i=1; i<tableDataKeys.length; i++){
+        tableData.val[0][tableDataKeys[i]] = gas[0];
+      }
+      setGas(gas);
+      setIsLoaded(true);
+    }
+  })
+
+
+  
+
+
   const options = {
     plugins: {
       legend: {
@@ -71,7 +100,7 @@ function Cp2() {
     ],
     datasets: [
       {
-        data: [1, 2, 3, 5, 0.5, 4, 3.5, 2, 3, 1, 5, 4.5], // 수치
+        data: gas, // 수치
         backgroundColor: '#E87A5F', // 각 막대 색
         barThickness: 6,
         barPercentage: 0.5,
@@ -103,26 +132,49 @@ function Cp2() {
             <th>12월</th>
           </tr>
         </thead>
-        <tbody>
-          <tr align="center" bgcolor="white">
-            <th>사용량</th>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-          </tr>
-        </tbody>
+          <tbody>
+            {tableData.val.map((i) => {
+              return (
+                <tr align="center" bgcolor="white" key={i.th}>
+                  <th>{i.th}</th>
+                  <td>{i.t1}</td>
+                  <td>{i.t2}</td>
+                  <td>{i.t3}</td>
+                  <td>{i.t4}</td>
+                  <td>{i.t5}</td>
+                  <td>{i.t6}</td>
+                  <td>{i.t7}</td>
+                  <td>{i.t8}</td>
+                  <td>{i.t9}</td>
+                  <td>{i.t10}</td>
+                  <td>{i.t11}</td>
+                  <td>{i.t12}</td>
+                </tr>
+              );
+            })}
+          </tbody>
       </table>
     </div>
   )
 }
 
 export default Cp2
+
+export const tableData ={
+  val:[
+    {
+      th: "사용량",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
+    }]
+  }

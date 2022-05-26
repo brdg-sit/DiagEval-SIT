@@ -217,13 +217,10 @@ function Step5() {
 
   const OnPrintResultClick = () => {
     window.open(
-      "/print1",
+      "/print1?id_etr=" + idEtr,
       "_blank",
       "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
-
     )
-
-    Print1({energy}, {energyYr});
   }
 
   return (

@@ -1,4 +1,6 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import axios from "axios";
 import styles from './css/print1.module.css'
 import titleIcon from '../@assets/print/title-icon.svg'
 import logo from '../@assets/print/logo.svg'
@@ -13,8 +15,50 @@ import Cp3 from './component/print1/Cp3'
 import Cp4 from './component/print1/Cp4'
 import Cp5 from './component/print1/Cp5'
 
-function Print1(energy, energyYr) {
-  const printRef = useRef(null)
+function Print1() {
+  //const printRef = useRef(null)
+  const printRef = null;
+
+  const [energy, setEnergy] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  useEffect(() => {
+    if(!isLoaded){
+      const urlParams = new URLSearchParams(window.location.search);
+      let idEtr = urlParams.get('id_etr');
+      var energy = GetEnergyType(idEtr);
+      setIsLoaded(true);
+    }
+  })
+
+  const GetEnergyType = async (idEtr) => {
+    try {
+      axios
+        .get("https://sitapi.brdg.kr/api/sit/get-energytyp", {
+          params: { id_etr: idEtr},
+        })
+        .then((response) => {
+          setEnergy(response.data);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const GetEnergyUsage = async (idEtr) => {
+    try {
+      axios
+        .get("https://sitapi.brdg.kr/api/sit/get-energyusage", {
+          params: { id_etr: idEtr},
+        })
+        .then((response) => {
+          setEnergy(response.data[0]);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <section className={styles.wrapper} id="print1" ref={printRef}>
@@ -40,8 +84,8 @@ function Print1(energy, energyYr) {
           <div className={styles.sec1_cp_wrap}>
             <h3>고지서 정보</h3>
             <div className={styles.cp_wrap}>
-              <Cp2 />
-              <Cp3 />
+              <Cp2 energy = {energy}/>
+              <Cp3 energy = {energy} />
             </div>
           </div>
 
