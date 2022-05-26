@@ -4,19 +4,6 @@ import Chart2 from "../Charts/step5/stepV1/Chart2";
 import Chart1 from "../Charts/step5/stepV1/Chart1";
 
 function StepV1(props) {
-  // if (Object.keys(props.energyUsage).length > 0) {
-  //   var tableDataKeys = Object.keys(tableData.val[0]);
-
-  //   for (var i = 1; i < tableDataKeys.length; i++) {
-  //     tableData.val[0][tableDataKeys[i]] = props.energyUsage[i - 1].load_heat;
-  //     tableData.val[1][tableDataKeys[i]] = props.energyUsage[i - 1].load_cool;
-  //     tableData.val[2][tableDataKeys[i]] =
-  //       props.energyUsage[i - 1].load_baseElec;
-  //     tableData.val[3][tableDataKeys[i]] =
-  //       props.energyUsage[i - 1].load_baseGas;
-  //   }
-  // }
-
   return (
     <>
       <div className={styles.stepV1_wrappper}>
@@ -29,7 +16,7 @@ function StepV1(props) {
           <ul className={styles.tag_wrap}>
             {chartLabel.map((i) => {
               return (
-                <li>
+                <li key={i.name} >
                   <div style={{ background: `${i.color}` }} />
                   {i.name}
                 </li>
@@ -38,7 +25,7 @@ function StepV1(props) {
           </ul>
         </div>
         <div style={{ marginBottom: 50 }}>
-          <Chart1 energyUsageYr={props.energyUsageYr} />
+          <Chart1 energyYr={props.energyYr} />
         </div>
 
         <div className={styles.title_wrap}>
@@ -50,7 +37,7 @@ function StepV1(props) {
           <ul className={styles.tag_wrap}>
             {chartLabel.map((i) => {
               return (
-                <li>
+                <li key={i.name}>
                   <div style={{ background: `${i.color}` }} />
                   {i.name}
                 </li>
@@ -60,10 +47,10 @@ function StepV1(props) {
         </div>
         <div className={styles.chart_wrap}>
           <Chart2
-            energyUsageHeat={props.energyUsage.map((usg) => usg.load_heat)}
-            energyUsageCool={props.energyUsage.map((usg) => usg.load_cool)}
-            energyUsageBaseElec={props.energyUsage.map((usg) => usg.load_baseElec)}
-            energyUsageBaseGas={props.energyUsage.map((usg) => usg.load_baseGas)}
+            energyHeat={props.energy.map((usg) => usg.load_heat)}
+            energyCool={props.energy.map((usg) => usg.load_cool)}
+            energyBaseElec={props.energy.map((usg) => usg.load_baseElec)}
+            energyBaseGas={props.energy.map((usg) => usg.load_baseGas)}
           />
         </div>
 
@@ -78,7 +65,7 @@ function StepV1(props) {
           <tbody>
             {tableData.val.map((i) => {
               return (
-                <tr align="center" bgcolor="white" key={i}>
+                <tr align="center" bgcolor="white" key={i.th}>
                   <th>{i.th}</th>
                   <td>{i.t1}</td>
                   <td>{i.t2}</td>

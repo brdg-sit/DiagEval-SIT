@@ -55,7 +55,15 @@
 }
 
 .input_wrap input {
-  width: 100%;
+  width: 65%;
+  padding: 12px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+}
+
+.input_wrap input[title] {
+  width: 35%;
   padding: 12px;
   height: 48px;
   border-radius: 8px;

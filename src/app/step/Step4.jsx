@@ -233,7 +233,6 @@ function Step4() {
       axios.post(baseuri + 'energytyp', energyTypeValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
-          console.log(response.data);
         });
     }
     catch(error){
@@ -266,11 +265,9 @@ function Step4() {
 
     try{
       var energyUsageValues = JSON.stringify(energyUsage);
-      console.log(energyUsageValues)
       axios.post(baseuri + 'energyusage', energyUsageValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
-          console.log(response.data);
         });
     }
     catch(error){
@@ -321,7 +318,6 @@ function Step4() {
       axios.post(baseuri + 'ml', mlValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
-          //console.log(response.data);
           return response.data;
         });
     }

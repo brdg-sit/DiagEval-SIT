@@ -1,12 +1,10 @@
-import React, {useEffect, useState } from 'react'
+import React from 'react'
 import { Bar } from "react-chartjs-2";
 
 import { CategoryScale } from "chart.js";
 import Chart from "chart.js/auto";
 Chart.register(CategoryScale);
-
 function Chart3(props) {
-
   const options = {
     plugins: {
       legend: {
@@ -48,7 +46,7 @@ function Chart3(props) {
     ],
     datasets: [
       {
-        data: props.energyUsage, // 수치
+        data: props.energy, // 수치
         backgroundColor: "#80A4E7", // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -58,7 +56,7 @@ function Chart3(props) {
         borderColor: "rgba(255, 255, 255, 0)",
       },
       {
-        data: props.energyUsage2, // 수치
+        data: props.energyML, // 수치
         backgroundColor: "#F18246", // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,

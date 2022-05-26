@@ -4,7 +4,6 @@ import { Bar } from 'react-chartjs-2'
 import { CategoryScale } from 'chart.js'
 import Chart from 'chart.js/auto'
 Chart.register(CategoryScale)
-
 function Chart2(props) {
   const options = {
     plugins: {
@@ -34,7 +33,7 @@ function Chart2(props) {
     labels: ['사용자입력', '일반사용형태'],
     datasets: [
       {
-        data: [props.usageYrHeat, props.usageMLYrHeat], // 수치
+        data: [props.co2YrHeat, props.co2MLYrHeat], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -44,7 +43,7 @@ function Chart2(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.usageYrCool, props.usageMLYrCool], // 수치
+        data: [props.co2YrCool, props.co2MLYrCool], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -54,7 +53,7 @@ function Chart2(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.usageYrBC, props.usageMLYrBC], // 수치
+        data: [props.co2YrBC, props.co2MLYrBC], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,

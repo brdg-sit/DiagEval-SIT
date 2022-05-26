@@ -30,7 +30,6 @@ function Chart1(props) {
     },
     scales: {
       y: {
-        max: 1,
         min: 0,
       },
 
@@ -49,7 +48,7 @@ function Chart1(props) {
     labels: ['항목1'],
     datasets: [
       {
-        data: [props.energyUsageYr.yr_load_heat], // 수치
+        data: [props.energyYr.yr_load_heat], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 24,
 
@@ -60,7 +59,7 @@ function Chart1(props) {
       },
 
       {
-        data: [props.energyUsageYr.yr_load_cool], // 수치
+        data: [props.energyYr.yr_load_cool], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 24,
         label: '냉방',
@@ -70,7 +69,7 @@ function Chart1(props) {
       },
 
       {
-        data: [props.energyUsageYr.yr_load_baseElec], // 수치
+        data: [props.energyYr.yr_load_baseElec], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 24,
         label: '기저',
@@ -79,7 +78,7 @@ function Chart1(props) {
       },
 
       {
-        data: [props.energyUsageYr.yr_load_baseGas], // 수치
+        data: [props.energyYr.yr_load_baseGas], // 수치
         backgroundColor: '#FBCE48', // 각 막대 색
         barThickness: 24,
         barPercentage: 0.5,

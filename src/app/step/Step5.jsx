@@ -25,25 +25,19 @@ function Step5() {
   const [wday, setHurWday] = useState(location.state.stateHistory[3].hurWday);
   const [wend, setHurWend] = useState(location.state.stateHistory[3].hurWend);
 
-  const [energyUsage, setEnergyUsage] = useState([]);
-  const [energyUserML, setEnergyUserML] = useState([]);
-  const [energyUsageAvg, setEnergyUsageAvg] = useState([]);
-  const [co2UsageAvg, setCo2UsageAvg] = useState([]);
+  const [energy, setEnergy] = useState([]);
+  const [energyML, setEnergyML] = useState([]);
+  const [energyAvg, setEnergyAvg] = useState([]);
+  const [co2Avg, setCo2Avg] = useState([]);
 
-  const [energyUsageYr, setEnergyUsageYr] = useState({});
-  const [energyUsageMLYr, setEnergyUsageMLYr] = useState({});
-  const [energyUsageAvgYr, setEnergyUsageAvgYr] = useState({});
+  const [energyYr, setEnergyYr] = useState({});
+  const [energyMLYr, setEnergyMLYr] = useState({});
+  const [energyAvgYr, setEnergyAvgYr] = useState({});
 
-  const [co2UsageYr, setCo2UsageYr] = useState({});
-  const [co2UsageMLYr, setCo2UsageMLYr] = useState({});
-  const [co2UsageAvgYr, setCo2UsageAvgYr] = useState({});
+  const [co2Yr, setCo2Yr] = useState({});
+  const [co2MLYr, setCo2MLYr] = useState({});
+  const [co2AvgYr, setCo2AvgYr] = useState({});
 
-  const [energyUsageYrHeat, setEnergyUsageYrHeat] = useState({});
-  const [energyUsageYrCool, setEnergyUsageYrCool] = useState({});
-  const [energyUsageYrBC, setEnergyUsageYrBC] = useState({});
-  const [energyUsageCO2Heat, setEnergyUsageCO2Heat] = useState({});
-  const [energyUsageCO2Cool, setEnergyUsageCO2Cool] = useState({});
-  const [energyUsageCO2BC, setEnergyUsageCO2BC] = useState({});
   const [idEtr, setIdEtr] = useState(location.state.idEtr);
 
   const baseuri = "https://sitapi.brdg.kr/api/sit/";
@@ -52,60 +46,72 @@ function Step5() {
   useEffect(() => {
     if (isLoaded !== true) {
       location.state.stateHistory[4] = location.state;
-
       GetEnergyUsage();
-      GetEnergyUserML();
-      GetEnergyUsageAvg();
-
       setIsLoaded(true);
     }
   });
 
-  const GetEnergyUsage = () => {
-    //console.log("idEtr", idEtr);
+  const GetEnergyUsage = async () => {
     try {
       axios
         .get(baseuri + "get-energyusage", {
           params: { id_etr: idEtr },
         })
         .then((response) => {
-          //console.log("response.data[0]", response.data[0]);
-          // console.log("response.data[1]", response.data[1]);
-          // console.log("response.data[2]", response.data[2]);
-          setEnergyUsage(response.data[0]);
-          setEnergyUserML(response.data[1]);
-          setEnergyUsageAvg(response.data[2]);
-          setCo2UsageAvg(response.data[3]);
+          // API에서 여러개 Tables로 가져옴
+          // data순서에 따라 용도 확인
+          // setEnergy 월별 사용자입력 에너지 (0)
+          // setEnergyML 월별 일반사용형태 에너지 (1)
+          // setEnergyAvg 월별 유사사례 평균치 에너지 (2)
+          // setEnergyYr 연간 사용자입력 에너지 (3)
+          // setEnergyMLYr 연간 일반사용형태 에너지 (4)
+          // setCo2Avg 월별 유사사례 평균치 CO2 (5)
+          // setCo2Yr 연간 사용자입력 CO2 (6)
+          // setCo2MLYr 연간 일반사용형태 CO2 (7)
 
-          setEnergyUsageYr(response.data[4][0]);
-          setEnergyUsageMLYr(response.data[5][0]);
-          setEnergyUsageAvgYr({
-            yr_load_heat: response.data[2].reduce((a,v) =>  a = a + v.load_heat, 0),
-            yr_load_cool: response.data[2].reduce((a,v) =>  a = a + v.load_cool, 0),
-            yr_load_baseElec: response.data[2].reduce((a,v) =>  a = a + v.load_baseElec, 0)
+          setEnergy(response.data[0]);
+          setEnergyML(response.data[1]);
+          setEnergyAvg(response.data[2]);
+          setEnergyYr(response.data[3][0]);
+          setEnergyMLYr(response.data[4][0]);
+          setCo2Avg(response.data[5]);
+          setEnergyAvgYr({
+            yr_load_heat: response.data[2].reduce(
+              (a, v) => (a = a + v.load_heat),
+              0
+            ),
+            yr_load_cool: response.data[2].reduce(
+              (a, v) => (a = a + v.load_cool),
+              0
+            ),
+            yr_load_baseElec: response.data[2].reduce(
+              (a, v) => (a = a + v.load_baseElec),
+              0
+            ),
           });
-
-          setCo2UsageYr(response.data[6][0]);
-          setCo2UsageMLYr(response.data[7][0]);
-          setCo2UsageAvgYr({
-            yr_co2_heat: response.data[3].reduce((a,v) =>  a = a + v.co2_heat, 0),
-            yr_co2_cool: response.data[3].reduce((a,v) =>  a = a + v.co2_cool, 0),
-            yr_co2_baseElec: response.data[3].reduce((a,v) =>  a = a + v.co2_baseElec, 0)
+          setCo2Yr(response.data[6][0]);
+          setCo2MLYr(response.data[7][0]);
+          setCo2AvgYr({
+            yr_co2_heat: response.data[5].reduce(
+              (a, v) => (a = a + v.co2_heat),
+              0
+            ),
+            yr_co2_cool: response.data[5].reduce(
+              (a, v) => (a = a + v.co2_cool),
+              0
+            ),
+            yr_co2_baseElec: response.data[5].reduce(
+              (a, v) => (a = a + v.co2_baseElec),
+              0
+            ),
           });
-
-          // setEnergyUsageYrHeat(response.data[1][0].yr_load_heat);
-          // setEnergyUsageYrCool(response.data[1][0].yr_load_cool);
-          // setEnergyUsageYrBC(response.data[1][0].yr_load_baseElec);
-          // setEnergyUsageCO2Heat(response.data[1][0].yr_load_heat);
-          // setEnergyUsageCO2Cool(response.data[1][0].yr_load_cool);
-          // setEnergyUsageCO2BC(response.data[1][0].yr_load_baseElec);
-          //setEnergyUsageCO2(response.data[2]);
         });
     } catch (error) {
       console.error(error);
     }
   };
 
+  // get-energyusage 으로 통일하여 운영 -- dukhyun
   const GetEnergyUserML = async () => {
     try {
       axios
@@ -113,13 +119,14 @@ function Step5() {
           params: { id_etr: idEtr, area: area, eqmt: eqmt },
         })
         .then((response) => {
-          setEnergyUserML(response.data);
+          setEnergyML(response.data);
         });
     } catch (error) {
       console.error(error);
     }
   };
 
+  // get-energyusage 으로 통일하여 운영 -- dukhyun
   const GetEnergyUsageAvg = async () => {
     try {
       axios
@@ -127,7 +134,7 @@ function Step5() {
           params: { area: area, eqmt: eqmt, wday: wday, wend: wend },
         })
         .then((response) => {
-          setEnergyUsageAvg(response.data);
+          setEnergyAvg(response.data);
         });
     } catch (error) {
       console.error(error);
@@ -210,43 +217,37 @@ function Step5() {
         <StepHeader />
         <div className={styles.wrapper}>
           <div className={styles.nav_wrap}>
-            <nav className={step === 0 && styles.navActive}>
+            <nav className={step === 0 ? styles.navActive : ""}>
               에너지 사용량 분리분석 결과
             </nav>
-            <nav className={step === 1 && styles.navActive}>
+            <nav className={step === 1 ? styles.navActive : ""}>
               일반 사용행태 비교분석 결과
             </nav>
-            <nav className={step === 2 && styles.navActive}>
+            <nav className={step === 2 ? styles.navActive : ""}>
               유사건물 비교분석 결과
             </nav>
           </div>
 
           <div className={styles.view_wrapper}>
-            {step === 0 && (
-              <StepV1 energyUsage={energyUsage} energyUsageYr={energyUsageYr} />
-            )}
+            {step === 0 && <StepV1 energy={energy} energyYr={energyYr} />}
             {step === 1 && (
               <StepV2
-                energyUsage={energyUsage}
-                energyUserML={energyUserML}
-                energyUsageYr={energyUsageYr}
-                energyUsageMLYr={energyUsageMLYr}
-                co2UsageYr={co2UsageYr}
-                co2UsageMLYr={co2UsageMLYr}
-
-                // energyUsageCO2Heat={energyUsageCO2Heat}
-                // energyUsageCO2Cool={energyUsageCO2Cool}
-                // energyUsageCO2BC={energyUsageCO2BC}
+                energy={energy}
+                energyML={energyML}
+                energyYr={energyYr}
+                energyMLYr={energyMLYr}
+                co2Yr={co2Yr}
+                co2MLYr={co2MLYr}
               />
             )}
             {step === 2 && (
               <StepV3
-                energyUsage={energyUsage}
-                energyUsageAvg={energyUsageAvg}
-                energyUsageYr={energyUsageYr}
-                energyUsageAvgYr={energyUsageAvgYr}
-                co2UsageYr={co2UsageYr}
-                co2UsageAvgYr={co2UsageAvgYr}
+                energy={energy} // 사용자입력-월
+                energyAvg={energyAvg} // 유사평균-월
+                energyYr={energyYr} // 사용자입력-년
+                energyAvgYr={energyAvgYr} // 유사평균-년
+                co2Yr={co2Yr} // 사용자입력CO2-년
+                co2AvgYr={co2AvgYr} // 유사평균CO2-년
               />
             )}
           </div>
@@ -258,10 +259,10 @@ function Step5() {
               type="button"
               className={styles.printBtn}
               onClick={() =>
-                  window.open(
-                    "/print1",
-                    "_blank",
-                    "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
+                window.open(
+                  "/print1",
+                  "_blank",
+                  "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
                 )
               }
             >
