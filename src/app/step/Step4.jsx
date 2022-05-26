@@ -366,7 +366,7 @@ function Step4() {
 
           var baseEC = 0;
 
-          if(cd_eqmt === "EHP"){
+          if(cd_eqmt === "401"){
             var elecEC = GetBaseConsumption(electricData);
             InsertEnergyUsageIntoDB(id_etr, elecEC, electricDict, gasDict, true);
           }

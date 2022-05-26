@@ -18,9 +18,9 @@ function Chart3(props) {
     scales: {
       y: {
         min: 0,
-        ticks: {
-          stepSize: 1,
-        },
+        // ticks: {
+        //   stepSize: 1,
+        // },
       },
     },
 

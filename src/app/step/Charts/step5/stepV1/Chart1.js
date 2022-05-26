@@ -35,9 +35,6 @@ function Chart1(props) {
 
       X: {
         min: 0,
-        ticks: {
-          stepSize: 0.5,
-        },
       },
     },
     maintainAspectRatio: true,

@@ -18,9 +18,9 @@ function Chart2(props) {
     scales: {
       y: {
         min: 0,
-        ticks: {
-          stepSize: 0.5,
-        },
+        // ticks: {
+        //   stepSize: 0.5,
+        // },
       },
     },
 

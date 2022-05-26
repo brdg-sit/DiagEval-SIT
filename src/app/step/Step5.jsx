@@ -157,7 +157,7 @@ function Step5() {
             className={styles.submit}
             onClick={() => navigate("/")}
           >
-            다음으로
+            완료
           </button>
         </>
       );
