@@ -1,21 +1,9 @@
-import React from 'react'
-import styles from '../css/step5.module.css'
-import Chart2 from '../Charts/step5/stepV1/Chart2'
-import Chart1 from '../Charts/step5/stepV1/Chart1'
+import React from "react";
+import styles from "../css/step5.module.css";
+import Chart2 from "../Charts/step5/stepV1/Chart2";
+import Chart1 from "../Charts/step5/stepV1/Chart1";
 
 function StepV1(props) {
-
-  if(Object.keys(props.energyUsage).length > 0){
-    var tableDataKeys = Object.keys(tableData.val[0]);
-  
-    for(var i=1; i<tableDataKeys.length; i++){
-      tableData.val[0][tableDataKeys[i]] = props.energyUsage[i-1].load_heat;
-      tableData.val[1][tableDataKeys[i]] = props.energyUsage[i-1].load_cool;
-      tableData.val[2][tableDataKeys[i]] = props.energyUsage[i-1].load_baseElec;
-      tableData.val[3][tableDataKeys[i]] = parseFloat(props.energyUsage[i-1].load_baseGas.toFixed(2));
-    }
-  }
-
   return (
     <>
       <div className={styles.stepV1_wrappper}>
@@ -26,18 +14,18 @@ function StepV1(props) {
           </div>
 
           <ul className={styles.tag_wrap}>
-            {chartLabel.map(i => {
+            {chartLabel.map((i) => {
               return (
-                <li>
+                <li key={i.name} >
                   <div style={{ background: `${i.color}` }} />
                   {i.name}
                 </li>
-              )
+              );
             })}
           </ul>
         </div>
         <div style={{ marginBottom: 50 }}>
-          <Chart1 energyUsage={props.energyUsage}/>
+          <Chart1 energyYr={props.energyYr} />
         </div>
 
         <div className={styles.title_wrap}>
@@ -47,18 +35,23 @@ function StepV1(props) {
           </div>
 
           <ul className={styles.tag_wrap}>
-            {chartLabel.map(i => {
+            {chartLabel.map((i) => {
               return (
-                <li>
+                <li key={i.name}>
                   <div style={{ background: `${i.color}` }} />
                   {i.name}
                 </li>
-              )
+              );
             })}
           </ul>
         </div>
         <div className={styles.chart_wrap}>
-          <Chart2 energyUsage={props.energyUsage}/>
+          <Chart2
+            energyHeat={props.energy.map((usg) => usg.load_heat)}
+            energyCool={props.energy.map((usg) => usg.load_cool)}
+            energyBaseElec={props.energy.map((usg) => usg.load_baseElec)}
+            energyBaseGas={props.energy.map((usg) => usg.load_baseGas)}
+          />
         </div>
 
         {/* 테이블 */}
@@ -70,9 +63,9 @@ function StepV1(props) {
             </tr>
           </thead> */}
           <tbody>
-            {tableData.val.map(i => {
+            {tableData.val.map((i) => {
               return (
-                <tr align="center" bgcolor="white" key={i}>
+                <tr align="center" bgcolor="white" key={i.th}>
                   <th>{i.th}</th>
                   <td>{i.t1}</td>
                   <td>{i.t2}</td>
@@ -87,85 +80,85 @@ function StepV1(props) {
                   <td>{i.t11}</td>
                   <td>{i.t12}</td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
       </div>
     </>
-  )
+  );
 }
 
-export default StepV1
+export default StepV1;
 
 export const chartLabel = [
-  { name: '난방', color: '#F66060' },
-  { name: '냉방', color: '#6799F4' },
-  { name: '기저', color: '#B4BEC5' },
-  { name: '급탕/취사', color: '#FBCE48' },
-]
+  { name: "난방", color: "#F66060" },
+  { name: "냉방", color: "#6799F4" },
+  { name: "기저", color: "#B4BEC5" },
+  { name: "급탕/취사", color: "#FBCE48" },
+];
 
 export const tableData = {
   val: [
     {
-      "th": '난방',
-      "t1": '00',
-      "t2": '00',
-      "t3": '00',
-      "t4": '00',
-      "t5": '00',
-      "t6": '00',
-      "t7": '00',
-      "t8": '00',
-      "t9": '00',
-      "t10": '00',
-      "t11": '00',
-      "t12": '00',
+      th: "난방",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
     },
     {
-      "th": '냉방',
-      "t1": '00',
-      "t2": '00',
-      "t3": '00',
-      "t4": '00',
-      "t5": '00',
-      "t6": '00',
-      "t7": '00',
-      "t8": '00',
-      "t9": '00',
-      "t10": '00',
-      "t11": '00',
-      "t12": '00',
+      th: "냉방",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
     },
     {
-      "th": '기저',
-      "t1": '00',
-      "t2": '00',
-      "t3": '00',
-      "t4": '00',
-      "t5": '00',
-      "t6": '00',
-      "t7": '00',
-      "t8": '00',
-      "t9": '00',
-      "t10": '00',
-      "t11": '00',
-      "t12": '00',
+      th: "기저",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
     },
     {
-      "th": '급탕/취사',
-      "t1": '00',
-      "t2": '00',
-      "t3": '00',
-      "t4": '00',
-      "t5": '00',
-      "t6": '00',
-      "t7": '00',
-      "t8": '00',
-      "t9": '00',
-      "t10": '00',
-      "t11": '00',
-      "t12": '00',
+      th: "급탕/취사",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
     },
   ],
-}
+};

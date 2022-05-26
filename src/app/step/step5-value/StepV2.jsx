@@ -1,46 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Chart1 from "../Charts/step5/stepV2/Chart1";
 import styles from "../css/step5.module.css";
 import waitIcon from "../../../@assets/step5/waitIcon.svg";
 import Chart2 from "../Charts/step5/stepV2/Chart2";
+import Chart3 from "../Charts/step5/stepV2/Chart3";
 
 function StepV2(props) {
-  const [loadHeatData, setLoadHeatData] = useState([]);
-  const [loadCoolData, setLoadCoolData] = useState([]);
-  const [loadBaseElecData, setLoadBaseElecData] = useState([]);
-
-  //   useEffect(() => {
-  //  //GetLoadHeatData();
-  //   //   GetLoadCoolData();
-  //   //   GetLoadBaseElecData();
-  //     console.log("loadHeatData", loadHeatData);
-  //   }
-  //   );
-
-  const GetLoadHeatData = () => {
-    var totalHeat = [];
-    for (var i = 0; i < props.energyUsage.length; i++) {
-      totalHeat.push(props.energyUsage[i].load_heat);
-    }
-    setLoadHeatData(totalHeat);
-  };
-
-  const GetLoadCoolData = () => {
-    var totalCool = [];
-    for (var i = 0; i < props.energyUsage.length; i++) {
-      totalCool.push(props.energyUsage[i].load_cool);
-    }
-    setLoadCoolData(totalCool);
-  };
-
-  const GetLoadBaseElecData = () => {
-    var totalBaseElec = [];
-    for (var i = 0; i < props.energyUsage.length; i++) {
-      totalBaseElec.push(props.energyUsage[i].load_baseElec);
-    }
-    setLoadBaseElecData(totalBaseElec);
-  };
-
   return (
     <div className={styles.stepV_wrappper}>
       {/* 좌측  */}
@@ -54,7 +19,7 @@ function StepV2(props) {
           <ul className={styles.tag_wrap}>
             {chartLabel.map((i) => {
               return (
-                <li>
+                <li key={i.name} >
                   <div style={{ background: `${i.color}` }} />
                   {i.name}
                 </li>
@@ -67,23 +32,30 @@ function StepV2(props) {
           <li>
             <h2>연간 에너지 사용량 (kWh)</h2>
             <Chart1
-                // energyUsageYrHeat={props.energyUsageYrHeat}
-                // energyUsageYrCool={props.energyUsageYrHeat}
-                // energyUsageYrBC={props.energyUsageYrHeat}
-                // energyUsageCO2Heat={props.energyUsageCO2Heat}
-                // energyUsageCO2Cool={props.energyUsageCO2Cool}
-                // energyUsageCO2BC={props.energyUsageCO2BC}
-                 />
+              energyYrHeat={props.energyYr.yr_load_heat}
+              energyYrCool={props.energyYr.yr_load_cool}
+              energyYrBC={props.energyYr.yr_load_baseElec}
+              energyMLYrHeat={props.energyMLYr.yr_load_heat}
+              energyMLYrCool={props.energyMLYr.yr_load_cool}
+              energyMLYrBC={props.energyMLYr.yr_load_baseElec}
+            />
           </li>
 
-          <li>
+          <li>            
             <h2>연간 CO2 배출량</h2>
-            <Chart1 />
+            <Chart2
+              co2YrHeat={props.co2Yr.yr_co2_heat}
+              co2YrCool={props.co2Yr.yr_co2_cool}
+              co2YrBC={props.co2Yr.yr_co2_baseElec}
+              co2MLYrHeat={props.co2MLYr.yr_co2_heat}
+              co2MLYrCool={props.co2MLYr.yr_co2_cool}
+              co2MLYrBC={props.co2MLYr.yr_co2_baseElec}
+            />
           </li>
         </ul>
 
         {/* 좌측차트 */}
-        <table className={styles.table_val} cellspacing="0">
+        <table className={styles.table_val} cellSpacing="0">
           <thead>
             <tr align="center">
               <td></td>
@@ -96,7 +68,7 @@ function StepV2(props) {
           </thead>
           <tbody>
             <tr align="center" bgcolor="white">
-              <th rowspan="2">에너지 사용량</th>
+              <th rowSpan="2">에너지 사용량</th>
               <th>분석건물</th>
               <td>00</td>
               <td>00</td>
@@ -112,7 +84,7 @@ function StepV2(props) {
             </tr>
 
             <tr align="center" bgcolor="white">
-              <th rowspan="2">C02 배출량</th>
+              <th rowSpan="2">C02 배출량</th>
               <th>분석건물</th>
               <td>00</td>
               <td>00</td>
@@ -143,7 +115,10 @@ function StepV2(props) {
             <aside />
             난방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_heat)} energyUsage2={props.energyUserML.map((usg) => usg.load_heat)} />
+          <Chart3
+            energy={props.energy.map((usg) => usg.load_heat)}
+            energyML={props.energyML.map((usg) => usg.load_heat)}
+          />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -151,7 +126,10 @@ function StepV2(props) {
             <aside />
             냉방 월간 사용량
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_cool)} energyUsage2={props.energyUserML.map((usg) => usg.load_cool)}/>
+          <Chart3
+            energy={props.energy.map((usg) => usg.load_cool)}
+            energyML={props.energyML.map((usg) => usg.load_cool)}
+          />
         </div>
 
         <div className={styles.right_chart_wrap}>
@@ -159,7 +137,10 @@ function StepV2(props) {
             <aside />
             기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
           </div>
-          <Chart2 energyUsage={props.energyUsage.map((usg) => usg.load_baseElec)} energyUsage2={props.energyUserML.map((usg) => usg.load_baseElec)} />
+          <Chart3
+            energy={props.energy.map((usg) => usg.load_baseElec)}
+            energyML={props.energyML.map((usg) => usg.load_baseElec)}
+          />
         </div>
       </div>
     </div>
@@ -169,7 +150,7 @@ function StepV2(props) {
 export default StepV2;
 
 export const chartLabel = [
-  { name: '난방', color: '#F66060' },
-  { name: '냉방', color: '#6799F4' },
-  { name: '기저', color: '#B4BEC5' },
+  { name: "난방", color: "#F66060" },
+  { name: "냉방", color: "#6799F4" },
+  { name: "기저", color: "#B4BEC5" },
 ];

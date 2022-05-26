@@ -19,6 +19,7 @@ function Step1() {
   const [defaults, setDefaults] = useState({});
   const [yearUValues, setYearUValues] = useState([]);
   const [address, setAddress] = useState("");
+  const [detail, setDetail] = useState("");
   const [cdNorthAxis, setCdNorthAxis] = useState("");
   const [cdUsageMain, setCdUsageMain] = useState("");
   const [usageSub, setUsageSub] = useState("");
@@ -29,11 +30,6 @@ function Step1() {
   const [isEtrWwr, setIsetrWwr] = useState(0);
   const [aspectRatio, setAspectRatio] = useState("");
   const [isEtrAspectRatio, setIsetrAspectRatio] = useState(0);
-  // const [uWall, setUWall] = useState(0);
-  // const [uRoof, setURoof] = useState(0);
-  // const [uFloor, setUFloor] = useState(0);
-  // const [uWindow, setUWindow] = useState(0);
-  // const [shgc, setShgc] = useState(0);
 
   useEffect(() => {
     if (isLoaded !== true) {
@@ -114,6 +110,10 @@ function Step1() {
       <SearchPostcode address={props.address} setAddress={props.setAddress} />
     </Popup>
   );
+
+  const OnAddressDetailChange = (e) => {
+    setDetail(e.target.value);
+  };
 
   const OnCdNorthAxisChanged = (e) => {
     setCdNorthAxis(e.target.value);
@@ -238,6 +238,13 @@ function Step1() {
                     placeholder="주소를 검색하세요."
                     value={address}
                     onChange={() => console.log("")}
+                  />
+                  <input
+                    title="detail"
+                    type="text"
+                    placeholder="상세 주소"
+                    value={detail}
+                    onChange={OnAddressDetailChange}
                   />
                   <SearchPostcodeButton
                     address={address}

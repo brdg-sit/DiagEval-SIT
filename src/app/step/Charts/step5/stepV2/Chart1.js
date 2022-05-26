@@ -17,7 +17,6 @@ function Chart1(props) {
     },
     scales: {
       y: {
-        max: 5,
         min: 0,
         ticks: {
           stepSize: 0.5,
@@ -35,7 +34,7 @@ function Chart1(props) {
     labels: ['사용자입력', '일반사용형태'],
     datasets: [
       {
-        data: [props.energyUsageYrHeat, props.energyUsageYrHeat], // 수치
+        data: [props.energyYrHeat, props.energyMLYrHeat], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -45,7 +44,7 @@ function Chart1(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [2, 2], // 수치
+        data: [props.energyYrCool, props.energyMLYrCool], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -55,7 +54,7 @@ function Chart1(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [3, 3], // 수치
+        data: [props.energyYrBC, props.energyMLYrBC], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
