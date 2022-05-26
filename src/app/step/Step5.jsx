@@ -8,7 +8,10 @@ import StepV2 from "./step5-value/StepV2";
 import StepV3 from "./step5-value/StepV3";
 import axios from "axios";
 
+
 function Step5() {
+
+  const test = document.createElement('div');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -238,7 +241,7 @@ function Step5() {
               type="button"
               className={styles.printBtn}
               onClick={() =>
-                  window.open(
+               window.open(
                     "/print1",
                     "_blank",
                     "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
