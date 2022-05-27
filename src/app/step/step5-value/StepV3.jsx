@@ -6,6 +6,43 @@ import Chart2 from "../Charts/step5/stepV3/Chart2";
 import Chart3 from "../Charts/step5/stepV3/Chart3";
 
 function StepV3(props) {
+
+  const ShowAlertMessage = () => {
+    
+    var alertMessages = [];
+    var hasAlert = false;
+
+    if(props.energyYr.yr_load_heat > props.energyAvgYr.yr_load_heat){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(props.energyYr.yr_load_cool > props.energyAvgYr.yr_load_cool){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(props.energyYr.yr_load_baseElec > props.energyAvgYr.yr_load_baseElec){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(hasAlert){
+      return (  
+        <div className={styles.info_desk_wrap}>
+          {alertMessages}
+        </div>
+      );
+    }
+    else{
+      return (  
+        <div className={styles.info_desk_wrap_no_alert}>
+          <p>평균 에너지 사용량보다 절약하고 있습니다.</p>
+        </div>
+      );
+    }
+  }
+
   return (
     <div className={styles.stepV_wrappper}>
       {/* 좌측  */}
@@ -100,14 +137,7 @@ function StepV3(props) {
             </tr>
           </tbody>
         </table>
-
-        <div className={styles.info_desk_wrap}>
-          <img src={waitIcon} alt="" />
-          <p>
-            표준 사용자 행태를 갖고 있는 건물보다&nbsp;
-            <span>난방 사용량이 높습니다</span>
-          </p>
-        </div>
+        <ShowAlertMessage/>
       </div>
       <div className={`${styles.step_wrap} ${styles.right_step_wrap}`}>
         <div className={styles.right_chart_wrap}>
