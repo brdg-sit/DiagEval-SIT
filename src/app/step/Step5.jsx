@@ -8,6 +8,7 @@ import StepV2 from "./step5-value/StepV2";
 import StepV3 from "./step5-value/StepV3";
 import axios from "axios";
 import Print1 from "../../print/Print1";
+import cloneDeep from 'lodash.clonedeep';
 
 
 function Step5() {
@@ -50,6 +51,7 @@ function Step5() {
   useEffect(() => {
     if (isLoaded !== true) {
       location.state.stateHistory[4] = location.state;
+      location.state.stateHistory[4].submittedState = cloneDeep(location.state.submittedState);
       GetEnergyUsage();
       setIsLoaded(true);
     }
@@ -196,7 +198,7 @@ function Step5() {
                   codes: codes,
                   defaults: defaults,
                   stepNum: stepNum,
-                  stateHistory: stateHistory,
+                  stateHistory: stateHistory
                 },
               });
             }}

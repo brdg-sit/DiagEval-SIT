@@ -5842,6 +5842,11 @@
   dependencies:
     "p-locate" "^5.0.0"
 
+"lodash.clonedeep@^4.5.0":
+  "integrity" "sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8="
+  "resolved" "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz"
+  "version" "4.5.0"
+
 "lodash.debounce@^4.0.8":
   "integrity" "sha1-gteb/zCmfEAF/9XiUVMArZyk168="
   "resolved" "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
@@ -6029,7 +6034,7 @@
   dependencies:
     "brace-expansion" "^1.1.7"
 
-"minimist@^1.1.1", "minimist@^1.2.0", "minimist@^1.2.5", "minimist@^1.2.6":
+"minimist@^1.1.1", "minimist@^1.2.0", "minimist@^1.2.6":
   "integrity" "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
   "version" "1.2.6"
@@ -7167,14 +7172,6 @@
   "resolved" "https://registry.npmjs.org/react-chartjs-2/-/react-chartjs-2-4.1.0.tgz"
   "version" "4.1.0"
 
-"react-clear-browser-cache@^0.2.3":
-  "integrity" "sha512-8C/G5V9pMDJm0wxLcKMJYKeQD7FSCf/YyemM02cAAmtq3wPRUA8GeXKkVEzMJPSzFj0N/gY3Evy0pu7odUWRgw=="
-  "resolved" "https://registry.npmjs.org/react-clear-browser-cache/-/react-clear-browser-cache-0.2.3.tgz"
-  "version" "0.2.3"
-  dependencies:
-    "minimist" "^1.2.5"
-    "uuid" "^8.3.2"
-
 "react-daum-postcode@^3.0.3":
   "integrity" "sha512-uxr7d2GENx/m4pnowXH6mN54+pGn0TjSfJfPvnXdRTtGQH9wyu6D7xkDcYBdQfW+KfXQC2dtUQrT3BAw76kokw=="
   "resolved" "https://registry.npmjs.org/react-daum-postcode/-/react-daum-postcode-3.0.3.tgz"
@@ -7330,7 +7327,7 @@
   dependencies:
     "prop-types" "^15.8.1"
 
-"react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.1.0", "react@>= 16", "react@>=0.13", "react@>=16", "react@>=16.8":
+"react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.1.0", "react@>= 16", "react@>=0.13", "react@>=16", "react@>=16.8":
   "integrity" "sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
   "version" "18.1.0"

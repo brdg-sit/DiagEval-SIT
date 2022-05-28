@@ -22,6 +22,8 @@ function Step4() {
   const [codes, setCodes] = useState(location.state.codes);
   const [defaults, setDefaults] = useState(location.state.defaults);
   const [stateHistory, setStateHistory] = useState(location.state.stateHistory);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedState, setSubmittedState] = useState({});
   
   //TBL_USER_ENTER 에 삽입하는 값.
   const [idElec, setIdElect] = useState(location.state.defaults.id);
@@ -41,6 +43,8 @@ function Step4() {
         location.state.stateHistory[3] = location.state;
         if(location.state.stateHistory[4] !== undefined){
           RetrieveData(location.state.stateHistory[4]);
+          setIsSubmitted(true);
+          setSubmittedState(location.state.stateHistory[4].submittedState);
         }
         else{
           const electricTemplate = {
@@ -79,6 +83,8 @@ function Step4() {
       }
       if(location.state.stepNum === 5){
         RetrieveData(location.state.stateHistory[4]);
+        setIsSubmitted(true);
+        setSubmittedState(location.state.stateHistory[4].submittedState);
       }
       setIsLoaded(true);
     }
@@ -318,31 +324,63 @@ function Step4() {
         console.error(error);
     }
   };
-  
-  const OnNextButtonClick = (e) => {
-    var userEnter = GetUserEnter();
 
-    // 알고리즘 부분
-    const men_rsdt = userEnter["men_rsdt"]
-    const men_norsdt = userEnter["men_norsdt"]
-    const area = userEnter["area"]
-    // 1)재실밀도
-    const occupancyA = men_rsdt / area;
-    const occupancyB = men_norsdt / area / 8;
-    const occupancy = occupancyA + occupancyB;
-    // 2)기기발열량
-    const pwr_eqmt = occupancyA * 250;
-    // TBL_ML 인서트 할때 occupancy, pwr_eqmt 가져가기
+  const IsChanged = (state1, state2) => {
+    var isChanged = false;
 
-    try{
-      var userEnterValues = JSON.stringify(userEnter);
-      axios.post(baseuri + 'userenter', userEnterValues,
+    for(var i=1; i<= Object.keys(state1).length; i++){
+      var keys = Object.keys(state1[i]);
+      for(var j=0; j<keys.length; j++){
+        if(keys[j] === "stepNum" || keys[j] === "stateHistory" || keys[j] === "codes" || keys[j] === "defaults" || keys[j] == "yearUValues"){
+          continue;
+        }
+        else if(keys[j] === "gasData" || keys[j] === "electricData" || keys[j] === "typeVal"){
+          if(keys[j] === "typeVal"){
+            if(state1[i][keys[j]] != state2[i][keys[j]]){
+              isChanged = true;
+              break;
+            }
+          }
+          else{
+            var months = Object.keys(state1[i][keys[j]])
+            for(const month in months){
+              if(state1[i][keys[j]][months[0]] != state2[i][keys[j]][months[0]]){
+                isChanged = true;
+                break;
+              }
+            }
+          }
+        }
+        else{
+          if(state1[i][keys[j]] != state2[i][keys[j]]){
+            isChanged = true;
+            break;
+          }
+        }
+        if(isChanged){
+          break;
+        }
+      }
+      if(isChanged){
+        break;
+      }
+    }
+
+    return isChanged;
+  }
+
+  const InsertResultData = (userEnter, occupancy, pwr_eqmt) => {
+
+    var userEnterValues = JSON.stringify(userEnter);
+
+    axios.post(baseuri + 'userenter', userEnterValues,
             { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' } }
         ).then(response => {
           var id_etr = response.data;
 
           var electricDict = {};
-          var electricDataKeys = Object.keys(electricData)
+          var electricDataKeys = Object.keys(electricData);
+
           for(var i=0; i<electricDataKeys.length; i++){
             electricDict[electricDataKeys[i]] = electricData[electricDataKeys[i]];
           }
@@ -379,6 +417,7 @@ function Step4() {
               defaults: defaults,
               stepNum: stepNum,
               stateHistory: location.state.stateHistory,
+              submittedState: location.state.stateHistory,
               electricData: electricData,
               gasData: gasData,
               typeVal: typeVal,
@@ -386,6 +425,52 @@ function Step4() {
             }
           })
         });
+  }
+
+  const OnNextButtonClick = (e) => {
+    var userEnter = GetUserEnter();
+
+    // 알고리즘 부분
+    const men_rsdt = userEnter["men_rsdt"]
+    const men_norsdt = userEnter["men_norsdt"]
+    const area = userEnter["area"]
+    // 1)재실밀도
+    const occupancyA = men_rsdt / area;
+    const occupancyB = men_norsdt / area / 8;
+    const occupancy = occupancyA + occupancyB;
+    // 2)기기발열량
+    const pwr_eqmt = occupancyA * 250;
+    // TBL_ML 인서트 할때 occupancy, pwr_eqmt 가져가기
+
+    try{
+
+      if(!isSubmitted){
+        GetUserEnter(userEnter.id);
+        InsertResultData(userEnter, occupancy, pwr_eqmt);
+        setIsSubmitted(true);
+      }
+      else{
+        var isChanged = IsChanged(stateHistory, submittedState);
+        if(isChanged){
+          GetUserEnter(userEnter.id);
+          InsertResultData(userEnter, occupancy, pwr_eqmt);
+        }
+        else{
+          navigate('/step5', {
+            state: {
+              codes: codes,
+              defaults: defaults,
+              stepNum: stepNum,
+              stateHistory: location.state.stateHistory,
+              submittedState: location.state.stateHistory,
+              electricData: electricData,
+              gasData: gasData,
+              typeVal: typeVal,
+              idEtr: location.state.stateHistory[4].idEtr
+            }
+          })
+        }
+      }
     }
     catch(error){
         console.error(error);
@@ -512,6 +597,7 @@ function Step4() {
                   defaults: defaults,
                   stepNum: stepNum,
                   stateHistory: location.state.stateHistory,
+                  submittedState: submittedState,
                   electricData: electricData,
                   gasData: gasData,
                   typeVal: typeVal

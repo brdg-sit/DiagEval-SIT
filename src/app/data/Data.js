@@ -30,6 +30,21 @@ const GetUValues = () => {
     }
 }
 
+const GetUserEnter = (id_etr) => {
+    try {
+        axios
+          .get(baseuri + "get-userenter", {
+            params: { id_etr: id_etr },
+          })
+          .then((response) => {
+              return response;
+          })
+    }
+    catch(error){
+
+    }
+}
+
 
 const GetUsgTypes = (id) => {
     try{
@@ -75,4 +90,4 @@ const InsertUsgTypes = (usgTypes) => {
     }
 }
 
-export default {GetDefaults, GetCodes, GetUValues, InsertUserEnter, InsertUsgTypes}
+export default {GetDefaults, GetCodes, GetUValues, InsertUserEnter, InsertUsgTypes, GetUserEnter}
