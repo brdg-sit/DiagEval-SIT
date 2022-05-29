@@ -466,7 +466,7 @@ function Step4() {
               electricData: electricData,
               gasData: gasData,
               typeVal: typeVal,
-              idEtr: location.state.stateHistory[4].idEtr
+              idEtr: location.state.stateHistory[4].submittedState[4].idEtr
             }
           })
         }
