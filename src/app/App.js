@@ -9,6 +9,7 @@ import Step4 from './step/Step4'
 import Step5 from './step/Step5'
 import Print1 from '../print/Print1'
 import Print2 from '../print/Print2'
+import Print3 from '../print/Print3'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/step5" element={<Step5 />} />
           <Route path="/print1" element={<Print1 />} />
           <Route path="/print2" element={<Print2 />} />
+          <Route path="/print3" element={<Print3 />} />
         </Routes>
       </BrowserRouter>
     </>

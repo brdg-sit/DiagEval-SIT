@@ -232,6 +232,13 @@ function Step5() {
         "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
       )
     }
+    else if(step === 2){
+      window.open(
+        "/print3?id_etr=" + idEtr,
+        "_blank",
+        "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
+      )
+    }
     
   }
 

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useNavigate, useLocation } from "react-router-dom";
-import styles from './css/print2.module.css'
+import styles from './css/print3.module.css'
 import axios from "axios";
 // 리액트 프린트 라이브러리 사용
 import ReactToPrint from 'react-to-print'
@@ -9,26 +9,27 @@ import logo from '../@assets/print/logo.svg'
 import printIcon from '../@assets/print/print-icon.svg'
 import cpIcon1 from '../@assets/print/print-cp2-icon1.svg'
 import cpIcon2 from '../@assets/print/print-cp2-icon2.svg'
-import Cp1 from './component/print2/line-one/Cp1'
-import Cp2 from './component/print2/line-one/Cp2'
-import Cp3 from './component/print2/line-one/Cp3'
-import Cp4 from './component/print2/line-one/Cp4'
-import Cp5 from './component/print2/line-one/Cp5'
-import Cp6 from './component/print2/line-one/Cp6'
+import Cp1 from './component/print3/line-one/Cp1'
+import Cp2 from './component/print3/line-one/Cp2'
+import Cp3 from './component/print3/line-one/Cp3'
+import Cp4 from './component/print3/line-one/Cp4'
+import Cp5 from './component/print3/line-one/Cp5'
+import Cp6 from './component/print3/line-one/Cp6'
 
-function Print2() {
+function Print3() {
   const printRef = useRef(null)
 
   const location = useLocation();
 
   const [energy, setEnergy] = useState([]);
-  const [energyML, setEnergyML] = useState([]);
 
+  const [energyAvg, setEnergyAvg] = useState([]);
   const [energyYr, setEnergyYr] = useState({});
-  const [energyMLYr, setEnergyMLYr] = useState({});
+  const [energyAvgYr, setEnergyAvgYr] = useState({});
 
+  const [co2Avg, setCo2Avg] = useState({});
   const [co2Yr, setCo2Yr] = useState({});
-  const [co2MLYr, setCo2MLYr] = useState({});
+  const [co2AvgYr, setCo2AvgYr] = useState({});
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -60,11 +61,38 @@ function Print2() {
           // setCo2MLYr 연간 일반사용형태 CO2 (7)
 
           setEnergy(response.data[0]);
-          setEnergyML(response.data[1]);
+          setEnergyAvg(response.data[2]);
           setEnergyYr(response.data[3][0]);
-          setEnergyMLYr(response.data[4][0]);
+          setEnergyAvgYr({
+            yr_load_heat: response.data[2].reduce(
+              (a, v) => (a = a + v.load_heat),
+              0
+            ),
+            yr_load_cool: response.data[2].reduce(
+              (a, v) => (a = a + v.load_cool),
+              0
+            ),
+            yr_load_baseElec: response.data[2].reduce(
+              (a, v) => (a = a + v.load_baseElec),
+              0
+            ),
+          });
           setCo2Yr(response.data[6][0]);
-          setCo2MLYr(response.data[7][0]);
+          setCo2Avg(response.data[5]);
+          setCo2AvgYr({
+            yr_co2_heat: response.data[5].reduce(
+              (a, v) => (a = a + v.co2_heat),
+              0
+            ),
+            yr_co2_cool: response.data[5].reduce(
+              (a, v) => (a = a + v.co2_cool),
+              0
+            ),
+            yr_co2_baseElec: response.data[5].reduce(
+              (a, v) => (a = a + v.co2_baseElec),
+              0
+            ),
+          });
         });
     } catch (error) {
       console.error(error);
@@ -87,7 +115,7 @@ function Print2() {
         <div className={styles.sec_title_wrap}>
           <h2>
             <img src={cpIcon1} alt="" />
-            일반 사용행태 비교분석 결과 연간 사용량 비교
+            유사건물 비교분석 결과 연간 사용량 비교
           </h2>
         </div>
 
@@ -96,13 +124,13 @@ function Print2() {
           <h1>연간 사용량 비교분석 결과</h1>
           <div className={styles.cp1_wrap}>
             <div className={styles.cp_chart_wrap}>
-              <Cp1 energyYr={energyYr} energyMLYr={energyMLYr}/> <Cp2 co2Yr={co2Yr} co2MLYr={co2MLYr}/>
+              <Cp1 energyYr={energyYr} energyAvgYr={energyAvgYr}/> <Cp2 co2Yr={co2Yr} co2AvgYr={co2AvgYr}/>
             </div>
             <Cp3
               energyYr={energyYr}
-              energyMLYr={energyMLYr}
+              energyAvgYr={energyAvgYr}
               co2Yr={co2Yr}
-              co2MLYr={co2MLYr}
+              co2AvgYr={co2AvgYr}
             />
           </div>
 
@@ -113,7 +141,7 @@ function Print2() {
         <div className={styles.sec_title_wrap}>
           <h2>
             <img src={cpIcon2} alt="" />
-            일반 사용행태 비교분석 결과 월간 사용량 비교
+            유사건물 비교분석 결과 월간 사용량 비교
           </h2>
         </div>
 
@@ -121,19 +149,19 @@ function Print2() {
           <div className={styles.cp2_wrap}>
             <Cp4 
               energy={energy.map((usg) => usg.load_heat)}
-              energyML={energyML.map((usg) => usg.load_heat)}
+              energyAvg={energyAvg.map((usg) => usg.load_heat)}
             />
           </div>
           <div className={styles.cp2_wrap}>
             <Cp5 
               energy={energy.map((usg) => usg.load_cool)}
-              energyML={energyML.map((usg) => usg.load_cool)}
+              energyAvg={energyAvg.map((usg) => usg.load_cool)}
             /> 
           </div>
           <div className={styles.cp2_wrap}>
             <Cp6
               energy={energy.map((usg) => usg.load_baseElec)}
-              energyML={energyML.map((usg) => usg.load_baseElec)}
+              energyAvg={energyAvg.map((usg) => usg.load_baseElec)}
             />
           </div>
         </div>
@@ -151,11 +179,11 @@ function Print2() {
           content={() => printRef.current}
         />
 
-        <div className={styles.page_number}>2page</div>
+        <div className={styles.page_number}>3page</div>
         <img src={logo} alt="" className={styles.logo} />
       </div>
     </section>
   )
 }
 
-export default Print2
+export default Print3
