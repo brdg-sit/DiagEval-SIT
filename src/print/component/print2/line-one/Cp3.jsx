@@ -41,7 +41,7 @@ function Cp3(props) {
   return (
     <div className={styles.wrapper}>
       {/* 좌측차트 */}
-      <table className={styles.table_val} cellspacing="0">
+      <table className={styles.table_val} cellSpacing="0">
         <thead>
           <tr align="center">
             <td></td>
@@ -54,7 +54,7 @@ function Cp3(props) {
         </thead>
         <tbody>
           <tr align="center" bgcolor="white">
-            <th rowspan="2">
+            <th rowSpan="2">
               에너지
               <br />
               사용량
@@ -72,9 +72,8 @@ function Cp3(props) {
             <td>{props.energyMLYr.yr_load_baseElec}</td>
             <td>{props.energyMLYr.yr_load_heat + props.energyMLYr.yr_load_cool + props.energyMLYr.yr_load_baseElec}</td>
           </tr>
-
           <tr align="center" bgcolor="white">
-            <th rowspan="2">
+            <th rowSpan="2">
               C02 <br />
               배출량
             </th>

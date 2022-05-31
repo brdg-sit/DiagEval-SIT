@@ -22,10 +22,8 @@ function Cp2(props) {
 
     scales: {
       y: {
-        max: 5,
         min: 0,
         ticks: {
-          stepSize: 0.5,
           display: false,
         },
         scaleLabel: {

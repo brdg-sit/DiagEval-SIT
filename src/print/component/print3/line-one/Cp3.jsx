@@ -9,17 +9,17 @@ function Cp3(props) {
         var hasAlert = false;
     
         if(props.energyYr.yr_load_heat > props.energyAvgYr.yr_load_heat){
-          alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
+          alertMessages.push(<p key={0}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
           hasAlert = true;
         }
     
         if(props.energyYr.yr_load_cool > props.energyAvgYr.yr_load_cool){
-          alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
+          alertMessages.push(<p key={1}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
           hasAlert = true;
         }
     
         if(props.energyYr.yr_load_baseElec > props.energyAvgYr.yr_load_baseElec){
-          alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
+          alertMessages.push(<p key={2}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
           hasAlert = true;
         }
     
@@ -42,7 +42,7 @@ function Cp3(props) {
   return (
     <div className={styles.wrapper}>
       {/* 좌측차트 */}
-      <table className={styles.table_val} cellspacing="0">
+      <table className={styles.table_val} cellSpacing="0">
         <thead>
           <tr align="center">
             <td></td>
@@ -55,7 +55,7 @@ function Cp3(props) {
         </thead>
         <tbody>
           <tr align="center" bgcolor="white">
-            <th rowspan="2">
+            <th rowSpan="2">
               에너지
               <br />
               사용량
@@ -75,7 +75,7 @@ function Cp3(props) {
           </tr>
 
           <tr align="center" bgcolor="white">
-            <th rowspan="2">
+            <th rowSpan="2">
               C02 <br />
               배출량
             </th>

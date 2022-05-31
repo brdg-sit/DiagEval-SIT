@@ -30,10 +30,7 @@ function Cp2(props) {
       setIsLoaded(true);
     }
   })
-
-
-  
-
+ 
 
   const options = {
     plugins: {
@@ -51,10 +48,8 @@ function Cp2(props) {
 
     scales: {
       y: {
-        max: 6,
         min: 0,
         ticks: {
-          stepSize: 1,
           display: false,
         },
         scaleLabel: {

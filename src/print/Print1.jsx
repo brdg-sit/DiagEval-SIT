@@ -102,7 +102,7 @@ function Print1() {
             </h2>
           </div>
           <div className={styles.sec2_cp_wrap}>
-            <Cp4 energy = {energyYr}/>+
+            <Cp4 energy = {energyYr}/>
             <Cp5
               energyHeat={energy.map((usg) => usg.load_heat)}
               energyCool={energy.map((usg) => usg.load_cool)}

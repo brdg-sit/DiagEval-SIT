@@ -52,7 +52,6 @@ function Cp4(props) {
     animations: false,
     scales: {
       y: {
-        max: 1,
         min: 0,
         scaleLabel: {
           display: false,
@@ -70,7 +69,6 @@ function Cp4(props) {
       },
 
       X: {
-        max: 5,
         min: 0,
         ticks: {
           stepSize: 0.5,
