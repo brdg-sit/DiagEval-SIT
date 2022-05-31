@@ -49,6 +49,24 @@
   border-bottom: 1px solid #e2e2e2;
 }
 
+.info_desk_wrap_no_alert {
+  width: 100%;
+  padding: 14px;
+  background-color: #cce6cc;
+  border: 1px solid green;
+  border-radius: 14px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.info_desk_wrap_no_alert p {
+  color: green;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
 /* 안내 데스크 */
 .info_desk_wrap {
   width: 100%;

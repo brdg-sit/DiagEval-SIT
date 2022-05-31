@@ -54,6 +54,7 @@
 }
 
 .chart_wrap {
-  width: 100%;
+  float: right;
+  width: 93.5%;
   height: 80px;
 }

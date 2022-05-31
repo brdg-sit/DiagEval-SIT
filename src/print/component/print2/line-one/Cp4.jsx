@@ -5,7 +5,17 @@ import { CategoryScale } from 'chart.js'
 import Chart from 'chart.js/auto'
 Chart.register(CategoryScale)
 
-function Cp4() {
+function Cp4(props) {
+  
+  if(Object.keys(props.energy).length > 0){
+    var tableDataKeys = Object.keys(tableData.val[0]);
+
+    for(var i=1; i<tableDataKeys.length; i++){
+      tableData.val[0][tableDataKeys[i]] = props.energy[i-1];
+      tableData.val[1][tableDataKeys[i]] = props.energyML[i-1];
+    }
+  }
+
   const options = {
     plugins: {
       legend: {
@@ -70,7 +80,7 @@ function Cp4() {
     ],
     datasets: [
       {
-        data: [1, 2, 3, 5, 0.5, 4, 3.5, 2, 3, 1, 5, 4.5], // 수치
+        data: props.energy, // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 6,
         barPercentage: 0.5,
@@ -80,7 +90,7 @@ function Cp4() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [2, 3, 4, 2, 4, 3, 2, 1, 2, 3, 4, 5], // 수치
+        data: props.energyML, // 수치
         backgroundColor: '#F18246', // 각 막대 색
         barThickness: 6,
         barPercentage: 0.5,
@@ -118,36 +128,25 @@ function Cp4() {
           </tr>
         </thead>
         <tbody>
-          <tr align="center" bgcolor="white">
-            <th>사용량</th>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-          </tr>
-          <tr align="center" bgcolor="white">
-            <th>일반</th>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-            <td>00</td>
-          </tr>
+        {tableData.val.map((i) => {
+              return (
+                <tr align="center" bgcolor="white" key={i.th}>
+                  <th>{i.th}</th>
+                  <td>{i.t1}</td>
+                  <td>{i.t2}</td>
+                  <td>{i.t3}</td>
+                  <td>{i.t4}</td>
+                  <td>{i.t5}</td>
+                  <td>{i.t6}</td>
+                  <td>{i.t7}</td>
+                  <td>{i.t8}</td>
+                  <td>{i.t9}</td>
+                  <td>{i.t10}</td>
+                  <td>{i.t11}</td>
+                  <td>{i.t12}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>
@@ -155,3 +154,38 @@ function Cp4() {
 }
 
 export default Cp4
+
+export const tableData = {
+  val: [
+    {
+      th: "사용량",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
+    },
+    {
+      th: "일반",
+      t1: "00",
+      t2: "00",
+      t3: "00",
+      t4: "00",
+      t5: "00",
+      t6: "00",
+      t7: "00",
+      t8: "00",
+      t9: "00",
+      t10: "00",
+      t11: "00",
+      t12: "00",
+    }
+  ],
+};

@@ -5,7 +5,7 @@ import { CategoryScale } from 'chart.js'
 import Chart from 'chart.js/auto'
 Chart.register(CategoryScale)
 
-function Cp2() {
+function Cp2(props) {
   const options = {
     plugins: {
       legend: {
@@ -59,7 +59,7 @@ function Cp2() {
     labels: ['항목1', '항목2'],
     datasets: [
       {
-        data: [1, 1], // 수치
+        data: [props.co2Yr.yr_co2_heat, props.co2MLYr.yr_co2_heat], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,
@@ -69,7 +69,7 @@ function Cp2() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [2, 2], // 수치
+        data: [props.co2Yr.yr_co2_cool, props.co2MLYr.yr_co2_cool], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,
@@ -79,7 +79,7 @@ function Cp2() {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [3, 3], // 수치
+        data: [props.co2Yr.yr_co2_baseElec, props.co2MLYr.yr_co2_baseElec], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,

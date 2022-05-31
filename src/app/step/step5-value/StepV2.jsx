@@ -26,7 +26,6 @@ function StepV2(props) {
       alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
       hasAlert = true;
     }
-
     if(hasAlert){
       return (  
         <div className={styles.info_desk_wrap}>
