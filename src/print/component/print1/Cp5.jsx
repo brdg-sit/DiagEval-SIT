@@ -16,7 +16,7 @@ function Cp5(props) {
       tableData[0][tableDataKeys[i]] = props.energyHeat[i-1];
       tableData[1][tableDataKeys[i]] = props.energyCool[i-1];
       tableData[2][tableDataKeys[i]] = props.energyBaseElec[i-1];
-      tableData[3][tableDataKeys[i]] = (props.energyBaseGas[i-1] != undefined) ? parseFloat(props.energyBaseGas[i-1].toFixed(2)) : props.energyBaseGas; 
+      tableData[3][tableDataKeys[i]] = (props.energyBaseGas[i-1] !== undefined) ? parseFloat(props.energyBaseGas[i-1].toFixed(2)) : props.energyBaseGas; 
     }
   }
 
@@ -61,10 +61,8 @@ function Cp5(props) {
     animations: false,
     scales: {
       y: {
-        max: 6,
         min: 0,
         ticks: {
-          stepSize: 1,
           display: false,
         },
         scaleLabel: {
@@ -73,7 +71,6 @@ function Cp5(props) {
       },
 
       X: {
-        max: 11,
         min: 0,
         ticks: {
           stepSize: 0.5,

@@ -32,10 +32,8 @@ function Cp4(props) {
 
     scales: {
       y: {
-        max: 6,
         min: 0,
         ticks: {
-          stepSize: 1,
           display: false,
         },
         scaleLabel: {
@@ -109,7 +107,7 @@ function Cp4(props) {
         <Bar data={data} options={options} />
       </div>
 
-      <table className={styles.table_val} cellspacing="0">
+      <table className={styles.table_val} cellSpacing="0">
         <thead>
           <tr align="center">
             <td></td>
