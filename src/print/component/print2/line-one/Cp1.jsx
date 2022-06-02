@@ -59,7 +59,7 @@ function Cp1(props) {
     labels: ['사용자입력', '일반사용형태'],
     datasets: [
       {
-        data: [props.energyYr.yr_load_heat, props.energyMLYr.yr_load_heat], // 수치
+        data: [parseFloat(props.energyYr.yr_load_heat).toFixed(2), parseFloat(props.energyMLYr.yr_load_heat).toFixed(2)], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,
@@ -69,7 +69,7 @@ function Cp1(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.energyYr.yr_load_cool, props.energyMLYr.yr_load_cool], // 수치
+        data: [parseFloat(props.energyYr.yr_load_cool).toFixed(2), parseFloat(props.energyMLYr.yr_load_cool).toFixed(2)], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,
@@ -79,7 +79,7 @@ function Cp1(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.energyYr.yr_load_baseElec, props.energyMLYr.yr_load_baseElec], // 수치
+        data: [parseFloat(props.energyYr.yr_load_baseElec).toFixed(2), parseFloat(props.energyMLYr.yr_load_baseElec).toFixed(2)], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,

@@ -8,17 +8,17 @@ function Cp3(props) {
     var alertMessages = [];
     var hasAlert = false;
 
-    if(props.energyYr.yr_load_heat > props.energyMLYr.yr_load_heat){
+    if(parseFloat(props.energyYr.yr_load_heat).toFixed(2) > parseFloat(props.energyMLYr.yr_load_heat).toFixed(2)){
       alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
       hasAlert = true;
     }
 
-    if(props.energyYr.yr_load_cool > props.energyMLYr.yr_load_cool){
+    if(parseFloat(props.energyYr.yr_load_cool).toFixed(2) > parseFloat(props.energyMLYr.yr_load_cool).toFixed(2)){
       alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
       hasAlert = true;
     }
 
-    if(props.energyYr.yr_load_baseElec > props.energyMLYr.yr_load_baseElec){
+    if(parseFloat(props.energyYr.yr_load_baseElec).toFixed(2) > parseFloat(props.energyMLYr.yr_load_baseElec).toFixed(2)){
       alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
       hasAlert = true;
     }
@@ -60,17 +60,17 @@ function Cp3(props) {
               사용량
             </th>
             <th>분석건물</th>
-            <td>{props.energyYr.yr_load_heat}</td>
-            <td>{props.energyYr.yr_load_cool}</td>
-            <td>{props.energyYr.yr_load_baseElec}</td>
-            <td>{props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec}</td>
+            <td>{parseFloat(props.energyYr.yr_load_heat).toFixed(2)}</td>
+            <td>{parseFloat(props.energyYr.yr_load_cool).toFixed(2)}</td>
+            <td>{parseFloat(props.energyYr.yr_load_baseElec).toFixed(2)}</td>
+            <td>{parseFloat(props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec).toFixed(2)}</td>
           </tr>
           <tr align="center" bgcolor="white">
             <th>일반 사용행태 건물</th>
-            <td>{props.energyMLYr.yr_load_heat}</td>
-            <td>{props.energyMLYr.yr_load_cool}</td>
-            <td>{props.energyMLYr.yr_load_baseElec}</td>
-            <td>{props.energyMLYr.yr_load_heat + props.energyMLYr.yr_load_cool + props.energyMLYr.yr_load_baseElec}</td>
+            <td>{parseFloat(props.energyMLYr.yr_load_heat).toFixed(2)}</td>
+            <td>{parseFloat(props.energyMLYr.yr_load_cool).toFixed(2)}</td>
+            <td>{parseFloat(props.energyMLYr.yr_load_baseElec).toFixed(2)}</td>
+            <td>{parseFloat(props.energyMLYr.yr_load_heat + props.energyMLYr.yr_load_cool + props.energyMLYr.yr_load_baseElec).toFixed(2)}</td>
           </tr>
 
           <tr align="center" bgcolor="white">
@@ -79,17 +79,17 @@ function Cp3(props) {
               배출량
             </th>
             <th>분석건물</th>
-            <td>{props.co2Yr.yr_co2_heat}</td>
-            <td>{props.co2Yr.yr_co2_cool}</td>
-            <td>{props.co2Yr.yr_co2_baseElec}</td>
-            <td>{props.co2Yr.yr_co2_heat + props.co2Yr.yr_co2_cool + props.co2Yr.yr_co2_baseElec}</td>
+            <td>{parseFloat(props.co2Yr.yr_co2_heat).toFixed(2)}</td>
+            <td>{parseFloat(props.co2Yr.yr_co2_cool).toFixed(2)}</td>
+            <td>{parseFloat(props.co2Yr.yr_co2_baseElec).toFixed(2)}</td>
+            <td>{parseFloat(props.co2Yr.yr_co2_heat + props.co2Yr.yr_co2_cool + props.co2Yr.yr_co2_baseElec).toFixed(2)}</td>
           </tr>
           <tr align="center" bgcolor="white">
             <th>일반 사용행태 건물</th>
-            <td>{props.co2MLYr.yr_co2_heat}</td>
-            <td>{props.co2MLYr.yr_co2_cool}</td>
-            <td>{props.co2MLYr.yr_co2_baseElec}</td>
-            <td>{props.co2MLYr.yr_co2_heat + props.co2MLYr.yr_co2_baseElec + props.co2MLYr.yr_co2_baseElec}</td>
+            <td>{parseFloat(props.co2MLYr.yr_co2_heat).toFixed(2)}</td>
+            <td>{parseFloat(props.co2MLYr.yr_co2_cool).toFixed(2)}</td>
+            <td>{parseFloat(props.co2MLYr.yr_co2_baseElec).toFixed(2)}</td>
+            <td>{parseFloat(props.co2MLYr.yr_co2_heat + props.co2MLYr.yr_co2_baseElec + props.co2MLYr.yr_co2_baseElec).toFixed(2)}</td>
           </tr>
         </tbody>
       </table>

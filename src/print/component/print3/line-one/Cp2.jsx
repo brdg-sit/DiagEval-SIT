@@ -59,7 +59,7 @@ function Cp2(props) {
     labels: ['항목1', '항목2'],
     datasets: [
       {
-        data: [props.co2Yr.yr_co2_heat, props.co2AvgYr.yr_co2_heat], // 수치
+        data: [parseFloat(props.co2Yr.yr_co2_heat).toFixed(2), parseFloat(props.co2AvgYr.yr_co2_heat).toFixed(2)], // 수치
         backgroundColor: '#F66060', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,
@@ -69,7 +69,7 @@ function Cp2(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.co2Yr.yr_co2_cool, props.co2AvgYr.yr_co2_cool], // 수치
+        data: [parseFloat(props.co2Yr.yr_co2_cool).toFixed(2), parseFloat(props.co2AvgYr.yr_co2_cool).toFixed(2)], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,
@@ -79,7 +79,7 @@ function Cp2(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.co2Yr.yr_co2_baseElec, props.co2AvgYr.yr_co2_baseElec], // 수치
+        data: [parseFloat(props.co2Yr.yr_co2_baseElec).toFixed(2), parseFloat(props.co2AvgYr.yr_co2_baseElec).toFixed(2)], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 10,
         barPercentage: 0.5,

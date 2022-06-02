@@ -11,8 +11,8 @@ function Cp6(props) {
     var tableDataKeys = Object.keys(tableData.val[0]);
 
     for(var i=1; i<tableDataKeys.length; i++){
-      tableData.val[0][tableDataKeys[i]] = props.energy[i-1];
-      tableData.val[1][tableDataKeys[i]] = props.energyAvg[i-1];
+      tableData.val[0][tableDataKeys[i]] = parseFloat(props.energy[i-1]).toFixed(2);
+      tableData.val[1][tableDataKeys[i]] = parseFloat(props.energyAvg[i-1]).toFixed(2);
     }
   }
 

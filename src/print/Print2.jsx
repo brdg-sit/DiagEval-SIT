@@ -120,20 +120,20 @@ function Print2() {
         <div className={styles.cp_wrapper}>
           <div className={styles.cp2_wrap}>
             <Cp4 
-              energy={energy.map((usg) => usg.load_heat)}
-              energyML={energyML.map((usg) => usg.load_heat)}
+              energy={energy.map((usg) => parseFloat((usg.load_heat).toFixed(2)))}
+              energyML={energyML.map((usg) => parseFloat((usg.load_heat).toFixed(2)))}
             />
           </div>
           <div className={styles.cp2_wrap}>
             <Cp5 
-              energy={energy.map((usg) => usg.load_cool)}
-              energyML={energyML.map((usg) => usg.load_cool)}
+              energy={energy.map((usg) => parseFloat((usg.load_cool).toFixed(2)))}
+              energyML={energyML.map((usg) => parseFloat((usg.load_cool).toFixed(2)))}
             /> 
           </div>
           <div className={styles.cp2_wrap}>
             <Cp6
-              energy={energy.map((usg) => usg.load_baseElec)}
-              energyML={energyML.map((usg) => usg.load_baseElec)}
+              energy={energy.map((usg) => parseFloat((usg.load_baseElec).toFixed(2)))}
+              energyML={energyML.map((usg) => parseFloat((usg.load_baseElec).toFixed(2)))}
             />
           </div>
         </div>

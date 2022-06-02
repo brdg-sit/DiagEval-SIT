@@ -9,7 +9,7 @@
   border: 1;
   width: 100%;
   background-color: transparent;
-  margin-top: 20px;
+  margin-top: 0px;
   table-layout: fixed;
   border-top: 1px solid #e2e2e2;
 }
@@ -51,33 +51,36 @@
 
 .info_desk_wrap_no_alert {
   width: 100%;
-  padding: 14px;
   background-color: #cce6cc;
   border: 1px solid green;
   border-radius: 14px;
   display: block;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 5px;
+  height: 35px;
+  padding-top: 5px;
 }
 
 .info_desk_wrap_no_alert p {
   color: green;
   font-size: 15px;
+  height: 30px;
   margin-left: 10px;
 }
 
 /* 안내 데스크 */
 .info_desk_wrap {
   width: 100%;
-  padding: 8px;
   background-color: #fff2db;
   border: 1px solid #ffdda1;
   border-radius: 8px;
   display: block;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 5px;
+  height: 35px;
+  padding-top: 5px;
 }
 
 .info_desk_wrap p {

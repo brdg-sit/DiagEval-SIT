@@ -8,9 +8,9 @@ function StepV1(props) {
     var tableDataKeys = Object.keys(tableData.val[0]);
 
     for(var i=1; i<tableDataKeys.length; i++){
-      tableData.val[0][tableDataKeys[i]] = props.energy[i-1].load_heat;
-      tableData.val[1][tableDataKeys[i]] = props.energy[i-1].load_cool;
-      tableData.val[2][tableDataKeys[i]] = props.energy[i-1].load_baseElec;
+      tableData.val[0][tableDataKeys[i]] =  parseFloat(props.energy[i-1].load_heat.toFixed(2));
+      tableData.val[1][tableDataKeys[i]] =  parseFloat(props.energy[i-1].load_cool.toFixed(2));
+      tableData.val[2][tableDataKeys[i]] =  parseFloat(props.energy[i-1].load_baseElec.toFixed(2));
       tableData.val[3][tableDataKeys[i]] = parseFloat(props.energy[i-1].load_baseGas.toFixed(2));
     }
   }
@@ -57,9 +57,9 @@ function StepV1(props) {
         </div>
         <div className={styles.chart_wrap}>
           <Chart2
-            energyHeat={props.energy.map((usg) => usg.load_heat)}
-            energyCool={props.energy.map((usg) => usg.load_cool)}
-            energyBaseElec={props.energy.map((usg) => usg.load_baseElec)}
+            energyHeat={props.energy.map((usg) => parseFloat(usg.load_heat.toFixed(2)))}
+            energyCool={props.energy.map((usg) => parseFloat(usg.load_cool.toFixed(2)))}
+            energyBaseElec={props.energy.map((usg) => parseFloat(usg.load_baseElec.toFixed(2)))}
             energyBaseGas={props.energy.map((usg) => parseFloat(usg.load_baseGas.toFixed(2)))}
           />
         </div>
