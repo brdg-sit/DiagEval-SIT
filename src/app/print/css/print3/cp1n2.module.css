@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+}
+
+.title {
+  font-size: 10px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  font-weight: 400;
+  color: #555;
+}
+
+.title span {
+  color: #999;
+  font-weight: 400;
+  font-size: 8px;
+}
+
+.chart_wrap {
+  width: 120px;
+  height: auto;
+}

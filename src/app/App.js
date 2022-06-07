@@ -7,9 +7,9 @@ import Step2 from './step/Step2'
 import Step3 from './step/Step3'
 import Step4 from './step/Step4'
 import Step5 from './step/Step5'
-import Print1 from '../print/Print1'
-import Print2 from '../print/Print2'
-import Print3 from '../print/Print3'
+import Print1 from './print/Print1'
+import Print2 from './print/Print2'
+import Print3 from './print/Print3'
 
 function App() {
   return (
