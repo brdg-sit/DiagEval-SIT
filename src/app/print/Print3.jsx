@@ -6,7 +6,7 @@ import axios from "axios";
 import ReactToPrint from 'react-to-print'
 import titleIcon from '../../@assets/print/title-icon.svg'
 import logo from '../../@assets/print/logo.svg'
-import printIcon from '..././@assets/print/print-icon.svg'
+import printIcon from '../../@assets/print/print-icon.svg'
 import cpIcon1 from '../../@assets/print/print-cp2-icon1.svg'
 import cpIcon2 from '../../@assets/print/print-cp2-icon2.svg'
 import Cp1 from './component/print3/line-one/Cp1'
