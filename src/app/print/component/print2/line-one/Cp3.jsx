@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '../../../css/print2/cp3.module.css'
-import waitIcon from '../../../../@assets/print/waitIcon.svg'
+import waitIcon from '../../../../../@assets/print/waitIcon.svg'
 
 function Cp3(props) {
   const ShowAlertMessage = () => {
