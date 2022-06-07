@@ -219,21 +219,21 @@ function Step5() {
   const OnPrintResultClick = () => {
     if(step === 0){
       window.open(
-        "/print1?id_etr=" + idEtr,
+        "/#/print1?id_etr=" + idEtr,
         "_blank",
         "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
       )
     }
     else if(step === 1){
       window.open(
-        "/print2?id_etr=" + idEtr,
+        "/#/print2?id_etr=" + idEtr,
         "_blank",
         "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
       )
     }
     else if(step === 2){
       window.open(
-        "/print3?id_etr=" + idEtr,
+        "/#/print3?id_etr=" + idEtr,
         "_blank",
         "location=yes,height=1130,width=840,left=0,location=0,scrollbars=yes,status=yes"
       )
