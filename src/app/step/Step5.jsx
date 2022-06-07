@@ -7,7 +7,6 @@ import StepV1 from "./step5-value/StepV1";
 import StepV2 from "./step5-value/StepV2";
 import StepV3 from "./step5-value/StepV3";
 import axios from "axios";
-import Print1 from "../../print/Print1";
 import cloneDeep from 'lodash.clonedeep';
 
 
