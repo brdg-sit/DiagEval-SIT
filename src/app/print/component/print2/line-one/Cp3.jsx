@@ -39,7 +39,7 @@ function Cp3(props) {
   }
   
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} style={{marginTop: '-32px'}}>
       {/* 좌측차트 */}
       <table className={styles.table_val} cellSpacing="0">
         <thead>

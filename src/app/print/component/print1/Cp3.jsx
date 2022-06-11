@@ -24,7 +24,7 @@ function Cp3(props) {
       var tableDataKeys = Object.keys(tableData.val[0]);
 
       for(var i=1; i<tableDataKeys.length; i++){
-        tableData.val[0][tableDataKeys[i]] = elec[0];
+        tableData.val[0][tableDataKeys[i]] = elec[i-1];
       }
       setElec(elec);
       setIsLoaded(true);

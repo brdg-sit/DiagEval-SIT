@@ -24,7 +24,7 @@ function Cp2(props) {
       var tableDataKeys = Object.keys(tableData.val[0]);
 
       for(var i=1; i<tableDataKeys.length; i++){
-        tableData.val[0][tableDataKeys[i]] = gas[0];
+        tableData.val[0][tableDataKeys[i]] = gas[i-1];
       }
       setGas(gas);
       setIsLoaded(true);
