@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ScrollToTop from '../module/ScrollToTop'
 import Main from './step/Main'
 import Step1 from './step/Step1'
@@ -14,7 +14,7 @@ import Print3 from './print/Print3'
 function App() {
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Main />} />
@@ -27,7 +27,7 @@ function App() {
           <Route path="/print2" element={<Print2 />} />
           <Route path="/print3" element={<Print3 />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </>
   )
 }
