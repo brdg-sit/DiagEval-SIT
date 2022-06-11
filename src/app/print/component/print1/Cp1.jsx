@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../../css/print1/cp1.module.css'
 
-function Cp1() {
+function Cp1(props) {
   const dataBox = {
     data1: [
       { key: '주소', val: '서울시 마곡동 공항대로 212' },

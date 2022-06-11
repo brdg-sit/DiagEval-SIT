@@ -22,6 +22,7 @@ function Print1() {
   const [energy, setEnergy] = useState([]);
   const [energyYr, setEnergyYr] = useState([]);
   const [energyType, setEnergyType] = useState([]);
+  const [userEnter, setUserEnter] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   
   useEffect(() => {
@@ -30,6 +31,7 @@ function Print1() {
       let idEtr = urlParams.get('id_etr');
       GetEnergyType(idEtr);
       GetEnergyUsage(idEtr);
+      GetUserEnter(idEtr);
       
       setIsLoaded(true);
     }
@@ -64,6 +66,20 @@ function Print1() {
     }
   };
 
+  const GetUserEnter = async (idEtr) => {
+    try {
+      axios
+        .get("https://sitapi.brdg.kr/api/sit/get-userenter", {
+          params: { id_etr: idEtr},
+        })
+        .then((response) => {
+          setUserEnter(response.data);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <>
       <section className={styles.wrapper} id="print1" ref={printRef}>
@@ -85,7 +101,7 @@ function Print1() {
               건축물 현황
             </h2>
           </div>
-          <Cp1 />
+          <Cp1 userEnter = {userEnter}/>
           <div className={styles.sec1_cp_wrap}>
             <h3>고지서 정보</h3>
             <div className={styles.cp_wrap}>
