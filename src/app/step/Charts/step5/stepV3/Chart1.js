@@ -31,7 +31,7 @@ function Chart1(props) {
 
   const data = {
     // 각 막대별 라벨
-    labels: ['사용자입력', '유사사례'],
+    labels: ['사용자입력', '유사건물군'],
     datasets: [
       {
         data: [props.energyYrHeat, props.energyAvgYrHeat], // 수치

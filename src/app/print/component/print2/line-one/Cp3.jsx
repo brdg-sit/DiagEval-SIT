@@ -66,7 +66,7 @@ function Cp3(props) {
             <td>{parseFloat(props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec).toFixed(2)}</td>
           </tr>
           <tr align="center" bgcolor="white">
-            <th>일반 사용행태 건물</th>
+            <th>참조 사용행태 건물</th>
             <td>{parseFloat(props.energyMLYr.yr_load_heat).toFixed(2)}</td>
             <td>{parseFloat(props.energyMLYr.yr_load_cool).toFixed(2)}</td>
             <td>{parseFloat(props.energyMLYr.yr_load_baseElec).toFixed(2)}</td>
@@ -84,7 +84,7 @@ function Cp3(props) {
             <td>{parseFloat(props.co2Yr.yr_co2_heat + props.co2Yr.yr_co2_cool + props.co2Yr.yr_co2_baseElec).toFixed(2)}</td>
           </tr>
           <tr align="center" bgcolor="white">
-            <th>일반 사용행태 건물</th>
+            <th>참조 사용행태 건물</th>
             <td>{parseFloat(props.co2MLYr.yr_co2_heat).toFixed(2)}</td>
             <td>{parseFloat(props.co2MLYr.yr_co2_cool).toFixed(2)}</td>
             <td>{parseFloat(props.co2MLYr.yr_co2_baseElec).toFixed(2)}</td>

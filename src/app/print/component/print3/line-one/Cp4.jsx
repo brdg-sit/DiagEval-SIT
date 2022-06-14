@@ -102,7 +102,7 @@ function Cp4(props) {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>월간 난방 사용량</h1>
+      <h1 className={styles.title}>난방에너지 월간 사용량&nbsp;<span>(kwh)</span></h1>
       <div className={styles.chart_wrap}>
         <Bar data={data} options={options} />
       </div>

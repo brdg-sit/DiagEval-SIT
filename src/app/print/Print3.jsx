@@ -54,11 +54,11 @@ function Print3() {
           // API에서 여러개 Tables로 가져옴
           // data순서에 따라 용도 확인
           // setEnergy 월별 사용자입력 에너지 (0)
-          // setEnergyML 월별 일반사용형태 에너지 (1)
+          // setEnergyML 월별 참조 사용행태 에너지 (1)
           // setEnergyYr 연간 사용자입력 에너지 (3)
-          // setEnergyMLYr 연간 일반사용형태 에너지 (4)
+          // setEnergyMLYr 연간 참조 사용행태 에너지 (4)
           // setCo2Yr 연간 사용자입력 CO2 (6)
-          // setCo2MLYr 연간 일반사용형태 CO2 (7)
+          // setCo2MLYr 연간 참조 사용행태 CO2 (7)
 
           setEnergy(response.data[0]);
           setEnergyAvg(response.data[2]);
@@ -115,7 +115,7 @@ function Print3() {
         <div className={styles.sec_title_wrap}>
           <h2>
             <img src={cpIcon1} alt="" />
-            유사건물 비교분석 결과 연간 사용량 비교
+            유사건물군 비교분석 결과 연간 사용량 비교
           </h2>
         </div>
 
@@ -141,7 +141,7 @@ function Print3() {
         <div className={styles.sec_title_wrap}>
           <h2>
             <img src={cpIcon2} alt="" />
-            유사건물 비교분석 결과 월간 사용량 비교
+            유사건물군 비교분석 결과 월간 사용량 비교
           </h2>
         </div>
 

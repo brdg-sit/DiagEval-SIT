@@ -13,17 +13,17 @@ function StepV3(props) {
     var hasAlert = false;
 
     if(parseFloat(props.energyYr.yr_load_heat).toFixed(2) > parseFloat(props.energyAvgYr.yr_load_heat).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
       hasAlert = true;
     }
 
     if(parseFloat(props.energyYr.yr_load_cool).toFixed(2) > parseFloat(props.energyAvgYr.yr_load_cool).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
       hasAlert = true;
     }
 
     if(parseFloat(props.energyYr.yr_load_baseElec).toFixed(2) > parseFloat(props.energyAvgYr.yr_load_baseElec).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
       hasAlert = true;
     }
 
@@ -113,7 +113,7 @@ function StepV3(props) {
               <td>{parseFloat(props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec).toFixed(2)}</td>
             </tr>
             <tr align="center" bgcolor="white">
-              <th>일반 사용행태 건물</th>
+              <th>유사건물군</th>
               <td>{parseFloat(props.energyAvgYr.yr_load_heat).toFixed(2)}</td>
               <td>{parseFloat(props.energyAvgYr.yr_load_cool).toFixed(2)}</td>
               <td>{parseFloat(props.energyAvgYr.yr_load_baseElec).toFixed(2)}</td>
@@ -129,7 +129,7 @@ function StepV3(props) {
               <td>{parseFloat(props.co2Yr.yr_co2_heat + props.co2Yr.yr_co2_cool + props.co2Yr.yr_co2_baseElec).toFixed(2)}</td>
             </tr>
             <tr align="center" bgcolor="white">
-              <th>일반 사용행태 건물</th>
+              <th>유사건물군</th>
               <td>{parseFloat(props.co2AvgYr.yr_co2_heat).toFixed(2)}</td>
               <td>{parseFloat(props.co2AvgYr.yr_co2_cool).toFixed(2)}</td>
               <td>{parseFloat(props.co2AvgYr.yr_co2_baseElec).toFixed(2)}</td>
@@ -143,7 +143,7 @@ function StepV3(props) {
         <div className={styles.right_chart_wrap}>
           <div className={styles.title_label}>
             <aside />
-            난방 월간 사용량
+            난방에너지 월간 사용량 <span>(kWh)</span>
           </div>
           <Chart3
             energy={props.energy.map((usg) => parseFloat(usg.load_heat).toFixed(2))}
@@ -154,7 +154,7 @@ function StepV3(props) {
         <div className={styles.right_chart_wrap}>
           <div className={styles.title_label}>
             <aside />
-            냉방 월간 사용량
+            냉방에너지 월간 사용량 <span>(kWh)</span>
           </div>
           <Chart3
             energy={props.energy.map((usg) => parseFloat(usg.load_cool).toFixed(2))}
@@ -165,7 +165,7 @@ function StepV3(props) {
         <div className={styles.right_chart_wrap}>
           <div className={styles.title_label}>
             <aside />
-            기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
+            기저(조명/사무용기기) 에너지 월간 사용량 <span>(kWh)</span>
           </div>
           <Chart3
             energy={props.energy.map((usg) => parseFloat(usg.load_baseElec).toFixed(2))}

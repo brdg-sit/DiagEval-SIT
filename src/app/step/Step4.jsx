@@ -408,7 +408,7 @@ function Step4() {
 
           // ML, ML_STANDARD INSERT -- dukhyun
           // {"id_ml":80003,"id_ml_stdd":1} 이렇게 넘어옴
-          // id_ml: 사용자입력, id_ml_stdd: 일반사용형태
+          // id_ml: 사용자입력, id_ml_stdd: 참조 사용행태
           var json_id_ml_mlstdd = InsertMLIntoDB(id_etr, userEnter, occupancy, pwr_eqmt);
 
           navigate('/step5', {

@@ -31,7 +31,7 @@ function Chart1(props) {
 
   const data = {
     // 각 막대별 라벨
-    labels: ['사용자입력', '일반사용형태'],
+    labels: ['사용자입력', '참조 사용행태'],
     datasets: [
       {
         data: [props.energyYrHeat, props.energyMLYrHeat], // 수치
