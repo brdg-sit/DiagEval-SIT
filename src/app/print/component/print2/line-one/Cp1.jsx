@@ -54,7 +54,7 @@ function Cp1(props) {
 
   const data = {
     // 각 막대별 라벨
-    labels: ['사용자입력', '일반사용형태'],
+    labels: ['사용자입력', '참조 사용행태'],
     datasets: [
       {
         data: [parseFloat(props.energyYr.yr_load_heat).toFixed(2), parseFloat(props.energyMLYr.yr_load_heat).toFixed(2)], // 수치

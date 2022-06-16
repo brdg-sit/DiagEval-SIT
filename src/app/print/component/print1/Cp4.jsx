@@ -130,7 +130,9 @@ function Cp4(props) {
 
   return (
     <div className={styles.wrapper}>
-      <h1>에너지 용도별 연간 사용량 분리 분석</h1>
+      <h1>
+        에너지 용도별 연간 사용량&nbsp;<span>(kwh)</span>
+      </h1>
 
       <ul className={styles.tag_wrap}>
         {chartLabel.map(i => {

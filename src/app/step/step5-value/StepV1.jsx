@@ -20,7 +20,7 @@ function StepV1(props) {
         <div className={styles.title_wrap}>
           <div className={styles.title_label}>
             <aside />
-            에너지 용도별 연간 사용량 분리분석 <span>(kWh)</span>
+            에너지 용도별 연간 사용량 <span>(kWh)</span>
           </div>
 
           <ul className={styles.tag_wrap}>
@@ -41,7 +41,7 @@ function StepV1(props) {
         <div className={styles.title_wrap}>
           <div className={styles.title_label}>
             <aside />
-            에너지 용도별 연간 사용량 분리분석 <span>(kWh)</span>
+            에너지 용도별 월별 사용량 <span>(kWh)</span>
           </div>
 
           <ul className={styles.tag_wrap}>

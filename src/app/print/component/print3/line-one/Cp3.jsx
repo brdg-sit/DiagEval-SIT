@@ -9,17 +9,17 @@ function Cp3(props) {
         var hasAlert = false;
     
         if(props.energyYr.yr_load_heat > props.energyAvgYr.yr_load_heat){
-          alertMessages.push(<p key={0}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
+          alertMessages.push(<p key={0}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
           hasAlert = true;
         }
     
         if(props.energyYr.yr_load_cool > props.energyAvgYr.yr_load_cool){
-          alertMessages.push(<p key={1}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
+          alertMessages.push(<p key={1}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
           hasAlert = true;
         }
     
         if(props.energyYr.yr_load_baseElec > props.energyAvgYr.yr_load_baseElec){
-          alertMessages.push(<p key={2}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
+          alertMessages.push(<p key={2}><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
           hasAlert = true;
         }
     
@@ -67,7 +67,7 @@ function Cp3(props) {
             <td>{parseFloat(props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec).toFixed(2)}</td>
           </tr>
           <tr align="center" bgcolor="white">
-            <th>일반 사용행태 건물</th>
+            <th>참조 사용행태 건물</th>
             <td>{parseFloat(props.energyAvgYr.yr_load_heat).toFixed(2)}</td>
             <td>{parseFloat(props.energyAvgYr.yr_load_cool).toFixed(2)}</td>
             <td>{parseFloat(props.energyAvgYr.yr_load_baseElec).toFixed(2)}</td>
@@ -86,7 +86,7 @@ function Cp3(props) {
             <td>{parseFloat(props.co2Yr.yr_co2_heat + props.co2Yr.yr_co2_cool + props.co2Yr.yr_co2_baseElec).toFixed(2)}</td>
           </tr>
           <tr align="center" bgcolor="white">
-            <th>일반 사용행태 건물</th>
+            <th>참조 사용행태 건물</th>
             <td>{parseFloat(props.co2AvgYr.yr_co2_heat).toFixed(2)}</td>
             <td>{parseFloat(props.co2AvgYr.yr_co2_cool).toFixed(2)}</td>
             <td>{parseFloat(props.co2AvgYr.yr_co2_baseElec).toFixed(2)}</td>

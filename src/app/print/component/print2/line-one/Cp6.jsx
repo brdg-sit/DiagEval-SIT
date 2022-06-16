@@ -101,7 +101,7 @@ function Cp6(props) {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.title}>월간 기저 사용량 (조명/사무용기기)</h1>
+      <h1 className={styles.title}>기저(조명/사무용기기) 에너지 월간 사용량&nbsp;<span>(kwh)</span></h1>
       <div className={styles.chart_wrap}>
         <Bar data={data} options={options} />
       </div>

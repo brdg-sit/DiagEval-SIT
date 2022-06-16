@@ -66,13 +66,13 @@ function Step5() {
           // API에서 여러개 Tables로 가져옴
           // data순서에 따라 용도 확인
           // setEnergy 월별 사용자입력 에너지 (0)
-          // setEnergyML 월별 일반사용형태 에너지 (1)
-          // setEnergyAvg 월별 유사사례 평균치 에너지 (2)
+          // setEnergyML 월별 참조 사용행태 에너지 (1)
+          // setEnergyAvg 월별 유사건물군 평균치 에너지 (2)
           // setEnergyYr 연간 사용자입력 에너지 (3)
-          // setEnergyMLYr 연간 일반사용형태 에너지 (4)
-          // setCo2Avg 월별 유사사례 평균치 CO2 (5)
+          // setEnergyMLYr 연간 참조 사용행태 에너지 (4)
+          // setCo2Avg 월별 유사건물군 평균치 CO2 (5)
           // setCo2Yr 연간 사용자입력 CO2 (6)
-          // setCo2MLYr 연간 일반사용형태 CO2 (7)
+          // setCo2MLYr 연간 참조 사용행태 CO2 (7)
 
           setEnergy(response.data[0]);
           setEnergyML(response.data[1]);
@@ -251,10 +251,10 @@ function Step5() {
               에너지 사용량 분리분석 결과
             </nav>
             <nav className={step === 1 ? styles.navActive : ""}>
-              일반 사용행태 비교분석 결과
+              참조 사용행태 비교분석 결과
             </nav>
             <nav className={step === 2 ? styles.navActive : ""}>
-              유사건물 비교분석 결과
+              유사건물군 비교분석 결과
             </nav>
           </div>
 
