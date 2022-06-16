@@ -85,6 +85,7 @@ function Step1() {
     await Data.GetDefaults().then((defaults) => {
       var data = defaults.data[0];
       setDefaults(data);
+      setAddress(data.address);
       setCdNorthAxis(codes[data.cd_north_axis].name);
       setCdUsageMain(codes[data.cd_usage_main].name);
       setUsageSub(data.usage_sub);
