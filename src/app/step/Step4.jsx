@@ -478,7 +478,7 @@ function Step4() {
   }
 
   //   가스사용량 단위 탭
-  const [typeVal, setTypeVal] = useState('MJ')
+  const [typeVal, setTypeVal] = useState('Nm3')
   
   return (
     <main className={stepStyles.step_wrapper}>
