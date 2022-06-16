@@ -112,8 +112,8 @@ function Step1() {
     </Popup>
   );
 
-  const OnAddressDetailChange = (e) => {
-    setDetail(e.target.value);
+  const OnAddressChanged = (e) => {
+    setAddress(e.target.value);
   };
 
   const OnCdNorthAxisChanged = (e) => {
@@ -238,14 +238,7 @@ function Step1() {
                     type="text"
                     placeholder="주소를 검색하세요."
                     value={address}
-                    onChange={() => console.log("")}
-                  />
-                  <input
-                    title="detail"
-                    type="text"
-                    placeholder="상세 주소"
-                    value={detail}
-                    onChange={OnAddressDetailChange}
+                    onChange={OnAddressChanged}
                   />
                   <SearchPostcodeButton
                     address={address}
