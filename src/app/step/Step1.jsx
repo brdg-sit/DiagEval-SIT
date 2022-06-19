@@ -173,8 +173,8 @@ function Step1() {
   };
 
   const OnNextButtonClick = async (e) => {
-    await Data.GetUValues().then((uval) => {
-      var data = uval.data;
+    await Data.GetDefaults().then((res) => {
+      var data = res.data;
 
       var uWall = 0;
       var uRoof = 0;
@@ -182,15 +182,15 @@ function Step1() {
       var uWindow = 0;
       var shgc = 0;
 
-      for(var i=0; i<data.length; i++){
-        if(data[i].year_stt <= year && year <= data[i].year_end){
-          uWall = data[i].u_wall.toFixed(3);
-          uRoof = data[i].u_roof.toFixed(3);
-          uFloor = data[i].u_floor.toFixed(3);
-          uWindow = data[i].u_window.toFixed(3);
-          shgc = data[i].shgc.toFixed(3);
-        }
-      }
+      // for(var i=0; i<data.length; i++){
+      //   if(data[i].year_stt <= year && year <= data[i].year_end){
+      uWall = data[0].u_wall.toFixed(3);
+      uRoof = data[0].u_roof.toFixed(3);
+      uFloor = data[0].u_floor.toFixed(3);
+      uWindow = data[0].u_window.toFixed(3);
+      shgc = data[0].shgc.toFixed(3);
+      //   }
+      // }
 
       navigate("/step2", {
         state: {
@@ -214,16 +214,12 @@ function Step1() {
           uRoof: uRoof,
           uFloor: uFloor,
           uWindow: uWindow,
-          shgc: shgc,
-          uWallUser: stateHistory[2] === undefined ? uWall : stateHistory[2].uWallUser,
-          uRoofUser: stateHistory[2] === undefined ? uRoof : stateHistory[2].uRoofUser,
-          uFloorUser: stateHistory[2] === undefined ? uFloor : stateHistory[2].uFloorUser,
-          uWindowUser: stateHistory[2] === undefined ? uWindow : stateHistory[2].uWindowUser,
-          shgcUser: stateHistory[2] === undefined ? shgc : stateHistory[2].shgcUser
+          shgc: shgc
         },
       })
     });
   }
+
 
   return (
     <main className={stepStyles.step_wrapper}>
