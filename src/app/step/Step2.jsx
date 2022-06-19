@@ -19,6 +19,11 @@ function Step2() {
   const [uFloor, setUFloor] = useState(location.state.uFloor);
   const [uWindow, setUWindow] = useState(location.state.uWindow);
   const [shgc, setShgc] = useState(location.state.shgc);
+  const [uWallUser, setUWallUser] = useState(location.state.uWall);
+  const [uRoofUser, setURoofUser] = useState(location.state.uRoof);
+  const [uFloorUser, setUFloorUser] = useState(location.state.uFloor);
+  const [uWindowUser, setUWindowUser] = useState(location.state.uWindow);
+  const [shgcUser, setShgcUser] = useState(location.state.shgc);
   const [isetrUWall, setIsetrUWall] = useState(location.state.defaults.isetr_u_wall);
   const [isetrURoof, setIsetrURoof] = useState(location.state.defaults.isetr_u_roof);
   const [isetrUFloor, setIsetrUFloor] = useState(location.state.defaults.isetr_u_floor);
@@ -66,32 +71,41 @@ function Step2() {
     setCdEqmtLight(state.cdEqmtLight);
     setIsetrLight(state.isetrLight);
     setLevelLight(state.levelLight);
+    setUWall(state.uWall);
+    setURoof(state.uRoof);
+    setUFloor(state.uFloor);
+    setUWindow(state.uWindow);
+    setShgc(state.shgc);
+    setUWallUser(state.uWallUser);
+    setURoofUser(state.uRoofUser);
+    setUFloorUser(state.uFloorUser);
+    setUWindowUser(state.uWindowUser);
+    setShgcUser(state.shgcUser);
 
-    if(!isFromStep1){
-      setUWall(state.uWall);
-      setURoof(state.uRoof);
-      setUFloor(state.uFloor);
-      setUWindow(state.uWindow);
-      setShgc(state.shgc);
-    }
-    else{
-      if(state.isetrUWall){
-        setUWall(state.uWall);
-      }
-      if(state.isetrURoof){
-        setURoof(state.uRoof);
-      }
-      if(state.isetrUFloor){
-        setUFloor(state.uFloor);
-      }
-      if(state.isetrUWindow){
-        setUWindow(state.uWindow);
-      }
-      if(state.isetrShgc){
-        setShgc(state.shgc);
-      }
-    }
-
+    // if(!isFromStep1){
+    //   setUWall(state.uWall);
+    //   setURoof(state.uRoof);
+    //   setUFloor(state.uFloor);
+    //   setUWindow(state.uWindow);
+    //   setShgc(state.shgc);
+    // }
+    // else{
+    //   if(state.isetrUWall){
+    //     setUWall(state.uWall);
+    //   }
+    //   if(state.isetrURoof){
+    //     setURoof(state.uRoof);
+    //   }
+    //   if(state.isetrUFloor){
+    //     setUFloor(state.uFloor);
+    //   }
+    //   if(state.isetrUWindow){
+    //     setUWindow(state.uWindow);
+    //   }
+    //   if(state.isetrShgc){
+    //     setShgc(state.shgc);
+    //   }
+    // }
   };
 
   // year 값에 따라 u_values 가져오기 기능 -- dukhyun
@@ -117,23 +131,23 @@ function Step2() {
   // };
 
   const OnUWallChange = (e) => {
-    setUWall(e.target.value);
+    setUWallUser(e.target.value);
   };
 
   const OnURoofChange = (e) => {
-    setURoof(e.target.value);
+    setURoofUser(e.target.value);
   };
 
   const OnUFloorChange = (e) => {
-    setUFloor(e.target.value);
+    setUFloorUser(e.target.value);
   };
 
   const OnUWindowChange = (e) => {
-    setUWindow(e.target.value);
+    setUWindowUser(e.target.value);
   };
 
   const OnUShgcChange = (e) => {
-    setShgc(e.target.value);
+    setShgcUser(e.target.value);
   };
 
   const OnCdEqmtChange = (e) => {
@@ -244,7 +258,7 @@ function Step2() {
 
                 {/* ==== 외관 열관류율 ==== */}
                 <div className={styles.wrap_box}>
-                  <label className={styles.title}>- 외벽 열관류울</label>
+                  <label className={styles.title}>- 외벽 열관류율</label>
                   <div className={styles.input_wrap}>
                     <div className={styles.type_val}>
                       <p>{uWall}</p>
@@ -265,7 +279,7 @@ function Step2() {
                         <input
                           type="number"
                           disabled={isetrUWall === 0 ? true : false}
-                          value={uWall}
+                          value={uWallUser}
                           placeholder="직접입력 하세요."
                           onChange={OnUWallChange}
                         />
@@ -277,7 +291,7 @@ function Step2() {
 
                 {/* ==== 지붕 열관류율 ==== */}
                 <div className={styles.wrap_box}>
-                  <label className={styles.title}>- 지붕 열관류울</label>
+                  <label className={styles.title}>- 지붕 열관류율</label>
                   <div className={styles.input_wrap}>
                     <div className={styles.type_val}>
                       <p>{uRoof}</p>
@@ -298,7 +312,7 @@ function Step2() {
                         <input
                           type="number"
                           disabled={isetrURoof === 0 ? true : false}
-                          value={uRoof}
+                          value={uRoofUser}
                           placeholder="직접입력 하세요."
                           onChange={OnURoofChange}
                         />
@@ -331,7 +345,7 @@ function Step2() {
                         <input
                           type="number"
                           disabled={isetrUFloor === 0 ? true : false}
-                          value={uFloor}
+                          value={uFloorUser}
                           placeholder="직접입력 하세요."
                           onChange={OnUFloorChange}
                         />
@@ -367,7 +381,7 @@ function Step2() {
                         <input
                           type="number"
                           disabled={isetrUWindow === 0 ? true : false}
-                          value={uWindow}
+                          value={uWindowUser}
                           placeholder="직접입력 하세요."
                           onChange={OnUWindowChange}
                         />
@@ -399,12 +413,12 @@ function Step2() {
                         <input
                           type="number"
                           disabled={isetrShgc === 0 ? true : false}
-                          value={shgc}
+                          value={shgcUser}
                           placeholder="직접입력 하세요."
                           onChange={OnUShgcChange}
                         />
                       </div>
-                      <span>W/㎡K</span>
+                      {/* <span>W/㎡K</span> */}
                     </div>
                   </div>
                 </div>
@@ -616,6 +630,11 @@ function Step2() {
                     uFloor: uFloor,
                     uWindow: uWindow,
                     shgc: shgc,
+                    uWallUser: uWallUser,
+                    uRoofUser: uRoofUser,
+                    uFloorUser: uFloorUser,
+                    uWindowUser: uWindowUser,
+                    shgcUser: shgcUser,
                     isetrUWall: isetrUWall,
                     isetrURoof: isetrURoof,
                     isetrUFloor: isetrUFloor,
@@ -649,6 +668,11 @@ function Step2() {
                     uFloor: uFloor,
                     uWindow: uWindow,
                     shgc: shgc,
+                    uWallUser: uWallUser,
+                    uRoofUser: uRoofUser,
+                    uFloorUser: uFloorUser,
+                    uWindowUser: uWindowUser,
+                    shgcUser: shgcUser,
                     isetrUWall: isetrUWall,
                     isetrURoof: isetrURoof,
                     isetrUFloor: isetrUFloor,

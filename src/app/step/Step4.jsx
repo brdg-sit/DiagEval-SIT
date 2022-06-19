@@ -153,11 +153,11 @@ function Step4() {
     userEnter["aspect_ratio"] = location.state.stateHistory[1].aspectRatio;
     userEnter["isetr_aspect_ratio"] = location.state.stateHistory[1].isEtrAspectRatio;
     userEnter["area_etr"] = location.state.stateHistory[1].etrArea;
-    userEnter["u_wall"] = location.state.stateHistory[2].uWall;
-    userEnter["u_roof"] = location.state.stateHistory[2].uRoof;
-    userEnter["u_floor"] = location.state.stateHistory[2].uFloor;
-    userEnter["u_window"] = location.state.stateHistory[2].uWindow;
-    userEnter["shgc"] = location.state.stateHistory[2].shgc;
+    userEnter["u_wall"] = location.state.stateHistory[2].isetrUWall === 0 ? location.state.stateHistory[2].uWall : location.state.stateHistory[2].uWallUser;
+    userEnter["u_roof"] = location.state.stateHistory[2].isetrURoof  === 0 ? location.state.stateHistory[2].uRoof : location.state.stateHistory[2].uRoofUser;
+    userEnter["u_floor"] = location.state.stateHistory[2].isetrUFloor === 0 ? location.state.stateHistory[2].uFloor : location.state.stateHistory[2].uFloorUser;
+    userEnter["u_window"] = location.state.stateHistory[2].isetrUWindow === 0 ? location.state.stateHistory[2].uWindow : location.state.stateHistory[2].uWindowUser;
+    userEnter["shgc"] = location.state.stateHistory[2].isetrShgc === 0 ? location.state.stateHistory[2].shgc : location.state.stateHistory[2].shgcUser;
     userEnter["cd_eqmt"] = location.state.stateHistory[2].cdEqmt;
     userEnter["effcy_heat"] = location.state.stateHistory[2].effcyHeat;
     userEnter["effcy_cool"] = location.state.stateHistory[2].effcyCool;

@@ -213,7 +213,12 @@ function Step1() {
           uRoof: uRoof,
           uFloor: uFloor,
           uWindow: uWindow,
-          shgc: shgc
+          shgc: shgc,
+          uWallUser: stateHistory[2] === undefined ? uWall : stateHistory[2].uWallUser,
+          uRoofUser: stateHistory[2] === undefined ? uRoof : stateHistory[2].uRoofUser,
+          uFloorUser: stateHistory[2] === undefined ? uFloor : stateHistory[2].uFloorUser,
+          uWindowUser: stateHistory[2] === undefined ? uWindow : stateHistory[2].uWindowUser,
+          shgcUser: stateHistory[2] === undefined ? shgc : stateHistory[2].shgcUser
         },
       })
     });
