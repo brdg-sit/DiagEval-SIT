@@ -505,7 +505,7 @@ function Step2() {
                       <span>효율(COP) :</span>
                       <input
                         type="number"
-                        value={effcyHeat}
+                        value={effcyCool}
                         placeholder="직접입력 하세요."
                         onChange={OnEffcyCoolChange}
                       />

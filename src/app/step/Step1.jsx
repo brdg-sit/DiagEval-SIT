@@ -85,6 +85,7 @@ function Step1() {
     await Data.GetDefaults().then((defaults) => {
       var data = defaults.data[0];
       setDefaults(data);
+      setAddress(data.address);
       setCdNorthAxis(codes[data.cd_north_axis].name);
       setCdUsageMain(codes[data.cd_usage_main].name);
       setUsageSub(data.usage_sub);
@@ -111,8 +112,8 @@ function Step1() {
     </Popup>
   );
 
-  const OnAddressDetailChange = (e) => {
-    setDetail(e.target.value);
+  const OnAddressChanged = (e) => {
+    setAddress(e.target.value);
   };
 
   const OnCdNorthAxisChanged = (e) => {
@@ -242,14 +243,7 @@ function Step1() {
                     type="text"
                     placeholder="주소를 검색하세요."
                     value={address}
-                    onChange={() => console.log("")}
-                  />
-                  <input
-                    title="detail"
-                    type="text"
-                    placeholder="상세 주소"
-                    value={detail}
-                    onChange={OnAddressDetailChange}
+                    onChange={OnAddressChanged}
                   />
                   <SearchPostcodeButton
                     address={address}

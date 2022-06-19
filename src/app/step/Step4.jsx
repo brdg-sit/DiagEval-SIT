@@ -48,33 +48,33 @@ function Step4() {
         }
         else{
           const electricTemplate = {
-            '01월': 100,
-            '02월': 70,
-            '03월': 30,
-            '04월': 40,
-            '05월': 20,
-            '06월': 50,
-            '07월': 60,
-            '08월': 80,
-            '09월': 100,
-            '10월': 120,
-            '11월': 100,
-            '12월': 100
+            '01월': 14194,
+            '02월': 10851,
+            '03월': 7970,
+            '04월': 5161,
+            '05월': 3730,
+            '06월': 4225,
+            '07월': 5220,
+            '08월': 9836,
+            '09월': 6501,
+            '10월': 4356,
+            '11월': 4447,
+            '12월': 7400
           }
 
           const gasTemplate = {
-            '01월': 100,
-            '02월': 100,
-            '03월': 100,
-            '04월': 100,
-            '05월': 100,
-            '06월': 100,
-            '07월': 100,
-            '08월': 100,
-            '09월': 100,
-            '10월': 100,
-            '11월': 100,
-            '12월': 100
+            '01월': 75,
+            '02월': 74,
+            '03월': 80,
+            '04월': 73,
+            '05월': 58,
+            '06월': 54,
+            '07월': 19,
+            '08월': 8,
+            '09월': 10,
+            '10월': 12,
+            '11월': 26,
+            '12월': 37
           }
 
           setElectricData(electricTemplate);
@@ -408,7 +408,7 @@ function Step4() {
 
           // ML, ML_STANDARD INSERT -- dukhyun
           // {"id_ml":80003,"id_ml_stdd":1} 이렇게 넘어옴
-          // id_ml: 사용자입력, id_ml_stdd: 일반사용형태
+          // id_ml: 사용자입력, id_ml_stdd: 참조 사용행태
           var json_id_ml_mlstdd = InsertMLIntoDB(id_etr, userEnter, occupancy, pwr_eqmt);
 
           navigate('/step5', {
@@ -478,7 +478,7 @@ function Step4() {
   }
 
   //   가스사용량 단위 탭
-  const [typeVal, setTypeVal] = useState('MJ')
+  const [typeVal, setTypeVal] = useState('Nm3')
   
   return (
     <main className={stepStyles.step_wrapper}>

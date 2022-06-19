@@ -13,6 +13,12 @@
   margin-bottom: 6px;
 }
 
+.wrapper h1 span {
+  color: #888;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 .tag_wrap {
   list-style: none;
   margin: 0;

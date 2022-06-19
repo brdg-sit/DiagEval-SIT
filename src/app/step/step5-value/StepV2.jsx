@@ -112,7 +112,7 @@ function StepV2(props) {
               <td>{parseFloat(props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec).toFixed(2)}</td>
             </tr>
             <tr align="center" bgcolor="white">
-              <th>일반 사용행태 건물</th>
+              <th>참조 사용행태 건물</th>
               <td>{parseFloat(props.energyMLYr.yr_load_heat).toFixed(2)}</td>
               <td>{parseFloat(props.energyMLYr.yr_load_cool).toFixed(2)}</td>
               <td>{parseFloat(props.energyMLYr.yr_load_baseElec).toFixed(2)}</td>
@@ -128,7 +128,7 @@ function StepV2(props) {
               <td>{parseFloat((props.co2Yr.yr_co2_heat + props.co2Yr.yr_co2_cool + props.co2Yr.yr_co2_baseElec).toFixed(2))}</td>
             </tr>
             <tr align="center" bgcolor="white">
-              <th>일반 사용행태 건물</th>
+              <th>참조 사용행태 건물</th>
               <td>{parseFloat((props.co2MLYr.yr_co2_heat).toFixed(2))}</td>
               <td>{parseFloat((props.co2MLYr.yr_co2_cool).toFixed(2))}</td>
               <td>{parseFloat((props.co2MLYr.yr_co2_baseElec).toFixed(2))}</td>
@@ -142,7 +142,7 @@ function StepV2(props) {
         <div className={styles.right_chart_wrap}>
           <div className={styles.title_label}>
             <aside />
-            난방 월간 사용량
+            난방에너지 월간 사용량 <span>(kWh)</span>
           </div>
           <Chart3
             energy={props.energy.map((usg) => parseFloat(usg.load_heat).toFixed(2))}
@@ -153,7 +153,7 @@ function StepV2(props) {
         <div className={styles.right_chart_wrap}>
           <div className={styles.title_label}>
             <aside />
-            냉방 월간 사용량
+            냉방에너지 월간 사용량 <span>(kWh)</span>
           </div>
           <Chart3
             energy={props.energy.map((usg) => parseFloat(usg.load_cool).toFixed(2))}
@@ -164,7 +164,7 @@ function StepV2(props) {
         <div className={styles.right_chart_wrap}>
           <div className={styles.title_label}>
             <aside />
-            기저(조명/사무용기기) 월간 사용량 <span>(kWh)</span>
+            기저(조명/사무용기기) 에너지 월간 사용량 <span>(kWh)</span>
           </div>
           <Chart3
             energy={props.energy.map((usg) => parseFloat(usg.load_baseElec).toFixed(2))}
