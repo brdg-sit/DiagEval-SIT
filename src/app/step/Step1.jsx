@@ -173,25 +173,54 @@ function Step1() {
   };
 
   const OnNextButtonClick = async (e) => {
+
+    var uvalData = undefined;
+
+    var uWall = 0;
+    var uRoof = 0;
+    var uFloor = 0;
+    var uWindow = 0;
+    var shgc = 0;
+
+    await Data.GetUValues().then((res) => {
+      
+      uvalData = res.data;
+      for(var i=0; i<uvalData.length; i++){
+        if(uvalData[i].year_stt <= year && year <= uvalData[i].year_end){
+          uWall = uvalData[i].u_wall.toFixed(3);
+          uRoof = uvalData[i].u_roof.toFixed(3);
+          uFloor = uvalData[i].u_floor.toFixed(3);
+          uWindow = uvalData[i].u_window.toFixed(3);
+          shgc = uvalData[i].shgc.toFixed(3);
+          break;
+        }
+      }
+    });
+
+    var defaultData = undefined;
+
+    var uWallUser = 0;
+    var uRoofUser = 0;
+    var uFloorUser = 0;
+    var uWindowUser = 0;
+    var shgcUser = 0;
+
     await Data.GetDefaults().then((res) => {
-      var data = res.data;
 
-      var uWall = 0;
-      var uRoof = 0;
-      var uFloor = 0;
-      var uWindow = 0;
-      var shgc = 0;
+      defaultData = res.data;
 
-      // for(var i=0; i<data.length; i++){
-      //   if(data[i].year_stt <= year && year <= data[i].year_end){
-      uWall = data[0].u_wall.toFixed(3);
-      uRoof = data[0].u_roof.toFixed(3);
-      uFloor = data[0].u_floor.toFixed(3);
-      uWindow = data[0].u_window.toFixed(3);
-      shgc = data[0].shgc.toFixed(3);
+      // for(var i=0; i<uvalData.length; i++){
+      //   if(uvalData[i].year_stt <= year && year <= uvalData[i].year_end){
+      uWallUser = defaultData[0].u_wall.toFixed(3);
+      uRoofUser = defaultData[0].u_roof.toFixed(3);
+      uFloorUser = defaultData[0].u_floor.toFixed(3);
+      uWindowUser = defaultData[0].u_window.toFixed(3);
+      shgcUser = defaultData[0].shgc.toFixed(3);
       //   }
       // }
+    });
 
+    if(defaultData != undefined && uvalData != undefined){
       navigate("/step2", {
         state: {
           stepNum: stepNum,
@@ -214,10 +243,15 @@ function Step1() {
           uRoof: uRoof,
           uFloor: uFloor,
           uWindow: uWindow,
-          shgc: shgc
+          shgc: shgc,
+          uWallUser: uWallUser,
+          uRoofUser: uRoofUser,
+          uFloorUser: uFloorUser,
+          uWindowUser: uWindowUser,
+          shgcUser: shgcUser
         },
       })
-    });
+    }
   }
 
 

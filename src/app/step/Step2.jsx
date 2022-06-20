@@ -19,11 +19,11 @@ function Step2() {
   const [uFloor, setUFloor] = useState(location.state.uFloor);
   const [uWindow, setUWindow] = useState(location.state.uWindow);
   const [shgc, setShgc] = useState(location.state.shgc);
-  const [uWallUser, setUWallUser] = useState(location.state.uWall);
-  const [uRoofUser, setURoofUser] = useState(location.state.uRoof);
-  const [uFloorUser, setUFloorUser] = useState(location.state.uFloor);
-  const [uWindowUser, setUWindowUser] = useState(location.state.uWindow);
-  const [shgcUser, setShgcUser] = useState(location.state.shgc);
+  const [uWallUser, setUWallUser] = useState(location.state.uWallUser);
+  const [uRoofUser, setURoofUser] = useState(location.state.uRoofUser);
+  const [uFloorUser, setUFloorUser] = useState(location.state.uFloorUser);
+  const [uWindowUser, setUWindowUser] = useState(location.state.uWindowUser);
+  const [shgcUser, setShgcUser] = useState(location.state.shgcUser);
   const [isetrUWall, setIsetrUWall] = useState(location.state.defaults.isetr_u_wall);
   const [isetrURoof, setIsetrURoof] = useState(location.state.defaults.isetr_u_roof);
   const [isetrUFloor, setIsetrUFloor] = useState(location.state.defaults.isetr_u_floor);
