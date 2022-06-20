@@ -148,7 +148,7 @@ function Step4() {
     userEnter["usage_sub"] = location.state.stateHistory[1].usageSub;
     userEnter["year"] = location.state.stateHistory[1].year;
     userEnter["area"] = location.state.stateHistory[1].area;
-    userEnter["wwr"] = location.state.stateHistory[1].wwr;
+    userEnter["wwr"] = Number(location.state.stateHistory[1].wwr) / 100;
     userEnter["isetr_wwr"] = location.state.stateHistory[1].isEtrWwr;
     userEnter["aspect_ratio"] = location.state.stateHistory[1].aspectRatio;
     userEnter["isetr_aspect_ratio"] = location.state.stateHistory[1].isEtrAspectRatio;

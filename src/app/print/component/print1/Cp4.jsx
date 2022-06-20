@@ -17,7 +17,7 @@ function Cp4(props) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if(!isLoaded && props.energy.yr_load_cool != undefined){
+    if(!isLoaded && props.energy.yr_load_cool !== undefined){
       setLoadHeat(props.energy.yr_load_heat);
       setLoadCool(props.energy.yr_load_cool);
       setLoadBaseElec(props.energy.yr_load_baseElec);

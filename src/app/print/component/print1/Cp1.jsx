@@ -7,14 +7,14 @@ function Cp1(props) {
 
   var dataBox = {};
 
-  if(userEnter != undefined){
+  if(userEnter !== undefined){
     dataBox = {
       data1: [
         { key: '주소', val: userEnter.address },
         { key: '건축물 용도', val: '업무시설, ' + userEnter.usage_sub },
         { key: '준공연도', val: userEnter.year , year: true },
-        { key: '연면적', val: userEnter.area },
-        { key: '설비종류', val: (userEnter.cd_empt == '401') ? 'EHP' : '중앙식'},
+        { key: '연면적', val: userEnter.area_etr },
+        { key: '설비종류', val: (userEnter.cd_empt === '401') ? 'EHP' : '중앙식'},
       ],
   
       data2: [

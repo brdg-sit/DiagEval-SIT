@@ -92,7 +92,7 @@ function Step1() {
       setYear(data.year);
       setArea(data.area);
       setEtrArea(data.area_etr);
-      setWwr(data.wwr);
+      setWwr(data.wwr*100);
       setAspectRatio(data.aspect_ratio);
       setIsetrWwr(data.isetr_wwr);
       setIsetrAspectRatio(data.isetr_aspect_ratio);
@@ -149,6 +149,11 @@ function Step1() {
   };
 
   const OnWwrChange = (e) => {
+    const str = e.target.value
+    if (str.includes('.')) { return }
+    if (str.startsWith('0')) { return }
+    if (Number(str) > 100) { return }
+    console.log("e.target.value", e.target.value)
     setWwr(e.target.value);
   };
 
@@ -405,7 +410,7 @@ function Step1() {
                 </div>
               </div>
 
-              {/* ==== 건축물 연면적 ==== */}
+              {/* ==== 건축물 창면적비 ==== */}
               <div className={styles.content_wrap}>
                 <div className={styles.title_label}>
                   <aside />
@@ -416,29 +421,32 @@ function Step1() {
                   <div className={styles.type_val}>
                     <p>60%</p>
                   </div>
-                  <div className={styles.input_box_wrap}>
-                    <input
-                      type="checkbox"
-                      id="check1"
-                      checked={isEtrWwr === 0 ? false : true}
-                      onChange={() => console.log("")}
-                    />
-                    <label htmlFor="check1" onClick={OnWwrCheckboxClicked}>
-                      직접입력 :
-                    </label>{" "}
-                    &nbsp;&nbsp;
-                    <input
-                      type="number"
-                      value={wwr}
-                      disabled={isEtrWwr === 0 ? true : false}
-                      placeholder="창면적비를 입력하세요."
-                      onChange={OnWwrChange}
-                    />
-                  </div>
+ 
+                  <div className={styles.input_wrapper}>
+                      <div className={styles.input_box_wrap}>
+                      <input
+                        type="checkbox"
+                        id="check1"
+                        checked={isEtrWwr === 0 ? false : true}
+                        onChange={() => console.log("")}
+                      />
+                      <label htmlFor="check1" onClick={OnWwrCheckboxClicked}>
+                        직접입력 :
+                      </label>{" "}
+                        <input
+                        type="number"
+                        value={wwr}
+                        disabled={isEtrWwr === 0 ? true : false}
+                        placeholder="창면적비를 입력하세요."
+                        onChange={OnWwrChange}
+                      />
+                                </div>
+                    <span>%</span>
+                    </div>
                 </div>
               </div>
 
-              {/* ==== 건축물 연면적 ==== */}
+              {/* ==== 건축물 장단변비 ==== */}
               <div className={styles.content_wrap}>
                 <div className={styles.title_label}>
                   <aside />
@@ -449,28 +457,30 @@ function Step1() {
                   <div className={styles.type_val}>
                     <p>1:1.91</p>
                   </div>
-                  <div className={styles.input_box_wrap}>
-                    <input
-                      type="checkbox"
-                      checked={isEtrAspectRatio === 0 ? false : true}
-                      id="check2"
-                      onChange={() => console.log("")}
-                    />
-                    <label
-                      htmlFor="check2"
-                      onClick={OnAspectRatioCheckboxClicked}
-                    >
-                      직접입력 :&nbsp;&nbsp;
-                    </label>
-                    <span>1:</span>
-                    <input
-                      type="number"
-                      disabled={isEtrAspectRatio === 0 ? true : false}
-                      value={aspectRatio}
-                      placeholder="장면적비의 뒷자리를 입력하세요."
-                      onChange={OnAspectRatioChange}
-                    />
-                  </div>
+                  <div className={styles.input_wrapper}>
+                      <div className={styles.input_box_wrap}>
+                      <input
+                        type="checkbox"
+                        checked={isEtrAspectRatio === 0 ? false : true}
+                        id="check2"
+                        onChange={() => console.log("")}
+                      />
+                      <label
+                        htmlFor="check2"
+                        onClick={OnAspectRatioCheckboxClicked}
+                      >
+                        직접입력 :&nbsp;&nbsp;
+                      </label>
+                      <span>1:</span>
+                      <input
+                        type="number"
+                        disabled={isEtrAspectRatio === 0 ? true : false}
+                        value={aspectRatio}
+                        placeholder="장면적비의 뒷자리를 입력하세요."
+                        onChange={OnAspectRatioChange}
+                      />
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>
