@@ -81,12 +81,12 @@ function StepV3(props) {
           <li>
             <h2>연간 CO2 배출량</h2>
             <Chart2
-              co2YrHeat={parseFloat(props.co2Yr.yr_co2_cool).toFixed(2)}
-              co2AvgYrHeat={parseFloat(props.co2AvgYr.yr_co2_cool).toFixed(2)}
-              co2YrCool={parseFloat(props.co2Yr.yr_co2_baseElec).toFixed(2)}
-              co2AvgYrCool={parseFloat(props.co2AvgYr.yr_co2_baseElec).toFixed(2)}
-              co2YrBC={parseFloat(props.co2Yr.yr_co2_heat).toFixed(2)}
-              co2AvgYrBC={parseFloat(props.co2AvgYr.yr_co2_heat).toFixed(2)}
+              co2YrHeat={parseFloat(props.co2Yr.yr_co2_heat).toFixed(2)}
+              co2AvgYrHeat={parseFloat(props.co2AvgYr.yr_co2_heat).toFixed(2)}
+              co2YrCool={parseFloat(props.co2Yr.yr_co2_cool).toFixed(2)}
+              co2AvgYrCool={parseFloat(props.co2AvgYr.yr_co2_cool).toFixed(2)}
+              co2YrBC={parseFloat(props.co2Yr.yr_co2_baseElec).toFixed(2)}
+              co2AvgYrBC={parseFloat(props.co2AvgYr.yr_co2_baseElec).toFixed(2)}
             />
           </li>
         </ul>

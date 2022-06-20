@@ -44,7 +44,7 @@ function Chart2(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.co2YrHeat, props.co2AvgYrHeat], // 수치
+        data: [props.co2YrCool, props.co2AvgYrCool], // 수치
         backgroundColor: '#80A4E7', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,
@@ -54,7 +54,7 @@ function Chart2(props) {
         borderColor: 'rgba(255, 255, 255, 0)',
       },
       {
-        data: [props.co2YrHeat, props.co2AvgYrHeat], // 수치
+        data: [props.co2YrBC, props.co2AvgYrBC], // 수치
         backgroundColor: '#B4BEC5', // 각 막대 색
         barThickness: 18,
         barPercentage: 0.5,

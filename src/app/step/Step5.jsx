@@ -94,6 +94,7 @@ function Step5() {
               0
             ),
           });
+          console.log("response.data[6][0]", response.data[6][0])
           setCo2Yr(response.data[6][0]);
           setCo2MLYr(response.data[7][0]);
           setCo2AvgYr({
