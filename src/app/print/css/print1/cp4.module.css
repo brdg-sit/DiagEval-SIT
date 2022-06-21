@@ -43,5 +43,38 @@
 
 .chart_wrap {
   width: 100%;
-  height: 240px;
+  height: 157px;
+}
+
+/* step1 테이블 박스 */
+.table_val {
+  border: 1;
+  width: 100%;
+  background-color: transparent;
+  margin-top: 20px;
+  table-layout: fixed;
+  border-top: 1px solid #e2e2e2;
+}
+
+.table_val tbody tr {
+  width: 100%;
+  background-color: transparent;
+}
+
+.table_val tbody th {
+  width: 80px;
+  height: 20px;
+  font-size: 13px;
+  color: #666;
+  background-color: transparent;
+  border-bottom: 1px solid #e2e2e2;
+  font-weight: 400;
+}
+
+.table_val tbody td {
+  width: auto;
+  font-size: 13px;
+  color: #666;
+  background-color: transparent;
+  border-bottom: 1px solid #e2e2e2;
 }

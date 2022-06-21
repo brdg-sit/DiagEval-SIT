@@ -9,7 +9,7 @@ Chart.register(CategoryScale, ChartDataLabels)
 
 function Chart1(props) {
   const options = {
-    indexAxis: 'y',
+    indexAxis: 'x',
     elements: {
       bar: {
         borderWidth: 10,
@@ -23,8 +23,9 @@ function Chart1(props) {
         display: true,
         color: '#fff',
         anchor: 'end',
-        clamp:false,
-        align: "left"
+        clamp: false,
+        align: "left",
+        display: false
 
       },
     },
@@ -85,7 +86,7 @@ function Chart1(props) {
 
   return (
     <>
-      <Bar data={data} options={options} height={40} />
+      <Bar data={data} options={options} height={225}/>
     </>
   )
 }

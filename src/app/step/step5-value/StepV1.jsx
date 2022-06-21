@@ -17,32 +17,56 @@ function StepV1(props) {
   return (
     <>
       <div className={styles.stepV1_wrappper}>
-        <div className={styles.title_wrap}>
-          <div className={styles.title_label}>
-            <aside />
-            에너지 용도별 연간 사용량 <span>(kWh)</span>
+        <div className={styles.step_wrap} style={{width: '30%'}}>
+          <div className={styles.title_wrap}>
+            <div className={styles.title_label}>
+              <aside />
+              에너지 용도별 연간 사용량 <span>(kWh)</span>
+            </div>
+
+            {/* <ul className={styles.tag_wrap}>
+              {chartLabel.map((i) => {
+                return (
+                  <li key={i.name} >
+                    <div style={{ background: `${i.color}` }} />
+                    {i.name}
+                  </li>
+                );
+              })}
+            </ul> */}
           </div>
-
-          <ul className={styles.tag_wrap}>
-            {chartLabel.map((i) => {
-              return (
-                <li key={i.name} >
-                  <div style={{ background: `${i.color}` }} />
-                  {i.name}
-                </li>
-              );
-            })}
-          </ul>
+          <div>
+            <Chart1 energyYr={props.energyYr} />
+          </div>
+          {/* 테이블 */}
+          <table className={styles.table_val} cellSpacing="0">
+            <tbody>
+                <tr align="center" bgcolor="white">
+                  <th>난방</th>
+                  <td>{(props.energyYr.yr_load_heat !== undefined) ? parseFloat(props.energyYr.yr_load_heat.toFixed(2)) : props.energyYr.yr_load_heat}</td>
+                </tr>
+                <tr align="center" bgcolor="white">
+                  <th>냉방</th>
+                  <td>{(props.energyYr.yr_load_heat !== undefined) ? parseFloat(props.energyYr.yr_load_cool.toFixed(2)) : props.energyYr.yr_load_cool}</td>
+                </tr>
+                <tr align="center" bgcolor="white">
+                  <th>기저</th>
+                  <td>{(props.energyYr.yr_load_baseElec !== undefined) ? parseFloat(props.energyYr.yr_load_baseElec.toFixed(2)) : props.energyYr.yr_load_baseElec}</td>
+                </tr>
+                <tr align="center" bgcolor="white">
+                  <th>급탕/취사</th>
+                  <td>{(props.energyYr.yr_load_baseGas !== undefined) ? parseFloat(props.energyYr.yr_load_baseGas.toFixed(2)) : props.energyYr.yr_load_baseGas}</td>
+                </tr>
+            </tbody>
+          </table>
         </div>
-        <div style={{ marginBottom: 50 }}>
-          <Chart1 energyYr={props.energyYr} />
-        </div>
-
-        <div className={styles.title_wrap}>
+        <div className={styles.step_wrap} style={{paddingLeft: "30px"}}>
+          <div className={styles.title_wrap}>
           <div className={styles.title_label}>
             <aside />
             에너지 용도별 월별 사용량 <span>(kWh)</span>
           </div>
+          
 
           <ul className={styles.tag_wrap}>
             {chartLabel.map((i) => {
@@ -54,46 +78,42 @@ function StepV1(props) {
               );
             })}
           </ul>
-        </div>
-        <div className={styles.chart_wrap}>
-          <Chart2
-            energyHeat={props.energy.map((usg) => parseFloat(usg.load_heat.toFixed(2)))}
-            energyCool={props.energy.map((usg) => parseFloat(usg.load_cool.toFixed(2)))}
-            energyBaseElec={props.energy.map((usg) => parseFloat(usg.load_baseElec.toFixed(2)))}
-            energyBaseGas={props.energy.map((usg) => parseFloat(usg.load_baseGas.toFixed(2)))}
-          />
+          </div>
+          <div className={styles.chart_wrap}>
+            <Chart2
+              energyHeat={props.energy.map((usg) => parseFloat(usg.load_heat.toFixed(2)))}
+              energyCool={props.energy.map((usg) => parseFloat(usg.load_cool.toFixed(2)))}
+              energyBaseElec={props.energy.map((usg) => parseFloat(usg.load_baseElec.toFixed(2)))}
+              energyBaseGas={props.energy.map((usg) => parseFloat(usg.load_baseGas.toFixed(2)))}
+            />
+          </div>
+          {/* 테이블 */}
+          <table className={styles.table_val} cellSpacing="0">
+            <tbody>
+              {tableData.val.map((i) => {
+                return (
+                  <tr align="center" bgcolor="white" key={i.th}>
+                    <th>{i.th}</th>
+                    <td>{i.t1}</td>
+                    <td>{i.t2}</td>
+                    <td>{i.t3}</td>
+                    <td>{i.t4}</td>
+                    <td>{i.t5}</td>
+                    <td>{i.t6}</td>
+                    <td>{i.t7}</td>
+                    <td>{i.t8}</td>
+                    <td>{i.t9}</td>
+                    <td>{i.t10}</td>
+                    <td>{i.t11}</td>
+                    <td>{i.t12}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
 
-        {/* 테이블 */}
-        <table className={styles.table_val} cellSpacing="0">
-          {/* <thead>
-            <tr align="center">
-              <td></td>
-              <th>1월</th>
-            </tr>
-          </thead> */}
-          <tbody>
-            {tableData.val.map((i) => {
-              return (
-                <tr align="center" bgcolor="white" key={i.th}>
-                  <th>{i.th}</th>
-                  <td>{i.t1}</td>
-                  <td>{i.t2}</td>
-                  <td>{i.t3}</td>
-                  <td>{i.t4}</td>
-                  <td>{i.t5}</td>
-                  <td>{i.t6}</td>
-                  <td>{i.t7}</td>
-                  <td>{i.t8}</td>
-                  <td>{i.t9}</td>
-                  <td>{i.t10}</td>
-                  <td>{i.t11}</td>
-                  <td>{i.t12}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        
       </div>
     </>
   );

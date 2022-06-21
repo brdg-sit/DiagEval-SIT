@@ -27,7 +27,7 @@ function Cp4(props) {
   });
 
   const options = {
-    indexAxis: 'y',
+    indexAxis: 'x',
     elements: {
       bar: {
         borderWidth: 10,
@@ -84,7 +84,7 @@ function Cp4(props) {
 
   const data = {
     // 각 막대별 라벨
-    labels: ['항목1'],
+    labels: [''],
     datasets: [
       {
         data: [loadHeat], // 수치
@@ -148,6 +148,26 @@ function Cp4(props) {
       <div className={styles.chart_wrap}>
         <Bar data={data} options={options} />
       </div>
+      <table className={styles.table_val} cellSpacing="0">
+            <tbody>
+                <tr align="center" bgcolor="white">
+                  <th>난방</th>
+                  <td>{loadHeat}</td>
+                </tr>
+                <tr align="center" bgcolor="white">
+                  <th>냉방</th>
+                  <td>{loadCool}</td>
+                </tr>
+                <tr align="center" bgcolor="white">
+                  <th>기저</th>
+                  <td>{loadBaseElec}</td>
+                </tr>
+                <tr align="center" bgcolor="white">
+                  <th>급탕/취사</th>
+                  <td>{loadBaseGas}</td>
+                </tr>
+            </tbody>
+          </table>
     </div>
   )
 }

@@ -88,7 +88,7 @@ function Chart2(props) {
 
   return (
     <>
-      <Bar data={data} options={options} height={50} />
+      <Bar data={data} options={options} height={70} />
     </>
   )
 }

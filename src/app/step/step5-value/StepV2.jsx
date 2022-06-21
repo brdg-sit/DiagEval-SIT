@@ -46,27 +46,29 @@ function StepV2(props) {
     <div className={styles.stepV_wrappper}>
       {/* 좌측  */}
       <div className={styles.step_wrap}>
-        <div className={styles.title_wrap}>
-          <div className={styles.title_label}>
-            <aside />
-            연간 사용량
+        <div className={styles.stepV1_wrappper}>
+          <div className={styles.title_wrap}>
+            {/* <div className={styles.title_label}>
+              <aside />
+              연간 사용량
+            </div> */}
+            <div className={styles.title_label}>
+              <aside />
+              연간 에너지 사용량 (kWh)
+            </div>
           </div>
-
-          <ul className={styles.tag_wrap}>
-            {chartLabel.map((i) => {
-              return (
-                <li key={i.name} >
-                  <div style={{ background: `${i.color}` }} />
-                  {i.name}
-                </li>
-              );
-            })}
-          </ul>
+          <div className={styles.title_wrap} style={{paddingLeft:"30px"}}>
+            <div className={styles.title_label}>
+              <aside />
+              연간 에너지 사용량 (kWh)
+            </div>
+          </div>
         </div>
+
         {/* 차트 1/2 */}
         <ul className={styles.step1_chart_wrap}>
           <li>
-            <h2>연간 에너지 사용량 (kWh)</h2>
+            {/* <h2>연간 에너지 사용량 (kWh)</h2> */}
             <Chart1
               energyYrHeat={parseFloat(props.energyYr.yr_load_heat).toFixed(2)}
               energyYrCool={parseFloat(props.energyYr.yr_load_cool).toFixed(2)}
@@ -76,9 +78,10 @@ function StepV2(props) {
               energyMLYrBC={parseFloat(props.energyMLYr.yr_load_baseElec).toFixed(2)}
             />
           </li>
+          
 
           <li>            
-            <h2>연간 CO2 배출량</h2>
+            {/* <h2>연간 CO2 배출량</h2> */}
             <Chart2
               co2YrHeat={parseFloat(props.co2Yr.yr_co2_heat).toFixed(2)}
               co2YrCool={parseFloat(props.co2Yr.yr_co2_cool).toFixed(2)}
@@ -89,6 +92,20 @@ function StepV2(props) {
             />
           </li>
         </ul>
+
+            
+        <div className={styles.title_wrap} style={{marginLeft:'auto', justifyContent: 'center', paddingTop: '20px'}}>
+          <ul className={styles.tag_wrap}>
+              {chartLabel.map((i) => {
+                return (
+                  <li key={i.name} >
+                    <div style={{ background: `${i.color}` }} />
+                    {i.name}
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
 
         {/* 좌측차트 */}
         <table className={styles.table_val} cellSpacing="0">
