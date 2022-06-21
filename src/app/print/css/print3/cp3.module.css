@@ -60,6 +60,7 @@
   margin-top: 5px;
   height: 35px;
   padding-top: 5px;
+  height: auto;
 }
 
 .info_desk_wrap_no_alert p {
@@ -81,6 +82,7 @@
   margin-top: 5px;
   height: 35px;
   padding-top: 1px;
+  height: auto;
 }
 
 .info_desk_wrap p {

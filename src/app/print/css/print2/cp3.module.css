@@ -60,6 +60,7 @@
   margin-top: 5px;
   height: 35px;
   padding-top: 5px;
+  height: auto;
 }
 
 .info_desk_wrap_no_alert p {
@@ -75,12 +76,12 @@
   background-color: #fff2db;
   border: 1px solid #ffdda1;
   border-radius: 8px;
-  display: block;
   justify-content: center;
   align-items: center;
   margin-top: 5px;
   height: 35px;
   padding-top: 1px;
+  height: auto;
 }
 
 .info_desk_wrap p {

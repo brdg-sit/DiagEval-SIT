@@ -7,19 +7,26 @@ function Cp3(props) {
     
     var alertMessages = [];
     var hasAlert = false;
+    var totalEnergyYr = props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec;
+    var totalEnergyML = props.energyMLYr.yr_load_heat + props.energyMLYr.yr_load_cool + props.energyMLYr.yr_load_baseElec;
 
-    if(parseFloat(props.energyYr.yr_load_heat).toFixed(2) > parseFloat(props.energyMLYr.yr_load_heat).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
+    if(props.energyYr.yr_load_heat > props.energyMLYr.yr_load_heat){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;참고 사용 행태를 갖고 있는 건물보다&nbsp;<span>난방 사용량이 {parseFloat(100-(props.energyMLYr.yr_load_heat/props.energyYr.yr_load_heat*100)).toFixed(2)}% 높습니다</span></p>);
       hasAlert = true;
     }
 
-    if(parseFloat(props.energyYr.yr_load_cool).toFixed(2) > parseFloat(props.energyMLYr.yr_load_cool).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
+    if(props.energyYr.yr_load_cool > props.energyMLYr.yr_load_cool){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>냉방 사용량이 {parseFloat(100-(props.energyMLYr.yr_load_cool/props.energyYr.yr_load_cool*100)).toFixed(2)}% 높습니다</span></p>);
       hasAlert = true;
     }
 
-    if(parseFloat(props.energyYr.yr_load_baseElec).toFixed(2) > parseFloat(props.energyMLYr.yr_load_baseElec).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
+    if(props.energyYr.yr_load_baseElec > props.energyMLYr.yr_load_baseElec){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>기저(기기/조명) 사용량이 {parseFloat(100-(props.energyMLYr.yr_load_baseElec/props.energyYr.yr_load_baseElec*100)).toFixed(2)}% 높습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(totalEnergyYr > totalEnergyML){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;일반 사용자 행태를 갖고 있는 건물보다&nbsp;<span>에너지 사용량 합계가 {parseFloat(100-(totalEnergyML/totalEnergyYr*100)).toFixed(2)}% 높습니다</span></p>);
       hasAlert = true;
     }
     if(hasAlert){

@@ -12,20 +12,50 @@ function StepV3(props) {
     var alertMessages = [];
     var hasAlert = false;
 
-    if(parseFloat(props.energyYr.yr_load_heat).toFixed(2) > parseFloat(props.energyAvgYr.yr_load_heat).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>난방 사용량이 높습니다</span></p>);
+    var totalEnergyYr = props.energyYr.yr_load_heat + props.energyYr.yr_load_cool + props.energyYr.yr_load_baseElec;
+    var totalEnergyAvgYr = props.energyAvgYr.yr_load_heat + props.energyAvgYr.yr_load_cool + props.energyAvgYr.yr_load_baseElec;
+
+    if(props.energyYr.yr_load_heat > props.energyAvgYr.yr_load_heat){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>난방 사용량이 {100-(parseFloat(props.energyAvgYr.yr_load_heat / props.energyYr.yr_load_heat * 100).toFixed(0))}% 높습니다</span></p>);
       hasAlert = true;
     }
 
-    if(parseFloat(props.energyYr.yr_load_cool).toFixed(2) > parseFloat(props.energyAvgYr.yr_load_cool).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>냉방 사용량이 높습니다</span></p>);
+    if(props.energyYr.yr_load_heat < props.energyAvgYr.yr_load_heat){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>난방 사용량이 {100-(parseFloat(props.energyYr.yr_load_heat / props.energyAvgYr.yr_load_heat * 100).toFixed(0))}% 낮습니다</span></p>);
       hasAlert = true;
     }
 
-    if(parseFloat(props.energyYr.yr_load_baseElec).toFixed(2) > parseFloat(props.energyAvgYr.yr_load_baseElec).toFixed(2)){
-      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>전기 사용량이 높습니다</span></p>);
+    if(props.energyYr.yr_load_cool > props.energyAvgYr.yr_load_cool){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>냉방 사용량이 {parseFloat(100-(props.energyAvgYr.yr_load_cool / props.energyYr.yr_load_cool * 100)).toFixed(2)}% 높습니다</span></p>);
       hasAlert = true;
     }
+
+    if(props.energyYr.yr_load_cool < props.energyAvgYr.yr_load_cool){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>냉방 사용량이 {parseFloat(100-(props.energyYr.yr_load_cool / props.energyAvgYr.yr_load_cool * 100).toFixed(0))}% 낮습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(props.energyYr.yr_load_baseElec > props.energyAvgYr.yr_load_baseElec){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>기저(기기/조명) 사용량이 {parseFloat(100-(props.energyAvgYr.yr_load_baseElec / props.energyYr.yr_load_baseElec * 100)).toFixed(2)}% 높습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(props.energyYr.yr_load_baseElec < props.energyAvgYr.yr_load_baseElec){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>기저(기기/조명) 사용량이 {parseFloat(100-(props.energyYr.yr_load_baseElec / props.energyAvgYr.yr_load_baseElec * 100)).toFixed(2)}% 낮습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(totalEnergyYr > totalEnergyAvgYr){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>에너지 사용량이 {parseFloat(100-(totalEnergyAvgYr / totalEnergyYr * 100)).toFixed(2)}% 높습니다</span></p>);
+      hasAlert = true;
+    }
+
+    if(totalEnergyYr < totalEnergyAvgYr){
+      alertMessages.push(<p><img src={waitIcon} alt="" />&nbsp;&nbsp;&nbsp;유사건물군 보다&nbsp;<span>에너지 사용량이 {parseFloat(100-(totalEnergyYr / totalEnergyAvgYr * 100)).toFixed(2)}% 낮습니다</span></p>);
+      hasAlert = true;
+    }
+
+
 
     if(hasAlert){
       return (  
@@ -47,27 +77,28 @@ function StepV3(props) {
     <div className={styles.stepV_wrappper}>
       {/* 좌측  */}
       <div className={styles.step_wrap}>
-        <div className={styles.title_wrap}>
-          <div className={styles.title_label}>
-            <aside />
-            연간 사용량
+        <div className={styles.stepV1_wrappper}>
+          <div className={styles.title_wrap}>
+            {/* <div className={styles.title_label}>
+              <aside />
+              연간 사용량
+            </div> */}
+            <div className={styles.title_label}>
+              <aside />
+              연간 에너지 사용량 (kWh)
+            </div>
           </div>
-
-          <ul className={styles.tag_wrap}>
-            {chartLabel.map((i) => {
-              return (
-                <li key={i.name} >
-                  <div style={{ background: `${i.color}` }} />
-                  {i.name}
-                </li>
-              );
-            })}
-          </ul>
+          <div className={styles.title_wrap} style={{paddingLeft:"30px"}}>
+            <div className={styles.title_label}>
+              <aside />
+              연간 CO2 배출량
+            </div>
+          </div>
         </div>
         {/* 차트 1/2 */}
         <ul className={styles.step1_chart_wrap}>
           <li>
-            <h2>연간 에너지 사용량 (kWh)</h2>
+            {/* <h2>연간 에너지 사용량 (kWh)</h2> */}
             <Chart1
               energyYrHeat={parseFloat(props.energyYr.yr_load_heat).toFixed(2)}
               energyAvgYrHeat={parseFloat(props.energyAvgYr.yr_load_heat).toFixed(2)}
@@ -79,7 +110,7 @@ function StepV3(props) {
           </li>
 
           <li>
-            <h2>연간 CO2 배출량</h2>
+            {/* <h2>연간 CO2 배출량</h2> */}
             <Chart2
               co2YrHeat={parseFloat(props.co2Yr.yr_co2_heat).toFixed(2)}
               co2AvgYrHeat={parseFloat(props.co2AvgYr.yr_co2_heat).toFixed(2)}
@@ -90,6 +121,19 @@ function StepV3(props) {
             />
           </li>
         </ul>
+
+        <div className={styles.title_wrap} style={{marginLeft:'auto', justifyContent: 'center', paddingTop: '20px'}}>
+          <ul className={styles.tag_wrap}>
+            {chartLabel.map((i) => {
+              return (
+                <li key={i.name} >
+                  <div style={{ background: `${i.color}` }} />
+                  {i.name}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
 
         {/* 좌측차트 */}
         <table className={styles.table_val} cellSpacing="0">
