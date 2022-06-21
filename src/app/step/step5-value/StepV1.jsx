@@ -16,9 +16,9 @@ function StepV1(props) {
   }
   return (
     <>
-      <div className={styles.stepV1_wrappper}>
+      <div className={styles.stepV1_wrappper} style={{marginTop: '20px'}}>
         <div className={styles.step_wrap} style={{width: '30%'}}>
-          <div className={styles.title_wrap}>
+          <div className={styles.title_wrap} style={{marginBottom: '30px'}}>
             <div className={styles.title_label}>
               <aside />
               에너지 용도별 연간 사용량 <span>(kWh)</span>
@@ -61,7 +61,7 @@ function StepV1(props) {
           </table>
         </div>
         <div className={styles.step_wrap} style={{paddingLeft: "30px"}}>
-          <div className={styles.title_wrap}>
+          <div className={styles.title_wrap} style={{marginBottom: '30px'}}>
           <div className={styles.title_label}>
             <aside />
             에너지 용도별 월별 사용량 <span>(kWh)</span>
