@@ -1,14 +1,14 @@
-import React from 'react'
-import styles from './css/main.module.css'
-import logo from '../../@assets/logo.svg'
-import img1 from '../../@assets/main/img1.svg'
-import img2 from '../../@assets/main/img2.svg'
-import img3 from '../../@assets/main/img3.svg'
-import { useNavigate } from 'react-router-dom'
-import Footer from '../footer'
+import React from "react";
+import styles from "./css/main.module.css";
+import logo from "../../@assets/logo.svg";
+import img1 from "../../@assets/main/img1.svg";
+import img2 from "../../@assets/main/img2.svg";
+import img3 from "../../@assets/main/img3.svg";
+import { useNavigate } from "react-router-dom";
+import Footer from "../footer";
 
 function Main() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <main className={styles.wrapper}>
       <section className={styles.container}>
@@ -29,33 +29,40 @@ function Main() {
                 <h2>{item.t}</h2>
                 <p>{item.n}</p>
               </li>
-            )
+            );
           })}
         </ul>
 
-        <button onClick={() => navigate('/step1')}>프로젝트 실행</button>
+        <button
+          onClick={() => {
+            console.log("navigate(/step1);");
+            navigate("/step1");
+          }}
+        >
+          프로젝트 실행
+        </button>
       </section>
-        <Footer/>
+      <Footer />
     </main>
-  )
+  );
 }
 
-export default Main
+export default Main;
 
 export const list = [
   {
     img: img1,
-    t: 'Social',
-    n: '예측 도구 활용을 통한 \n 노후건축물 분석이 가능한 시스템',
+    t: "Social",
+    n: "예측 도구 활용을 통한 \n 노후건축물 분석이 가능한 시스템",
   },
   {
     img: img2,
-    t: 'Technology',
-    n: '재실행태를 고려한\n정확한 사용량 예측 시스템',
+    t: "Technology",
+    n: "재실행태를 고려한\n정확한 사용량 예측 시스템",
   },
   {
     img: img3,
-    t: 'Economy',
-    n: '일반인이 활용할 수 있는\n간단한 입력기반의 시스템',
+    t: "Economy",
+    n: "일반인이 활용할 수 있는\n간단한 입력기반의 시스템",
   },
-]
+];

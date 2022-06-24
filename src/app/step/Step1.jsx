@@ -71,19 +71,21 @@ function Step1() {
     setIsetrAspectRatio(state.isEtrAspectRatio);
   };
 
-  const SetCodes = async () => {
-    await Data.GetCodes().then((codes) => {
+  const SetCodes = () => {
+    Data.GetCodes().then((codes) => {
       var codeDict = {};
       for (var i = 0; i < codes.data.length; i++) {
         codeDict[codes.data[i].code] = codes.data[i];
       }
+      console.log("const SetCodes = ()");
       setCodes(codeDict);
     });
   };
 
-  const SetDefaultData = async () => {
-    await Data.GetDefaults().then((defaults) => {
+  const SetDefaultData = () => {
+    Data.GetDefaults().then((defaults) => {
       var data = defaults.data[0];
+      console.log("const SetDefaultData = ()");
       setDefaults(data);
       setAddress(data.address);
       setCdNorthAxis(codes[data.cd_north_axis].name);
@@ -99,9 +101,10 @@ function Step1() {
     });
   };
 
-  const SetYearUValues = async () => {
-    await Data.GetUValues().then((uvals) => {
+  const SetYearUValues = () => {
+    Data.GetUValues().then((uvals) => {
       var datas = uvals.data;
+      console.log("const SetYearUValues = ()");
       setYearUValues(datas);
     });
   };
